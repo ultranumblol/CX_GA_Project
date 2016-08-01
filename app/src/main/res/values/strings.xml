@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CX_GA_Project</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_scheduling">SchedulingActivity</string>
+</resources>
