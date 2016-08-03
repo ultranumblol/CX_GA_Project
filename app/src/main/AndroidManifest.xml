@@ -45,7 +45,7 @@
             android:label="@string/title_activity_add_work_log"
             android:theme="@style/AppTheme.NoActionBar_notrans" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity android:name=".base.BaseActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
