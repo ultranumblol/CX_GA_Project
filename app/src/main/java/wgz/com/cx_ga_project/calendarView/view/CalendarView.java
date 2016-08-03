@@ -76,14 +76,17 @@ public class CalendarView extends GridView {
         setEventDays(eventDays);
     }
 
-    public void initFirstDayPosition(int position) {
+    public CalendarAdapter initFirstDayPosition(int position) {
+
         if (calendarAdapter != null) {
             if (position != 0) {
                 calendarAdapter.setColorDataPosition(position);
             } else {
                 calendarAdapter.setColorDataPosition(calendarAdapter.getFirstDatePosition());
             }
+            return calendarAdapter;
         }
+        return calendarAdapter;
     }
 
     public String getCurrentDay() {

@@ -21,6 +21,8 @@ public abstract class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayoutId());
         ButterKnife.bind(this);
+
+
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Window window = getWindow();
                 // Translucent status bar
@@ -41,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     }
 
 
-    @Override
+   @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:

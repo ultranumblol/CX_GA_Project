@@ -1,11 +1,16 @@
 package wgz.com.cx_ga_project.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -15,13 +20,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import okhttp3.HttpUrl;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
-import wgz.com.cx_ga_project.app;
-import wgz.com.cx_ga_project.base.APIservice;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.calendarView.adapter.CalendarAdapter;
 import wgz.com.cx_ga_project.calendarView.adapter.TopViewPagerAdapter;
@@ -29,28 +29,34 @@ import wgz.com.cx_ga_project.calendarView.utils.DateBean;
 import wgz.com.cx_ga_project.calendarView.utils.OtherUtils;
 import wgz.com.cx_ga_project.calendarView.view.CalendarView;
 import wgz.com.cx_ga_project.calendarView.view.ContainerLayout;
-import wgz.com.cx_ga_project.util.httpUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
-import wgz.datatom.com.utillibrary.util.ToastUtil;
+
+/**
+ * Created by wgz on 2016/8/2.
+ */
+public class WorkLogActivity extends BaseActivity {
 
 
-public class SchedulingActivity extends BaseActivity {
-
-
-    @Bind(R.id.toolbar_scheduling)
-    Toolbar mtoolbar;
+    @Bind(R.id.toolbar_wprklog)
+    Toolbar toolbarWprklog;
     @Bind(R.id.tx_today)
     TextView txToday;
-    @Bind(R.id.vp_calender)
-    ViewPager vpCalender;
+    @Bind(R.id.calender_log)
+    ViewPager calenderLog;
+    @Bind(R.id.id_workLogText)
+    TextView idWorkLogText;
     @Bind(R.id.view_content)
-    ScrollView viewContent;
-    @Bind(R.id.scheduling_container)
+    ScrollView view_content;
+    @Bind(R.id.workLog_container)
     ContainerLayout container;
-    @Bind(R.id.content_scheduling)
-    ConstraintLayout contentScheduling;
-    @Bind(R.id.id_schefulingPeople)
-    TextView mSchefulingPeople;
+    @Bind(R.id.content_workLog)
+    ConstraintLayout contentWorkLog;
+    @Bind(R.id.id_workLogRootview)
+    CoordinatorLayout mRootview;
+    @Bind(R.id.fab_addworklog)
+    FloatingActionButton fabAddworklog;
+
+
     private List<View> calenderViews = new ArrayList<>();
     /**
      * 日历向左或向右可翻动的天数
@@ -59,39 +65,17 @@ public class SchedulingActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_scheduling;
+        return R.layout.activity_work_log;
     }
 
     @Override
     public void initView() {
-        mtoolbar.setTitle("我的排班");
-        LogUtil.e("ContainerLayout开始初始化");
-        setSupportActionBar(mtoolbar);
+        toolbarWprklog.setTitle("工作日志");
+        LogUtil.e("我的日志开始初始化");
+        setSupportActionBar(toolbarWprklog);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initCalendar();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                   String result =  httpUtil.getStr("http://192.168.1.88/demojob/getAppAllSch","utf_8");
-                    LogUtil.e("jsonStr:"+result);
-                }
-            }).start();
-      /*  Call<String> call = app.apiService.getZhiBan();
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                String jsonStr = response.body();
-                LogUtil.e("jsonStr:"+jsonStr);
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t)
-            {
-                LogUtil.e("jsonStr===error");
-                LogUtil.e("error:"+t.toString());
-            }
-        });*/
 
     }
 
@@ -108,7 +92,6 @@ public class SchedulingActivity extends BaseActivity {
         calendarView.setEventDays(eventDays);
     }
 
-
     private void initCalendar() {
         Calendar calendar = Calendar.getInstance();
         txToday.setText(OtherUtils.formatDate(calendar.getTime()));
@@ -117,7 +100,7 @@ public class SchedulingActivity extends BaseActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         for (int i = 0; i < 3; i++) {
-            CalendarView calendarView = new CalendarView(SchedulingActivity.this, i, year, month);
+            CalendarView calendarView = new CalendarView(WorkLogActivity.this, i, year, month);
 
             calendarView.setOnCalendarClickListener(new OnMyCalendarClickerListener());
             if (i == 0) {
@@ -126,18 +109,33 @@ public class SchedulingActivity extends BaseActivity {
             calenderViews.add(calendarView);
         }
         final TopViewPagerAdapter adapter = new TopViewPagerAdapter(this, calenderViews, INIT_PAGER_INDEX, calendar);
-        vpCalender.setAdapter(adapter);
-        vpCalender.setCurrentItem(INIT_PAGER_INDEX);
-        vpCalender.addOnPageChangeListener(new OnMyViewPageChangeListener());
+        calenderLog.setAdapter(adapter);
+        calenderLog.setCurrentItem(INIT_PAGER_INDEX);
+        calenderLog.addOnPageChangeListener(new OnMyViewPageChangeListener());
 
 
-        vpCalender.post(new Runnable() {
+        calenderLog.post(new Runnable() {
             @Override
             public void run() {
                 initEventDays((CalendarView) adapter.getChildView(0));
+
+
             }
         });
 
+
+    }
+
+
+
+    @OnClick(R.id.fab_addworklog)
+    public void onClick() {
+        Snackbar.make(mRootview, "是否为选中日期添加工作记录？", Snackbar.LENGTH_LONG).setAction("确定", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WorkLogActivity.this, AddWorkLogActivity.class));
+            }
+        }).show();
     }
 
 
@@ -148,12 +146,12 @@ public class SchedulingActivity extends BaseActivity {
         @Override
         public void onCalendarClick(int position, DateBean dateBean) {
             txToday.setText(OtherUtils.formatDate(dateBean.getDate()));
-            //ToastUtil.showShort(SchedulingActivity.this, "poision:" + position);
+            //ToastUtil.showShort(SchedulingActivity.this,"poision:"+position);
             if (dateBean.getTag()) {
-                mSchefulingPeople.setText("值班人员：" + "张三，李三，王三");
+                idWorkLogText.setText("日志23123213123");
 
             } else {
-                mSchefulingPeople.setText("今日无值班人员");
+                idWorkLogText.setText("没有工作记录");
             }
 
         }
@@ -175,24 +173,20 @@ public class SchedulingActivity extends BaseActivity {
 
 
             container.setRowNum(0);
-            calendarView.initFirstDayPosition(0);
-
-
-            //设置含有事件的日期 1-9号
             CalendarAdapter adapter = calendarView.initFirstDayPosition(0);
 
-            for (int i=0;i<42;i++){
+            for (int i = 0; i < 42; i++) {
                 DateBean dateBean = (DateBean) adapter.getItem(i);
-                if (dateBean.getTag()){
-                    mSchefulingPeople.setText("值班人员：\" + \"张三，李三，王三");
+                if (dateBean.getTag()) {
+                    idWorkLogText.setText("日志23123213123");
                     return;
-                }else {
-                    mSchefulingPeople.setText("今日无值班人员");
+                } else {
+                    idWorkLogText.setText("没有工作记录");
                 }
 
             }
-
-
+            //设置含有事件的日期 1-9号
+            initEventDays(calendarView);
         }
 
         @Override
@@ -200,6 +194,20 @@ public class SchedulingActivity extends BaseActivity {
 
         }
     }
+
+
+
+
+  /*  public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }*/
 
 
 }
