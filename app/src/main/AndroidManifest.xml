@@ -46,10 +46,14 @@
             android:theme="@style/AppTheme.NoActionBar_notrans" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-        <activity android:name=".base.BaseActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            ></activity>
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".base.BaseActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.SelectFileUploadActivity"
+            android:label="@string/title_activity_select_file_upload"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
