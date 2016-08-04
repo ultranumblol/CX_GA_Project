@@ -16,7 +16,7 @@ public class QingjiaViewholder extends BaseViewHolder {
 
 
     public QingjiaViewholder(ViewGroup parent) {
-        super(parent, R.layout.item_jiaban_apply);
+        super(parent, R.layout.item_qingjia_apply);
         qingjiaID = (TextView) $(R.id.qingjia_ID);
         qingjiaReason = (TextView) $(R.id.qingjia_reason);
         qingjiaDate = (TextView) $(R.id.qingjia_date);
@@ -25,7 +25,7 @@ public class QingjiaViewholder extends BaseViewHolder {
 
     @Override
     public void setData(Object data) {
-            qingjiaID.setText("警员007");
+        qingjiaID.setText("警员007");
         qingjiaReason.setText("生病");
         qingjiaDate.setText("2016/9/12");
         qingjiaState.setText("已审核");

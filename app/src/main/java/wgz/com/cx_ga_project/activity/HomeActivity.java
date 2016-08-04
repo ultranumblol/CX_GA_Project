@@ -2,6 +2,7 @@ package wgz.com.cx_ga_project.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,7 +18,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,8 +46,8 @@ public class HomeActivity extends AppCompatActivity
     FloatingActionButton fab;
     @Bind(R.id.nav_view)
     NavigationView navView;
-    @Bind(R.id.app_bar_image)
-    ImageView appBarImage;
+    /*   @Bind(R.id.app_bar_image)
+       ImageView appBarImage;*/
     @Bind(R.id.id_colltoollayout)
     CollapsingToolbarLayout idColltoollayout;
 
@@ -50,6 +60,8 @@ public class HomeActivity extends AppCompatActivity
     CardView mToWorkManage;
     @Bind(R.id.to_jiechujing)
     CardView mToJiechujing;
+    @Bind(R.id.rollPagerView)
+    RollPagerView rollPagerView;
 
 
     @Override
@@ -57,6 +69,11 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+
+
+        rollPagerView.setHintView(new ColorPointHintView(this, Color.WHITE,Color.GRAY));
+        rollPagerView.setAdapter(new BannerAdapter());
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbarHome, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -71,6 +88,48 @@ public class HomeActivity extends AppCompatActivity
         navView.setNavigationItemSelectedListener(this);
 
     }
+
+    private ArrayList<String> initData() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            list.add("i");
+        }
+        return list;
+    }
+
+    private class BannerAdapter extends StaticPagerAdapter {
+        private List<String> list;
+        public BannerAdapter(){
+            list = initData();
+        }
+
+        @Override
+        public View getView(ViewGroup container, final int position) {
+            ImageView imageView = new ImageView(HomeActivity.this);
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            //imageView.setImageResource(R.drawable.calendar_bg);
+            //加载图片
+            Glide.with(HomeActivity.this)
+                    .load(R.drawable.welcome)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .into(imageView);
+            //点击事件
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(list.get(position).getUrl())));
+                }
+            });
+            return imageView;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+    }
+
 
 
     @Override
@@ -137,7 +196,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    @OnClick({ R.id.fab, R.id.to_workManage, R.id.to_jiechujing})
+    @OnClick({R.id.fab, R.id.to_workManage, R.id.to_jiechujing})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
@@ -145,7 +204,7 @@ public class HomeActivity extends AppCompatActivity
                 Snackbar.make(homeRootView, "社会信息采集", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.to_workManage:
-                 startActivity(new Intent(HomeActivity.this,WorkMagActivity.class));
+                startActivity(new Intent(HomeActivity.this, WorkMagActivity.class));
 
                 break;
             case R.id.to_jiechujing:

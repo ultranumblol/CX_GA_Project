@@ -19,6 +19,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="wgz.com.cx_ga_project.base.CustomCachingGlideModule"
+            android:value="GlideModule" />
+
+
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/app_name"

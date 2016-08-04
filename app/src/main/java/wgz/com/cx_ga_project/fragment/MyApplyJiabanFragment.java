@@ -40,8 +40,9 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        adapter.addAll(initData());
                     }
-                }, 1000);
+                }, 2000);
             }
         });
         adapter.setNoMore(R.layout.view_nomore);
@@ -75,7 +76,11 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
 
     @Override
     public void onRefresh() {
-        //ToastUtil.showShort(getActivity(),"refresh!!!!");
-        adapter.addAll(initData());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.addAll(initData());
+            }
+        }, 2000);
     }
 }

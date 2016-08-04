@@ -17,6 +17,6 @@ public class QingjiaAdapter extends RecyclerArrayAdapter<String> {
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new JiabanViewholder(parent);
+        return new QingjiaViewholder(parent);
     }
 }

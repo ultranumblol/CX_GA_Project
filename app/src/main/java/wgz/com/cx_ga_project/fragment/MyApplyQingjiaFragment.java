@@ -40,8 +40,10 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        adapter.addAll(initData());
+
                     }
-                }, 1000);
+                }, 2000);
             }
         });
         adapter.setNoMore(R.layout.view_nomore);
@@ -69,15 +71,6 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
         return R.layout.fragment_my_apply_qingjia;
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -86,6 +79,11 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
 
     @Override
     public void onRefresh() {
-        adapter.addAll(initData());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.addAll(initData());
+            }
+        }, 2000);
     }
 }
