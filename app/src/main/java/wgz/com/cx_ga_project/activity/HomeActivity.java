@@ -89,18 +89,20 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private ArrayList<String> initData() {
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            list.add("i");
-        }
+   /* private ArrayList<Integer> initData() {
+        ArrayList<Integer> list = new ArrayList<>();
+
+            list.add(R.drawable.ad1);
+            list.add(R.drawable.ad2);
+        list.add(R.drawable.welcome);
         return list;
-    }
+    }*/
 
     private class BannerAdapter extends StaticPagerAdapter {
-        private List<String> list;
+       // private List<Integer> list;
+       int[] imageId = new int[] { R.drawable.ad1, R.drawable.ad2,R.drawable.ad3 };
         public BannerAdapter(){
-            list = initData();
+                int[] src = imageId;
         }
 
         @Override
@@ -111,7 +113,7 @@ public class HomeActivity extends AppCompatActivity
             //imageView.setImageResource(R.drawable.calendar_bg);
             //加载图片
             Glide.with(HomeActivity.this)
-                    .load(R.drawable.welcome)
+                    .load(imageId[position])
                     .placeholder(R.mipmap.ic_launcher)
                     .into(imageView);
             //点击事件
@@ -126,7 +128,7 @@ public class HomeActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            return list.size();
+            return imageId.length;
         }
     }
 
