@@ -23,7 +23,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
-import wgz.com.cx_ga_project.base.BaseActivity;
 
 /**
  * Created by wgz on 2016/8/1.
@@ -42,18 +41,15 @@ public class HomeActivity extends AppCompatActivity
     @Bind(R.id.id_colltoollayout)
     CollapsingToolbarLayout idColltoollayout;
 
-    @Bind(R.id.id_myscheduling)
-    CardView idMyscheduling;
+
     @Bind(R.id.home_rootView)
     CoordinatorLayout homeRootView;
-    @Bind(R.id.id_toWorkLog)
-    CardView idToWorkLog;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.to_jiaban)
-    CardView toJiaban;
-    @Bind(R.id.to_qingjia)
-    CardView toQingjia;
+    @Bind(R.id.to_workManage)
+    CardView mToWorkManage;
+    @Bind(R.id.to_jiechujing)
+    CardView mToJiechujing;
 
 
     @Override
@@ -121,7 +117,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
         // TODO: 2016/8/3 个人页面内容待定
         if (id == R.id.nav_camera) {
-            
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -141,33 +137,24 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-
-
-
-    @OnClick({R.id.id_myscheduling, R.id.fab, R.id.id_toWorkLog,R.id.to_jiaban,R.id.to_qingjia})
+    @OnClick({ R.id.fab, R.id.to_workManage, R.id.to_jiechujing})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.id_myscheduling:
-                startActivity(new Intent(HomeActivity.this, SchedulingActivity.class));
-
-                break;
             case R.id.fab:
                 // TODO: 2016/8/3 社会信息采集功能
                 Snackbar.make(homeRootView, "社会信息采集", Snackbar.LENGTH_SHORT).show();
                 break;
-            case R.id.id_toWorkLog:
-                startActivity(new Intent(HomeActivity.this, WorkLogActivity.class));
-                break;
-            case R.id.to_jiaban:
-               // startActivity(new Intent(HomeActivity.this,));
+            case R.id.to_workManage:
+                 startActivity(new Intent(HomeActivity.this,WorkMagActivity.class));
 
                 break;
-            case R.id.to_qingjia:
+            case R.id.to_jiechujing:
                 // startActivity(new Intent(HomeActivity.this,));
                 break;
 
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

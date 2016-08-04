@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_my_work_apply"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="wgz.com.cx_ga_project.activity.MyWorkApplyActivity"
+    tools:showIn="@layout/activity_my_work_apply">
+<android.support.v4.view.ViewPager
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/myapple_vp"
+    ></android.support.v4.view.ViewPager>
+</android.support.constraint.ConstraintLayout>

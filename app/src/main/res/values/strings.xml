@@ -20,4 +20,9 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">Contacts permissions are needed for providing email completions</string>
     <string name="title_activity_select_file_upload">SelectFileUploadActivity</string>
+    <string name="title_activity_work_mag">WorkMagActivity</string>
+    <string name="title_activity_my_work_apply">MyWorkApplyActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

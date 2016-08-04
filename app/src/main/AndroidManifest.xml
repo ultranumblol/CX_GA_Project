@@ -53,6 +53,14 @@
         <activity
             android:name=".activity.SelectFileUploadActivity"
             android:label="@string/title_activity_select_file_upload"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.WorkMagActivity"
+            android:label="@string/title_activity_work_mag"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MyWorkApplyActivity"
+            android:label="@string/title_activity_my_work_apply"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -57,7 +57,6 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/id_myscheduling"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -65,56 +64,14 @@
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
+                android:id="@+id/to_workManage"
                 app:contentPaddingLeft="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="我的排班"
-                    android:textColor="@color/goldenrod"
-
-                    />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/id_toWorkLog"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:contentPaddingLeft="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="工作日志"
-
-                    android:textColor="@color/goldenrod"
-
-                    />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                android:id="@+id/to_jiaban"
-                app:contentPaddingLeft="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="加班审批"
+                    android:text="工作管理"
 
                     android:textColor="@color/goldenrod"
 
@@ -130,14 +87,14 @@
                 android:layout_marginBottom="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
-                android:id="@+id/to_qingjia"
+                android:id="@+id/to_jiechujing"
                 app:contentPaddingLeft="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="请假审批"
+                    android:text="接处警作战"
 
                     android:textColor="@color/goldenrod"
 
