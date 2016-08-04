@@ -1,15 +1,21 @@
 package wgz.com.cx_ga_project.activity;
 
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.adapter.MyFragmentPagerAdapter;
 import wgz.com.cx_ga_project.base.BaseActivity;
+import wgz.com.cx_ga_project.fragment.MyApplyJiabanFragment;
+import wgz.com.cx_ga_project.fragment.MyApplyQingjiaFragment;
+import wgz.com.cx_ga_project.view.CustomViewPager;
 
 /**
  * 我的申请
@@ -18,15 +24,16 @@ import wgz.com.cx_ga_project.base.BaseActivity;
 
 public class MyWorkApplyActivity extends BaseActivity {
 
-
+    private ArrayList<Fragment> fragments;
+    private List<String> titles;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.tab_myapply)
     TabLayout tabMyapply;
     @Bind(R.id.myapple_vp)
     ViewPager myappleVp;
-    @Bind(R.id.content_my_work_apply)
-    ConstraintLayout contentMyWorkApply;
+    private MyApplyJiabanFragment jiabanFragment;
+    private MyApplyQingjiaFragment qingjiaFragment;
 
     @Override
     public int getLayoutId() {
@@ -38,8 +45,23 @@ public class MyWorkApplyActivity extends BaseActivity {
         toolbar.setTitle("我的申请");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tabMyapply.addTab(tabMyapply.newTab().setText("加班申请"));
-        tabMyapply.addTab(tabMyapply.newTab().setText("请假申请"));
+
+
+        jiabanFragment = new MyApplyJiabanFragment();
+        qingjiaFragment = new MyApplyQingjiaFragment();
+        fragments = new ArrayList<>();
+        titles = new ArrayList<>();
+        titles.add("加班申请");
+        titles.add("请假申请");
+
+        fragments.add(jiabanFragment);
+        fragments.add(qingjiaFragment);
+
+        myappleVp.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),fragments,titles));
+        myappleVp.setCurrentItem(0);
+        tabMyapply.setupWithViewPager(myappleVp);
+       /* tabMyapply.addTab(tabMyapply.newTab().setText("加班申请"));
+        tabMyapply.addTab(tabMyapply.newTab().setText("请假申请"));*/
         tabMyapply.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -12,10 +12,10 @@ import wgz.com.cx_ga_project.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyApplyJiabanFragment extends Fragment {
+public class MyApplyQingjiaFragment extends Fragment {
 
 
-    public MyApplyJiabanFragment() {
+    public MyApplyQingjiaFragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +23,8 @@ public class MyApplyJiabanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_apply_jiaban,null);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_my_apply_qingjia,null);
         initview(view);
 
         return view;

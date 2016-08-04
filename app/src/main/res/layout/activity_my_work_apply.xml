@@ -19,11 +19,16 @@
             android:background="@color/ghostwhite"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/azure"
+            app:tabTextColor="@color/grey"
             app:tabMode="fixed"
             />
 
-        <include layout="@layout/content_my_work_apply" />
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/myapple_vp"
+            android:layout_weight="1"
+            ></android.support.v4.view.ViewPager>
 
     </LinearLayout>
 

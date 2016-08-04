@@ -16,6 +16,7 @@ import wgz.com.cx_ga_project.base.BaseActivity;
 public class WorkMagActivity extends BaseActivity {
 
 
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.content_work_mag)
@@ -24,7 +25,7 @@ public class WorkMagActivity extends BaseActivity {
     CardView idMyscheduling;
     @Bind(R.id.id_toWorkLog)
     CardView idToWorkLog;
-    @Bind(R.id.id_myShenqing)
+    @Bind(R.id.id_myApply)
     CardView idMyShenqing;
     @Bind(R.id.id_addwork)
     CardView idAddwork;
@@ -41,6 +42,11 @@ public class WorkMagActivity extends BaseActivity {
         toolbar.setTitle("工作管理");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
+
     }
 
     @Override
@@ -50,7 +56,7 @@ public class WorkMagActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.id_myShenqing, R.id.id_addwork, R.id.id_qingjia,R.id.id_myscheduling, R.id.id_toWorkLog})
+    @OnClick({R.id.id_myApply, R.id.id_addwork, R.id.id_qingjia,R.id.id_myscheduling, R.id.id_toWorkLog})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_myscheduling:
@@ -59,7 +65,8 @@ public class WorkMagActivity extends BaseActivity {
             case R.id.id_toWorkLog:
                 startActivity(new Intent(WorkMagActivity.this, WorkLogActivity.class));
                 break;
-            case R.id.id_myShenqing:
+            case R.id.id_myApply:
+                startActivity(new Intent(WorkMagActivity.this,MyWorkApplyActivity.class));
                 break;
             case R.id.id_addwork:
                 break;

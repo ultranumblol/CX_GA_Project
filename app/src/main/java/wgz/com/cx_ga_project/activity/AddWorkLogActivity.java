@@ -1,7 +1,6 @@
 package wgz.com.cx_ga_project.activity;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
