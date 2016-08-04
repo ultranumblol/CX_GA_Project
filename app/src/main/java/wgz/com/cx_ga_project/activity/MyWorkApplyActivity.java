@@ -45,23 +45,17 @@ public class MyWorkApplyActivity extends BaseActivity {
         toolbar.setTitle("我的申请");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         jiabanFragment = new MyApplyJiabanFragment();
         qingjiaFragment = new MyApplyQingjiaFragment();
         fragments = new ArrayList<>();
         titles = new ArrayList<>();
         titles.add("加班申请");
         titles.add("请假申请");
-
         fragments.add(jiabanFragment);
         fragments.add(qingjiaFragment);
-
         myappleVp.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(),fragments,titles));
         myappleVp.setCurrentItem(0);
         tabMyapply.setupWithViewPager(myappleVp);
-       /* tabMyapply.addTab(tabMyapply.newTab().setText("加班申请"));
-        tabMyapply.addTab(tabMyapply.newTab().setText("请假申请"));*/
         tabMyapply.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fdsfsdff"
-        android:layout_marginTop="40dp"
-        />
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:scrollbarStyle="insideOverlay"
+        app:layout_progress="@layout/view_progress"
+        app:layout_empty="@layout/view_empty"
+        android:id="@+id/id_myapply_jiaban_lv2"
+        >
+
+
+    </com.jude.easyrecyclerview.EasyRecyclerView>
 </LinearLayout>
