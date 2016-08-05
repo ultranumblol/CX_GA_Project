@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
@@ -47,8 +48,6 @@ public class HomeActivity extends AppCompatActivity
     FloatingActionButton fab;
     @Bind(R.id.nav_view)
     NavigationView navView;
-    /*   @Bind(R.id.app_bar_image)
-       ImageView appBarImage;*/
     @Bind(R.id.id_colltoollayout)
     CollapsingToolbarLayout idColltoollayout;
 
@@ -116,6 +115,8 @@ public class HomeActivity extends AppCompatActivity
             Glide.with(HomeActivity.this)
                     .load(imageId[position])
                     .placeholder(R.mipmap.ic_launcher)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.1f)
                     .into(imageView);
             //点击事件
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -204,14 +205,15 @@ public class HomeActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.fab:
                 // TODO: 2016/8/3 社会信息采集功能
-                Snackbar.make(homeRootView, "社会信息采集", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.to_workManage:
                 startActivity(new Intent(HomeActivity.this, WorkMagActivity.class));
 
                 break;
             case R.id.to_jiechujing:
-                // startActivity(new Intent(HomeActivity.this,));
+                // TODO: 2016/8/5 接处警作战功能
+                Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
                 break;
 
         }
