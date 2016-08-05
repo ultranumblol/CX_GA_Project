@@ -46,14 +46,7 @@ public class WorkMagActivity extends BaseActivity {
         toolbar.setTitle("工作管理");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
-
-
     }
-
-
 
     @OnClick({R.id.id_myApply, R.id.id_addwork, R.id.id_qingjia,R.id.id_myscheduling, R.id.id_toWorkLog})
     public void onClick(View view) {

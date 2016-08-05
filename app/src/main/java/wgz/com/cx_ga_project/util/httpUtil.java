@@ -1,5 +1,8 @@
 package wgz.com.cx_ga_project.util;
 
+import android.support.design.widget.Snackbar;
+import android.view.View;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +37,11 @@ public class httpUtil {
 
         return null;
     }
-
+    public static Snackbar showSnackBar(View view, String message) {
+        Snackbar snackbar=Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+        return snackbar;
+    }
     public static String getStr(String path,String encode){
         String str = "";
         try {
