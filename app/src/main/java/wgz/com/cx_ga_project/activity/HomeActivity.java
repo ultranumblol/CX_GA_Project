@@ -35,6 +35,7 @@ import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
 
 /**
+ * 主页
  * Created by wgz on 2016/8/1.
  */
 public class HomeActivity extends AppCompatActivity

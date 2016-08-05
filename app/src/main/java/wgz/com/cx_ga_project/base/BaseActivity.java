@@ -21,14 +21,6 @@ public abstract class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         this.setContentView(this.getLayoutId());
         ButterKnife.bind(this);
-
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Window window = getWindow();
-                // Translucent status bar
-                window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }*/
         this.initView();
     }
 
@@ -48,11 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
-
-
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 

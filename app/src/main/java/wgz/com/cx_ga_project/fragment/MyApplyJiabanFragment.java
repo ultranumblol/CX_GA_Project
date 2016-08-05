@@ -23,6 +23,7 @@ import wgz.com.cx_ga_project.base.BaseFragment;
 import wgz.datatom.com.utillibrary.util.ToastUtil;
 
 /**
+ * 查看加班申请
  * A simple {@link Fragment} subclass.
  */
 public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{

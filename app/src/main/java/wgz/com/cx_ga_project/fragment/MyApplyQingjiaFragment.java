@@ -22,6 +22,7 @@ import wgz.com.cx_ga_project.adapter.QingjiaAdapter;
 import wgz.com.cx_ga_project.base.BaseFragment;
 
 /**
+ * 查看请假申请
  * A simple {@link Fragment} subclass.
  */
 public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{

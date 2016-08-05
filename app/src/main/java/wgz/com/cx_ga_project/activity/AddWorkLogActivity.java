@@ -14,6 +14,12 @@ import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
 
+
+/**
+ *
+ * 添加工作日志
+ * Created by wgz on 2016/8/3.
+ */
 public class AddWorkLogActivity extends BaseActivity {
 
 

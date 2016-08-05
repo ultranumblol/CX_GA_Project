@@ -12,7 +12,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
-
+/**
+ *
+ * 工作管理
+ * Created by wgz on 2016/8/3.
+ */
 public class WorkMagActivity extends BaseActivity {
 
 
@@ -64,6 +68,8 @@ public class WorkMagActivity extends BaseActivity {
                 startActivity(new Intent(WorkMagActivity.this,MyWorkApplyActivity.class));
                 break;
             case R.id.id_addwork:
+
+                startActivity(new Intent(WorkMagActivity.this,AskForJiabanActivity.class));
                 break;
             case R.id.id_qingjia:
                 startActivity(new Intent(WorkMagActivity.this,AskForLeaveActivity.class));

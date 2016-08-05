@@ -33,7 +33,11 @@ import wgz.com.cx_ga_project.util.httpUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 import wgz.datatom.com.utillibrary.util.ToastUtil;
 
-
+/**
+ *
+ * 查看排班
+ * Created by wgz on 2016/8/1.
+ */
 public class SchedulingActivity extends BaseActivity {
 
 
