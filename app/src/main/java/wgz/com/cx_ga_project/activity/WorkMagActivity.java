@@ -49,12 +49,7 @@ public class WorkMagActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 
     @OnClick({R.id.id_myApply, R.id.id_addwork, R.id.id_qingjia,R.id.id_myscheduling, R.id.id_toWorkLog})
     public void onClick(View view) {
@@ -71,6 +66,7 @@ public class WorkMagActivity extends BaseActivity {
             case R.id.id_addwork:
                 break;
             case R.id.id_qingjia:
+                startActivity(new Intent(WorkMagActivity.this,AskForLeaveActivity.class));
                 break;
         }
     }
