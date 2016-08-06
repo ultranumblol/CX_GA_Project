@@ -1,6 +1,7 @@
 package wgz.com.cx_ga_project.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.activity.JiabanLeaveDetilActivity;
 import wgz.com.cx_ga_project.adapter.JiabanAdapter;
 import wgz.com.cx_ga_project.base.BaseFragment;
 import wgz.datatom.com.utillibrary.util.ToastUtil;
@@ -51,7 +53,10 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
             @Override
             public void onItemClick(int position) {
                 //ToastUtil.showShort(getActivity(),"cilck:"+position);
-
+                Intent intent = new Intent();
+                intent.putExtra("type","jiaban");
+                intent.setClass(getActivity(), JiabanLeaveDetilActivity.class);
+                startActivity(intent);
             }
         });
 

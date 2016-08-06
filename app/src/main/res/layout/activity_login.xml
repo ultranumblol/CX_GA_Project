@@ -36,7 +36,7 @@
                     android:id="@+id/actv_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="username"
+                    android:hint="警员编号"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     />
@@ -51,7 +51,7 @@
                     android:id="@+id/edit_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:hint="密码"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionDone"
@@ -65,21 +65,22 @@
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_sign_in"
+                android:text="登 录"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_margin="12dp"
                 android:textColor="@color/white"
-                android:background="?colorAccent"
+                android:background="@color/colorPrimary"
                 />
 
 
             <ProgressBar
                 android:id="@+id/progress_login"
-                style="?android:attr/progressBarStyleLarge"
+                style="@android:style/Widget.Material.ProgressBar.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
+
                 tools:visibility="visible" />
         </LinearLayout>
     </ScrollView>

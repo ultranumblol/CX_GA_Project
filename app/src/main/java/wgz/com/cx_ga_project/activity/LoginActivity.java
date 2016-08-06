@@ -85,15 +85,19 @@ public class LoginActivity extends BaseActivity {
         String password = editPassword.getText().toString();
         boolean cancel = false;
         View focusView = null;
-
+        if (TextUtils.isEmpty(password)) {
+            editPassword.setError("请输入密码！");
+            focusView = editPassword;
+            cancel = true;
+        }
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            editPassword.setError(getString(R.string.error_invalid_password));
+            editPassword.setError("密码太短了！");
             focusView = editPassword;
             cancel = true;
         }
         // Check for a valid username address.
         if (TextUtils.isEmpty(username)) {
-            actvUsername.setError("请输入用户名！");
+            actvUsername.setError("请输入警员编号！");
             focusView = actvUsername;
             cancel = true;
         }
@@ -102,7 +106,7 @@ public class LoginActivity extends BaseActivity {
             focusView.requestFocus();
         }else {
             // TODO: 2016/8/5 登录功能还差联网
-            //httpLogin(username, password);
+            httpLogin(username, password);
         }
 
     }
@@ -144,9 +148,7 @@ public class LoginActivity extends BaseActivity {
     private void saveUserInfo() {
         // TODO: 2016/8/5 存储用户信息还没加
     }
-    @OnClick(R.id.btn_login)
-    public void onClick() {
-    }
+
     private boolean isPasswordValid(String password) {
 
         return password.length() > 4;

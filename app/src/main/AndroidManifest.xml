@@ -50,7 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar_notrans" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="登录" />
         <activity
             android:name=".base.BaseActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -73,6 +73,10 @@
         <activity
             android:name=".activity.AskForJiabanActivity"
             android:label="@string/title_activity_ask_for_jiaban"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.JiabanLeaveDetilActivity"
+            android:label="@string/title_activity_jiaban_leave_detil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

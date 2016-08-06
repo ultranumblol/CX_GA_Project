@@ -12,13 +12,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
+import wgz.com.cx_ga_project.util.SomeUtil;
+
 /**
- *
  * 工作管理
  * Created by wgz on 2016/8/3.
  */
 public class WorkMagActivity extends BaseActivity {
-
 
 
     @Bind(R.id.toolbar)
@@ -35,6 +35,8 @@ public class WorkMagActivity extends BaseActivity {
     CardView idAddwork;
     @Bind(R.id.id_qingjia)
     CardView idQingjia;
+    @Bind(R.id.id_shenhe)
+    CardView idShenhe;
 
     @Override
     public int getLayoutId() {
@@ -48,7 +50,7 @@ public class WorkMagActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @OnClick({R.id.id_myApply, R.id.id_addwork, R.id.id_qingjia,R.id.id_myscheduling, R.id.id_toWorkLog})
+    @OnClick({R.id.id_myApply,R.id.id_shenhe, R.id.id_addwork, R.id.id_qingjia, R.id.id_myscheduling, R.id.id_toWorkLog})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_myscheduling:
@@ -58,15 +60,26 @@ public class WorkMagActivity extends BaseActivity {
                 startActivity(new Intent(WorkMagActivity.this, WorkLogActivity.class));
                 break;
             case R.id.id_myApply:
-                startActivity(new Intent(WorkMagActivity.this,MyWorkApplyActivity.class));
+                startActivity(new Intent(WorkMagActivity.this, MyWorkApplyActivity.class));
                 break;
             case R.id.id_addwork:
 
-                startActivity(new Intent(WorkMagActivity.this,AskForJiabanActivity.class));
+                startActivity(new Intent(WorkMagActivity.this, AskForJiabanActivity.class));
                 break;
             case R.id.id_qingjia:
-                startActivity(new Intent(WorkMagActivity.this,AskForLeaveActivity.class));
+                startActivity(new Intent(WorkMagActivity.this, AskForLeaveActivity.class));
+                break;
+            case R.id.id_shenhe:
+                SomeUtil.showSnackBar(contentWorkMag,"开发中...");
+
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

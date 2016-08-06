@@ -81,6 +81,27 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/id_shenhe"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:contentPaddingLeft="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="我的审核"
+
+            android:textColor="@color/goldenrod"
+
+            />
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:id="@+id/id_addwork"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
