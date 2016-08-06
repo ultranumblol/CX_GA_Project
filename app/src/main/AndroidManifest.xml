@@ -19,11 +19,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="wgz.com.cx_ga_project.base.CustomCachingGlideModule"
             android:value="GlideModule" />
-
 
         <activity
             android:name=".activity.HomeActivity"
@@ -52,7 +50,7 @@
             android:theme="@style/AppTheme.NoActionBar_notrans" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="登录" />
         <activity
             android:name=".base.BaseActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -67,6 +65,18 @@
         <activity
             android:name=".activity.MyWorkApplyActivity"
             android:label="@string/title_activity_my_work_apply"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AskForLeaveActivity"
+            android:label="@string/title_activity_ask_for_leave"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AskForJiabanActivity"
+            android:label="@string/title_activity_ask_for_jiaban"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.JiabanLeaveDetilActivity"
+            android:label="@string/title_activity_jiaban_leave_detil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -31,8 +31,11 @@ import wgz.com.cx_ga_project.calendarView.view.CalendarView;
 import wgz.com.cx_ga_project.calendarView.view.ContainerLayout;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
+
 /**
- * Created by wgz on 2016/8/2.
+ *
+ * 工作日志
+ * Created by wgz on 2016/8/3.
  */
 public class WorkLogActivity extends BaseActivity {
 

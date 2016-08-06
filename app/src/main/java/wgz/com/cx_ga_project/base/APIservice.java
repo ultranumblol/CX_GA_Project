@@ -7,6 +7,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import rx.Observable;
+import wgz.com.cx_ga_project.bean.UserBean;
 
 /**
  * Created by wgz on 2016/8/1.
@@ -23,5 +25,12 @@ public interface APIservice  {
     */
     @GET("http://192.168.1.88/demojob/getAppAllSch")
     Call<String> getZhiBan();
+
+
+    @FormUrlEncoded
+    @POST("ceshi/denglu")
+    Observable<UserBean> UserLogin(@Field("username") String username,
+                                   @Field("password") String password);
+
 
 }

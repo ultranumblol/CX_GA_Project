@@ -1,6 +1,7 @@
 package wgz.com.cx_ga_project.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,11 +19,13 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.activity.JiabanLeaveDetilActivity;
 import wgz.com.cx_ga_project.adapter.QingjiaAdapter;
 import wgz.com.cx_ga_project.base.BaseFragment;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 查看请假申请
+ *
  */
 public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -50,8 +53,10 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //ToastUtil.showShort(getActivity(),"cilck:"+position);
-
+                Intent intent = new Intent();
+                intent.putExtra("type","qingjia");
+                intent.setClass(getActivity(), JiabanLeaveDetilActivity.class);
+                startActivity(intent);
             }
         });
         mMyapplyQingjiaLv.setRefreshListener(this);
