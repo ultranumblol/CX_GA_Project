@@ -2,8 +2,10 @@ package wgz.com.cx_ga_project.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,6 +51,14 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
     LinearLayout jiabanLeaveDetilJiaban;
     @Bind(R.id.detil_qingjia_shenherenname)
     TextView detilQingjiaShenherenname;
+    @Bind(R.id.userPic)
+    ImageView userPic;
+    @Bind(R.id.userPic_jiaban)
+    ImageView userPicJiaban;
+    @Bind(R.id.detil_qingjia_state)
+    TextView detilQingjiaState;
+    @Bind(R.id.detil_jiaban_state)
+    TextView detilJiabanState;
 
     @Override
     public int getLayoutId() {
@@ -60,23 +70,30 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
 
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
-        switch (type){
+        switch (type) {
             case "jiaban":
                 toolbar.setTitle("加班明细");
                 jiabanLeaveDetilJiaban.setVisibility(View.VISIBLE);
+                ViewCompat.setTransitionName(userPicJiaban, "share_img");
+                ViewCompat.setTransitionName(detilJiabanState, "share_jbtext");
                 jiabanLeaveDetilQingjia.setVisibility(View.GONE);
                 break;
             case "qingjia":
                 toolbar.setTitle("请假明细");
                 jiabanLeaveDetilJiaban.setVisibility(View.GONE);
+                ViewCompat.setTransitionName(userPic, "share_img");
+                ViewCompat.setTransitionName(detilQingjiaState, "share_qjtext");
                 jiabanLeaveDetilQingjia.setVisibility(View.VISIBLE);
         }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

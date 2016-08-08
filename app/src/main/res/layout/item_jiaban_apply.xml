@@ -19,10 +19,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/user_face"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_account_circle_gray_48dp"
+                />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="加班记录"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/user_face"
                 android:id="@+id/jiaban_ID"
                 android:layout_marginTop="8dp"
                 android:textSize="16dp"
@@ -33,6 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="加班日期"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/user_face"
                 android:layout_marginTop="8dp"
                 android:layout_below="@id/jiaban_ID"
                 android:textColor="@color/cadetblue"

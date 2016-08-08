@@ -30,6 +30,7 @@
         android:layout_marginTop="10dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
+        app:contentPaddingRight="10dp"
         app:contentPaddingLeft="10dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,7 +80,6 @@
 
                 android:background="@color/gainsboro"
                 />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -186,10 +186,18 @@
                     android:layout_centerVertical="true"
                     android:paddingRight="14dp"
                     android:textSize="18dp"
+                    android:id="@+id/detil_qingjia_state"
                     android:textColor="@color/orangered"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+
+                android:background="@color/gainsboro"
+                />
 
 
         </LinearLayout>
@@ -239,6 +247,7 @@
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
+            app:contentPaddingRight="10dp"
             app:contentPaddingLeft="10dp">
 
 <LinearLayout
@@ -371,6 +380,7 @@
             android:layout_centerVertical="true"
             android:paddingRight="14dp"
             android:textSize="18dp"
+            android:id="@+id/detil_jiaban_state"
             android:textColor="@color/orangered"
             android:layout_height="wrap_content" />
 

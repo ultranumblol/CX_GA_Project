@@ -10,7 +10,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by wgz on 2016/8/4.
  */
 
-public class JiabanAdapter extends RecyclerArrayAdapter<String> {
+public class JiabanAdapter extends MyRecyclerArrayAdapter<String> {
     public JiabanAdapter(Context context) {
         super(context);
     }
@@ -19,4 +19,5 @@ public class JiabanAdapter extends RecyclerArrayAdapter<String> {
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
         return new JiabanViewholder(parent);
     }
+
 }

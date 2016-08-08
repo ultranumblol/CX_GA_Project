@@ -10,7 +10,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * Created by wgz on 2016/8/4.
  */
 
-public class QingjiaAdapter extends RecyclerArrayAdapter<String> {
+public class QingjiaAdapter extends MyRecyclerArrayAdapter<String> {
     public QingjiaAdapter(Context context) {
         super(context);
     }

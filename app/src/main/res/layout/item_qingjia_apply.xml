@@ -20,14 +20,23 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/user_face"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_account_circle_gray_48dp"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请假记录"
-                android:id="@+id/qingjia_ID"
-                android:layout_marginTop="15dp"
-                android:textSize="18dp"
+                android:layout_toRightOf="@id/user_face"
+                android:text="name"
                 android:textColor="@color/cadetblue"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="18dp"
+
                 />
             <TextView
                 android:layout_width="wrap_content"

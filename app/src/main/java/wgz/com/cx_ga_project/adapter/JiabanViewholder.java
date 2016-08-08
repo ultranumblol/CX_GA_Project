@@ -2,6 +2,7 @@ package wgz.com.cx_ga_project.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -13,6 +14,7 @@ import wgz.com.cx_ga_project.R;
  */
 public class JiabanViewholder extends BaseViewHolder {
     private TextView jiabanID,jiabanState,jiabanDate;
+    private ImageView userface;
 
 
 
@@ -21,6 +23,7 @@ public class JiabanViewholder extends BaseViewHolder {
         jiabanID = (TextView) $(R.id.jiaban_ID);
         jiabanDate = (TextView) $(R.id.jiaban_date);
         jiabanState = (TextView) $(R.id.jiaban_state);
+        userface = (ImageView) $(R.id.user_face);
 
     }
 
@@ -29,5 +32,6 @@ public class JiabanViewholder extends BaseViewHolder {
        jiabanID.setText("警员007");
         jiabanDate.setText("2016/9/11");
         jiabanState.setText("未审核");
+        userface.setImageResource(R.drawable.ic_account_circle_gray_48dp);
     }
 }
