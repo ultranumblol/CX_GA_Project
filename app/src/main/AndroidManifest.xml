@@ -41,6 +41,9 @@
             android:name=".activity.WorkLogActivity"
             android:theme="@style/AppTheme.NoActionBar_notrans" />
         <activity
+            android:name=".activity.MySubordinateLogAcitvity"
+            android:theme="@style/AppTheme.NoActionBar_notrans" />
+        <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_scheduling"
             android:theme="@style/AppTheme.NoActionBar_notrans" />
@@ -77,6 +80,17 @@
         <activity
             android:name=".activity.JiabanLeaveDetilActivity"
             android:label="@string/title_activity_jiaban_leave_detil"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MySubordinateActivity"
+            android:label="@string/title_activity_my_subordinate"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MyApprovalActivity"
+            android:label="@string/title_activity_my_approval"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

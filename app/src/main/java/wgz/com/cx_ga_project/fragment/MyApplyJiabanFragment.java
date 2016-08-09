@@ -62,7 +62,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
                 //ToastUtil.showShort(getActivity(),"cilck:"+position);
                 ImageView im_face = (ImageView) itemView.findViewById(R.id.user_face);
 
-              ActivityCompat.startActivity(getActivity(), new Intent(getActivity(), JiabanLeaveDetilActivity.class).putExtra("type","jiaban")
+                ActivityCompat.startActivity(getActivity(), new Intent(getActivity(), JiabanLeaveDetilActivity.class).putExtra("type","jiaban")
                         , ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), im_face, "share_img").toBundle());
                /* Intent intent = new Intent();
                 intent.putExtra("type","jiaban");

@@ -1,5 +1,6 @@
 package wgz.com.cx_ga_project.base;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity{
+    protected Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

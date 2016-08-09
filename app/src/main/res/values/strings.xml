@@ -28,4 +28,6 @@
     <string name="title_activity_ask_for_leave">AskForLeaveActivity</string>
     <string name="title_activity_ask_for_jiaban">AskForJiabanActivity</string>
     <string name="title_activity_jiaban_leave_detil">JiabanLeaveDetilActivity</string>
+    <string name="title_activity_my_subordinate">MySubordinateActivity</string>
+    <string name="title_activity_my_approval">MyApprovalActivity</string>
 </resources>
