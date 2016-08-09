@@ -1,5 +1,6 @@
 package wgz.com.cx_ga_project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.activity.ApprovalDetilActivity;
 import wgz.com.cx_ga_project.adapter.MyApprovalAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.base.BaseFragment;
@@ -33,6 +35,10 @@ public class MyapprovalFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, View itemView) {
 
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ApprovalDetilActivity.class);
+                intent.putExtra("type",adapter.getItem(position).toString());
+                startActivity(intent);
             }
         });
 

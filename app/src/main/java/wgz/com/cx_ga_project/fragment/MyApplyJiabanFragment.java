@@ -19,38 +19,54 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.activity.JiabanLeaveDetilActivity;
 
 import wgz.com.cx_ga_project.adapter.JiabanAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
+import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseFragment;
-
+import wgz.com.cx_ga_project.bean.JiaBan;
+import wgz.com.cx_ga_project.util.FastJsonTools;
+import wgz.datatom.com.utillibrary.util.LogUtil;
 
 
 /**
  * 查看加班申请
  * A simple {@link Fragment} subclass.
  */
-public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.id_myapply_jiaban_lv2)
     EasyRecyclerView recyclerView;
     JiabanAdapter adapter;
+    List<Map<String, Object>> datalist;
     private Handler handler = new Handler();
+
     @Override
     public void initview(View view) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapterWithProgress(adapter = new JiabanAdapter(getActivity()));
-       adapter.setMore(R.layout.view_more, new MyRecyclerArrayAdapter.OnLoadMoreListener() {
+        adapter.setMore(R.layout.view_more, new MyRecyclerArrayAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                      adapter.addAll(initData2());
+
                     }
                 }, 2000);
             }
@@ -62,7 +78,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
                 //ToastUtil.showShort(getActivity(),"cilck:"+position);
                 ImageView im_face = (ImageView) itemView.findViewById(R.id.user_face);
 
-                ActivityCompat.startActivity(getActivity(), new Intent(getActivity(), JiabanLeaveDetilActivity.class).putExtra("type","jiaban")
+                ActivityCompat.startActivity(getActivity(), new Intent(getActivity(), JiabanLeaveDetilActivity.class).putExtra("type", "jiaban")
                         , ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), im_face, "share_img").toBundle());
                /* Intent intent = new Intent();
                 intent.putExtra("type","jiaban");
@@ -73,16 +89,66 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
         });
 
         recyclerView.setRefreshListener(this);
-        adapter.addAll(initData());
+        initData();
+        //adapter.addAll();
         //onRefresh();
     }
-    private ArrayList<String> initData() {
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            list.add("i");
-        }
-        return list;
+
+    private void initData() {
+        Observable<String> observable = app.apiService.getData("getOverTimeStatus");
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<String, List<Map<String, Object>>>() {
+                    @Override
+                    public List<Map<String, Object>> call(String s) {
+                        //LogUtil.e("jsonStr:"+s.toString());
+                        return FastJsonTools.getlistmap(s);
+                    }
+                })
+                .subscribe(new Observer<List<Map<String, Object>>>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtil.e("completed");
+                        //adapter.addAll((Collection<? extends List<Map<String, Object>>>) datalist);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("error:" + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(List<Map<String, Object>> maps) {
+                        LogUtil.e("list:::" + maps.toString());
+
+                        datalist = maps;
+                    }
+                });
+        /*Observable<JiaBan> obser = app.apiService.getData2("getOverTimeStatus");
+        obser.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JiaBan>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtil.e("completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("error:" + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(JiaBan jiaBan) {
+                        LogUtil.e("jiabanBEAN:"+jiaBan.toString());
+                    }
+                });*/
+
+
     }
+
     private ArrayList<String> initData2() {
         ArrayList<String> list = new ArrayList<>();
 
@@ -94,6 +160,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
     public int getLayoutitem() {
         return R.layout.fragment_my_apply_jiaban;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -105,7 +172,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                adapter.addAll(initData());
+                // adapter.addAll(initData());
             }
         }, 2000);
     }

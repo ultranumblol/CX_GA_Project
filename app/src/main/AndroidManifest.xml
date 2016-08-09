@@ -92,6 +92,9 @@
             android:name=".activity.MyApprovalActivity"
             android:label="@string/title_activity_my_approval"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.ApprovalDetilActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>

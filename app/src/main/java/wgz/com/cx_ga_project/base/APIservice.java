@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
+import wgz.com.cx_ga_project.bean.JiaBan;
 import wgz.com.cx_ga_project.bean.UserBean;
 
 /**
@@ -23,9 +24,15 @@ public interface APIservice  {
     @POST("http://192.168.1.88/demojob/getAllSch")
     Call<String> getZhiBan();
     */
-    @GET("http://192.168.1.88/demojob/getAppAllSch")
-    Call<String> getZhiBan();
+    @GET("{type}")
+    Call<String> getMyData(@Path("type") String type);
 
+
+    @GET("{type}")
+    Observable<String> getData(@Path("type") String type);
+
+    @GET("{type}")
+    Observable<JiaBan> getData2(@Path("type") String type);
 
     @FormUrlEncoded
     @POST("ceshi/denglu")

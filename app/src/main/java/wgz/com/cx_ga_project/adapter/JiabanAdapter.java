@@ -6,11 +6,14 @@ import android.view.ViewGroup;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by wgz on 2016/8/4.
  */
 
-public class JiabanAdapter extends MyRecyclerArrayAdapter<String> {
+public class JiabanAdapter extends MyRecyclerArrayAdapter<List<Map<String,Object>>> {
     public JiabanAdapter(Context context) {
         super(context);
     }

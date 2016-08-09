@@ -1,5 +1,6 @@
 package wgz.com.cx_ga_project.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.activity.ApprovalDetilActivity;
 import wgz.com.cx_ga_project.adapter.MyApprovalAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.base.BaseFragment;
@@ -45,6 +47,16 @@ public class MyapprovalHistoryFragment extends BaseFragment implements SwipeRefr
             }
         });
         recyclerview.setRefreshListener(this);
+        adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View itemView) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ApprovalDetilActivity.class);
+                intent.putExtra("type",adapter.getItem(position).toString());
+                startActivity(intent);
+            }
+        });
+
         adapter.addAll(initData());
     }
     private ArrayList<String> initData() {
