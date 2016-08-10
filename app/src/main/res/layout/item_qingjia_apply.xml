@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/user_face"
                 android:text="name"
+                android:id="@+id/qingjia_name"
                 android:textColor="@color/cadetblue"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"

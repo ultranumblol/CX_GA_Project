@@ -51,6 +51,7 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
     EasyRecyclerView mMyapplyQingjiaLv;
     private Handler handler = new Handler();
     List<QingJia> datalist = new ArrayList<>();
+    List<Map<String,Object>> mapdatalist = new ArrayList<>();
     @Override
     public void initview(View view) {
         mMyapplyQingjiaLv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -86,42 +87,22 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
        initData();
     }
 
-
-
+    /**
+     * 初始化数据
+     */
     private void initData() {
-        Observable<String> observable = app.apiService.getData("getLeaveTimeStatus");
-        observable.subscribeOn(Schedulers.io())
+        app.apiService.getData("getLeaveTimeStatus")
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<String, List<Map<String, Object>>>() {
+                .map(new Func1<String, List<Map<String,Object>>>() {
                     @Override
                     public List<Map<String, Object>> call(String s) {
-
                         return FastJsonTools.getlistmap(s);
                     }
-                })
-                .map(new Func1<List<Map<String,Object>>, List<QingJia>>() {
-                    @Override
-                    public List<QingJia> call(List<Map<String, Object>> maps) {
-                        List<QingJia> list = new ArrayList<QingJia>();
-                        for (int i = 0;i<maps.size();i++){
-                            QingJia qingJia = new QingJia();
-                            qingJia.setPoliceid(maps.get(i).get("policeid").toString());
-                            qingJia.setStatus(maps.get(i).get("status").toString());
-                            qingJia.setUpper(maps.get(i).get("upper").toString());
-                            qingJia.setStart(maps.get(i).get("upper").toString());
-                            qingJia.setEnd(maps.get(i).get("upper").toString());
-                            qingJia.setApplytime(maps.get(i).get("upper").toString());
-                            qingJia.setContent(maps.get(i).get("upper").toString());
-                            qingJia.setReasontype(maps.get(i).get("upper").toString());
-                            qingJia.setDays(maps.get(i).get("upper").toString());
-                            list.add(qingJia);
-                        }
-                        return list;
-                    }
-                }).subscribe(new Observer<List<QingJia>>() {
+                }).subscribe(new Observer<List<Map<String, Object>>>() {
             @Override
             public void onCompleted() {
-                adapter.addAll(datalist);
+                adapter.addAll(mapdatalist);
             }
 
             @Override
@@ -130,14 +111,12 @@ public class MyApplyQingjiaFragment extends BaseFragment implements SwipeRefresh
             }
 
             @Override
-            public void onNext(List<QingJia> qingJias) {
-                datalist = qingJias;
+            public void onNext(List<Map<String, Object>> maps) {
+                mapdatalist = maps;
             }
         });
-
-
-
     }
+
     @Override
     public int getLayoutitem() {
         return R.layout.fragment_my_apply_qingjia;

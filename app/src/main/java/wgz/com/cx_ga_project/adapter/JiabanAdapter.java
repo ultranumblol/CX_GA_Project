@@ -16,7 +16,7 @@ import wgz.com.cx_ga_project.bean.JiaBan;
  * Created by wgz on 2016/8/4.
  */
 
-public class JiabanAdapter extends MyRecyclerArrayAdapter<JiaBan> {
+public class JiabanAdapter extends MyRecyclerArrayAdapter<Map<String,Object>> {
     public JiabanAdapter(Context context) {
         super(context);
     }
