@@ -96,7 +96,7 @@
                         android:textSize="18dp"
                         android:textColor="@color/white"
                         android:paddingLeft="16dp"
-                        android:text="日志记录" />
+                        android:text="工作记录" />
 
 
                 </LinearLayout>

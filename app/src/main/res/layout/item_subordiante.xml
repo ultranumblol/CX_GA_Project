@@ -22,7 +22,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/user_face"
+                android:id="@+id/subordiante_face"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_account_circle_gray_48dp"
                 />
@@ -30,35 +30,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加班记录"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/user_face"
-                android:id="@+id/jiaban_ID"
-                android:layout_marginTop="8dp"
-                android:textSize="16dp"
+                android:text="姓名"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/subordiante_face"
+                android:id="@+id/subordinate_name"
+                android:layout_marginTop="6dp"
+                android:textSize="18dp"
                 android:textColor="@color/cadetblue"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加班日期"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@id/user_face"
-                android:layout_marginTop="8dp"
-                android:layout_below="@id/jiaban_ID"
+                android:text="职务"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/subordiante_face"
+                android:layout_marginTop="6dp"
+                android:layout_below="@id/subordinate_name"
                 android:textColor="@color/cadetblue"
-                android:id="@+id/jiaban_date" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已审核"
-                android:textColor="@color/brown"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:id="@+id/jiaban_state"
-                />
+                android:id="@+id/subordinate_zhiwu" />
 
         </RelativeLayout>
 

@@ -1,23 +1,37 @@
 package wgz.com.cx_ga_project.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
+
+import java.util.concurrent.TimeUnit;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.functions.Action1;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
+import wgz.com.cx_ga_project.util.SomeUtil;
 
-/*
-* 加班和请假明细
-* */
-public class JiabanLeaveDetilActivity extends BaseActivity {
+/**
+ * Created by wgz on 2016/8/9.
+ */
+
+public class ApprovalDetilActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -59,6 +73,10 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
     TextView detilQingjiaState;
     @Bind(R.id.detil_jiaban_state)
     TextView detilJiabanState;
+    @Bind(R.id.approval_makesrue)
+    CardView approvalMakesrue;
+    @Bind(R.id.detil_root)
+    CoordinatorLayout detilRoot;
 
     @Override
     public int getLayoutId() {
@@ -70,6 +88,7 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
 
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
+        approvalMakesrue.setVisibility(View.VISIBLE);
         switch (type) {
             case "jiaban":
                 toolbar.setTitle("加班明细");
@@ -88,5 +107,53 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        RxView.clicks(approvalMakesrue)
+                .throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        showAlert();
+                    }
+                });
+
+
     }
+
+    private void showAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("请确认")
+                .setPositiveButton("审核通过", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SomeUtil.showSnackBar(detilRoot, "审批通过！").setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                finish();
+                            }
+                        }).show();
+                    }
+                }).setNegativeButton("拒绝申请", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                whyRefuse();
+            }
+        }).show();
+
+
+    }
+
+    private void whyRefuse() {
+        EditText input = new EditText(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("请输入未通过原因")
+                .setView(input)
+                .setPositiveButton("提交", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SomeUtil.showSnackBar(detilRoot, "提交成功").show();
+                    }
+                }).setNegativeButton("取消", null).show();
+    }
+
+
 }

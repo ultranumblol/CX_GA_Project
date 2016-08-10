@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import wgz.com.cx_ga_project.base.APIservice;
 import wgz.com.cx_ga_project.exception.LocalFileHandler;
@@ -20,7 +21,7 @@ import wgz.datatom.com.utillibrary.util.ToastUtil;
 
 public class app extends Application {
     private static app mApp;
-    public static final String BASE_URL = "http://192.168.1.88/demojob/";
+    public static final String BASE_URL = "http://192.168.1.252/appworkmanager/";
     public static APIservice apiService;
     @Override
     public void onCreate() {
@@ -36,7 +37,7 @@ public class app extends Application {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 

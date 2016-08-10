@@ -6,11 +6,15 @@ import android.view.ViewGroup;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
+import java.util.Map;
+
+import wgz.com.cx_ga_project.bean.QingJia;
+
 /**
  * Created by wgz on 2016/8/4.
  */
 
-public class QingjiaAdapter extends RecyclerArrayAdapter<String> {
+public class QingjiaAdapter extends MyRecyclerArrayAdapter<Map<String,Object>> {
     public QingjiaAdapter(Context context) {
         super(context);
     }

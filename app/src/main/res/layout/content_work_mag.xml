@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="我的排班"
+            android:text="我的值班"
             android:textColor="@color/goldenrod"
 
             />
@@ -102,6 +102,30 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/id_xiashu"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:contentPaddingLeft="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="我的下属"
+
+            android:textColor="@color/goldenrod"
+
+            />
+    </android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:id="@+id/id_addwork"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -114,7 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="提交加班记录"
+            android:text="加班申请"
             android:textColor="@color/goldenrod"
 
             />
@@ -134,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="请销假"
+            android:text="请假申请"
 
             android:textColor="@color/goldenrod"
 

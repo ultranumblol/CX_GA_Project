@@ -1,16 +1,17 @@
 package wgz.com.cx_ga_project.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -19,7 +20,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
@@ -29,15 +29,14 @@ import wgz.com.cx_ga_project.calendarView.utils.DateBean;
 import wgz.com.cx_ga_project.calendarView.utils.OtherUtils;
 import wgz.com.cx_ga_project.calendarView.view.CalendarView;
 import wgz.com.cx_ga_project.calendarView.view.ContainerLayout;
+import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
-
 /**
- *
- * 工作日志
- * Created by wgz on 2016/8/3.
+ * Created by wgz on 2016/8/9.
  */
-public class WorkLogActivity extends BaseActivity {
+
+public class MySubordinateLogAcitvity extends BaseActivity {
     @Bind(R.id.toolbar_wprklog)
     Toolbar toolbarWprklog;
     @Bind(R.id.tx_today)
@@ -68,7 +67,8 @@ public class WorkLogActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        toolbarWprklog.setTitle("工作日志");
+        toolbarWprklog.setTitle("xxx的工作日志");
+        fabAddworklog.setVisibility(View.GONE);
         LogUtil.e("我的日志开始初始化");
         setSupportActionBar(toolbarWprklog);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -94,9 +94,9 @@ public class WorkLogActivity extends BaseActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         for (int i = 0; i < 3; i++) {
-            CalendarView calendarView = new CalendarView(WorkLogActivity.this, i, year, month);
+            CalendarView calendarView = new CalendarView(MySubordinateLogAcitvity.this, i, year, month);
 
-            calendarView.setOnCalendarClickListener(new OnMyCalendarClickerListener());
+            calendarView.setOnCalendarClickListener(new MySubordinateLogAcitvity.OnMyCalendarClickerListener());
             if (i == 0) {
                 container.setRowNum(calendarView.getColorDataPosition() / 7);
             }
@@ -105,7 +105,7 @@ public class WorkLogActivity extends BaseActivity {
         final TopViewPagerAdapter adapter = new TopViewPagerAdapter(this, calenderViews, INIT_PAGER_INDEX, calendar);
         calenderLog.setAdapter(adapter);
         calenderLog.setCurrentItem(INIT_PAGER_INDEX);
-        calenderLog.addOnPageChangeListener(new OnMyViewPageChangeListener());
+        calenderLog.addOnPageChangeListener(new MySubordinateLogAcitvity.OnMyViewPageChangeListener());
         calenderLog.post(new Runnable() {
             @Override
             public void run() {
@@ -113,15 +113,15 @@ public class WorkLogActivity extends BaseActivity {
             }
         });
     }
-    @OnClick(R.id.fab_addworklog)
+  /*  @OnClick(R.id.fab_addworklog)
     public void onClick() {
         Snackbar.make(mRootview, "是否为选中日期添加工作记录？", Snackbar.LENGTH_LONG).setAction("确定", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WorkLogActivity.this, AddWorkLogActivity.class));
+                startActivity(new Intent(MySubordinateLogAcitvity.this, AddWorkLogActivity.class));
             }
         }).show();
-    }
+    }*/
     /**
      * 点击某个日期回调
      */
@@ -171,4 +171,28 @@ public class WorkLogActivity extends BaseActivity {
 
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.subordinate, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.Statistics) {
+            // TODO: 2016/8/9 统计详情功能
+            SomeUtil.showSnackBar(mRootview,"开发中。。。");
+            return true;
+        }
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

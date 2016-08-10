@@ -37,6 +37,8 @@ public class WorkMagActivity extends BaseActivity {
     CardView idQingjia;
     @Bind(R.id.id_shenhe)
     CardView idShenhe;
+    @Bind(R.id.id_xiashu)
+    CardView idXiashu;
 
     @Override
     public int getLayoutId() {
@@ -50,7 +52,9 @@ public class WorkMagActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @OnClick({R.id.id_myApply,R.id.id_shenhe, R.id.id_addwork, R.id.id_qingjia, R.id.id_myscheduling, R.id.id_toWorkLog})
+    @OnClick({R.id.id_myApply, R.id.id_shenhe,
+            R.id.id_addwork, R.id.id_qingjia,
+            R.id.id_myscheduling, R.id.id_toWorkLog,R.id.id_xiashu})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_myscheduling:
@@ -70,16 +74,13 @@ public class WorkMagActivity extends BaseActivity {
                 startActivity(new Intent(WorkMagActivity.this, AskForLeaveActivity.class));
                 break;
             case R.id.id_shenhe:
-                SomeUtil.showSnackBar(contentWorkMag,"开发中...");
+                startActivity(new Intent(WorkMagActivity.this,MyApprovalActivity.class));
 
+                break;
+            case R.id.id_xiashu:
+                startActivity(new Intent(WorkMagActivity.this, MySubordinateActivity.class));
                 break;
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

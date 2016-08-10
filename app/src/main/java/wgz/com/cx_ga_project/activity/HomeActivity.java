@@ -2,8 +2,8 @@ package wgz.com.cx_ga_project.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -27,9 +27,6 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,8 +47,6 @@ public class HomeActivity extends AppCompatActivity
     NavigationView navView;
     @Bind(R.id.id_colltoollayout)
     CollapsingToolbarLayout idColltoollayout;
-
-
     @Bind(R.id.home_rootView)
     CoordinatorLayout homeRootView;
     @Bind(R.id.drawer_layout)
@@ -62,6 +57,8 @@ public class HomeActivity extends AppCompatActivity
     CardView mToJiechujing;
     @Bind(R.id.rollPagerView)
     RollPagerView rollPagerView;
+    @Bind(R.id.id_appbar_home)
+    AppBarLayout idAppbarHome;
 
 
     @Override
@@ -71,7 +68,7 @@ public class HomeActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
 
-        rollPagerView.setHintView(new ColorPointHintView(this, Color.WHITE,Color.GRAY));
+        rollPagerView.setHintView(new ColorPointHintView(this, Color.WHITE, Color.GRAY));
         rollPagerView.setAdapter(new BannerAdapter());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -99,10 +96,11 @@ public class HomeActivity extends AppCompatActivity
     }*/
 
     private class BannerAdapter extends StaticPagerAdapter {
-       // private List<Integer> list;
-       int[] imageId = new int[] { R.drawable.ad1, R.drawable.ad2,R.drawable.ad3 };
-        public BannerAdapter(){
-                int[] src = imageId;
+        // private List<Integer> list;
+        int[] imageId = new int[]{R.drawable.ad1, R.drawable.ad2, R.drawable.ad3};
+
+        public BannerAdapter() {
+            int[] src = imageId;
         }
 
         @Override
@@ -135,7 +133,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -164,7 +161,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             // TODO: 2016/8/3 退出登录功能
 
-            startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             return true;
         }
         if (id == android.R.id.home) {
