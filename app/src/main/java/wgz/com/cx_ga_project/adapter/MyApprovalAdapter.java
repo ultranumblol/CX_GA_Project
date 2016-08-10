@@ -14,7 +14,7 @@ import wgz.com.cx_ga_project.bean.QingJia;
  * Created by wgz on 2016/8/9.
  */
 
-public class MyApprovalAdapter extends MyRecyclerArrayAdapter<String> {
+public class MyApprovalAdapter extends MyRecyclerArrayAdapter<Object> {
     public static final int TYPE_INVALID = 0;
     public static final int TYPE_LEAVE = 1;
     public static final int TYPE_JIABAN = 2;
@@ -25,9 +25,9 @@ public class MyApprovalAdapter extends MyRecyclerArrayAdapter<String> {
 
     @Override
     public int getViewType(int position) {
-        if (getItem(position).contains("qingjia"))
+        if (getItem(position) instanceof JiaBan)
             return TYPE_LEAVE;
-        if (getItem(position).contains("jiaban"))
+        if (getItem(position) instanceof QingJia)
             return TYPE_JIABAN;
         return TYPE_INVALID;
     }

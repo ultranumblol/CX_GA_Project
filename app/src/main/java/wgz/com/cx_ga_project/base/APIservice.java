@@ -31,8 +31,8 @@ public interface APIservice  {
     @GET("{type}")
     Observable<String> getData(@Path("type") String type);
 
-    @GET("{type}")
-    Observable<JiaBan> getData2(@Path("type") String type);
+   /* @GET("{type}")
+    Observable<JiaBan> getData2(@Path("type") String type);*/
 
     @FormUrlEncoded
     @POST("ceshi/denglu")

@@ -2,6 +2,7 @@ package wgz.com.cx_ga_project.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,4 +58,16 @@ public class FastJsonTools {
         }
         return list;
     }
+
+    /**
+     * json字符串转成对象
+     * @param str
+     * @param type
+     * @return
+     */
+    public static <T> T fromJson(String str, Class<T> type) {
+        Gson gson = new Gson();
+        return gson.fromJson(str, type);
+    }
+
 }
