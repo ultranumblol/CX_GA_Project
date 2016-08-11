@@ -46,17 +46,18 @@
                 android:id="@+id/qingjia_reason"
                 android:textColor="@color/cadetblue"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="请假日期"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_below="@id/qingjia_reason"
                 android:textColor="@color/cadetblue"
-                android:layout_marginTop="6dp"
-                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@id/user_face"
                 android:id="@+id/qingjia_date" />
             <TextView
                 android:layout_width="wrap_content"

@@ -7,21 +7,27 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import wgz.com.cx_ga_project.bean.JiaBan;
 import wgz.com.cx_ga_project.bean.QingJia;
 import wgz.com.cx_ga_project.entity.Apply;
 
-import static wgz.com.cx_ga_project.adapter.ApplyAdapter.TYPE_INVALID;
-import static wgz.com.cx_ga_project.adapter.ApplyAdapter.TYPE_JIABAN;
-import static wgz.com.cx_ga_project.adapter.ApplyAdapter.TYPE_LEAVE;
-
 /**
+ * 请假和加班申请的适配器
  * Created by wgz on 2016/8/4.
  */
 
-public class QingjiaAdapter extends MyRecyclerArrayAdapter<Apply.Result> {
-    public QingjiaAdapter(Context context) {
+public class ApplyAdapter extends MyRecyclerArrayAdapter<Apply.Result> {
+    public static final int TYPE_INVALID = 0;
+    public static final int TYPE_LEAVE = 1;
+    public static final int TYPE_JIABAN = 2;
+
+
+
+    public ApplyAdapter(Context context) {
         super(context);
     }
 
@@ -31,10 +37,9 @@ public class QingjiaAdapter extends MyRecyclerArrayAdapter<Apply.Result> {
             case TYPE_LEAVE:
                 return new QingjiaViewholder(parent);
             case TYPE_JIABAN:
-                break;
+                return new JiabanViewholder(parent);
             default:throw new InvalidParameterException();
         }
-        return null;
     }
 
     @Override

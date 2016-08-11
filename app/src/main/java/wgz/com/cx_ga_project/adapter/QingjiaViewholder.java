@@ -10,11 +10,12 @@ import java.util.Map;
 
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.bean.QingJia;
+import wgz.com.cx_ga_project.entity.Apply;
 
 /**
  * Created by wgz on 2016/8/4.
  */
-public class QingjiaViewholder extends BaseViewHolder<Map<String,Object>> {
+public class QingjiaViewholder extends BaseViewHolder<Apply.Result> {
     private TextView qingjiaID,qingjiaReason,qingjiaDate,qingjiaState;
     private ImageView userface;
 
@@ -29,11 +30,11 @@ public class QingjiaViewholder extends BaseViewHolder<Map<String,Object>> {
     }
 
     @Override
-    public void setData(Map<String,Object> data) {
-        qingjiaID.setText(data.get("policeid").toString());
-        qingjiaReason.setText(data.get("reasontype").toString());
-        qingjiaDate.setText(data.get("applytime").toString());
-        qingjiaState.setText(data.get("shstatus").toString());
+    public void setData(Apply.Result data) {
+        qingjiaID.setText(data.getPoliceid());
+        qingjiaReason.setText(data.getContent());
+        qingjiaDate.setText(data.getApplytime());
+        qingjiaState.setText(data.getStatus());
         userface.setImageResource(R.drawable.ic_account_circle_gray_48dp);
     }
 }
