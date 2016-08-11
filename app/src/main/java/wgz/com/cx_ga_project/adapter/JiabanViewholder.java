@@ -11,11 +11,12 @@ import java.util.Map;
 
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.bean.JiaBan;
+import wgz.com.cx_ga_project.entity.Apply;
 
 /**
  * Created by wgz on 2016/8/4.
  */
-public class JiabanViewholder extends BaseViewHolder<Map<String,Object>> {
+public class JiabanViewholder extends BaseViewHolder<Apply.Result> {
     private TextView jiabanID,jiabanState,jiabanDate;
     private ImageView userface;
 
@@ -23,20 +24,20 @@ public class JiabanViewholder extends BaseViewHolder<Map<String,Object>> {
 
     public JiabanViewholder(ViewGroup parent) {
         super(parent, R.layout.item_jiaban_apply);
-        jiabanID = (TextView) $(R.id.jiaban_ID);
-        jiabanDate = (TextView) $(R.id.jiaban_date);
-        jiabanState = (TextView) $(R.id.jiaban_state);
-        userface = (ImageView) $(R.id.user_face);
+        jiabanID =  $(R.id.jiaban_ID);
+        jiabanDate =  $(R.id.jiaban_date);
+        jiabanState =  $(R.id.jiaban_state);
+        userface = $(R.id.user_face);
 
     }
 
     @Override
-    public void setData(Map<String,Object> data) {
+    public void setData(Apply.Result data) {
 
 
-       jiabanID.setText(data.get("policeid").toString());
-        jiabanDate.setText(data.get("applytime").toString());
-        jiabanState.setText(data.get("status").toString());
+       jiabanID.setText(data.getPoliceid());
+        jiabanDate.setText(data.getApplytime());
+        jiabanState.setText(data.getStatus());
         userface.setImageResource(R.drawable.ic_account_circle_gray_48dp);
     }
 }

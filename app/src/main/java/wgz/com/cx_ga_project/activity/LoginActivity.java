@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;

@@ -25,22 +25,22 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.activity.JiabanLeaveDetilActivity;
 
+import wgz.com.cx_ga_project.adapter.ApplyAdapter;
 import wgz.com.cx_ga_project.adapter.JiabanAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseFragment;
 import wgz.com.cx_ga_project.bean.JiaBan;
+import wgz.com.cx_ga_project.entity.Apply;
 import wgz.com.cx_ga_project.util.FastJsonTools;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
@@ -52,15 +52,14 @@ import wgz.datatom.com.utillibrary.util.LogUtil;
 public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.id_myapply_jiaban_lv2)
     EasyRecyclerView recyclerView;
-    JiabanAdapter adapter;
-    List<JiaBan> datalist = new ArrayList<>();
-    List<Map<String ,Object>> mapdatalist = new ArrayList<>();
+    ApplyAdapter adapter;
+    List<Apply.Result> list = new ArrayList<Apply.Result>();
     private Handler handler = new Handler();
 
     @Override
     public void initview(View view) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapterWithProgress(adapter = new JiabanAdapter(getActivity()));
+        recyclerView.setAdapterWithProgress(adapter = new ApplyAdapter(getActivity()));
        /* adapter.setMore(R.layout.view_more, new MyRecyclerArrayAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -104,7 +103,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                datalist.clear();
+                list.clear();
                 adapter.clear();
                initData();
             }
@@ -115,29 +114,49 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
      * 初始化数据
      */
     private void initData() {
-        app.apiService.getData("getOverTimeStatus")
+        app.apiService.getBeanData("getOverLeaveStatus")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<String, List<Map<String,Object>>>() {
+                .map(new Func1<Apply, List<Apply.Result>>() {
                     @Override
-                    public List<Map<String, Object>> call(String s) {
-                        return FastJsonTools.getlistmap(s);
+                    public List<Apply.Result> call(Apply apply) {
+                        //LogUtil.e("map_result::"+apply.getResult().toString());
+                        return apply.getResult();
                     }
-                }).subscribe(new Observer<List<Map<String, Object>>>() {
+                })
+                .flatMap(new Func1<List<Apply.Result>, Observable<Apply.Result>>() {
+                    @Override
+                    public Observable<Apply.Result> call(List<Apply.Result> results) {
+                        //LogUtil.e("flatMap_result::"+results.size());
+                        return Observable.from(results);
+                    }
+                })
+                .filter(new Func1<Apply.Result, Boolean>() {
+                    @Override
+                    public Boolean call(Apply.Result result) {
+                        return result.getType().equals("0")?true:false;
+                    }
+                }).
+                map(new Func1<Apply.Result, List<Apply.Result>>() {
+                    @Override
+                    public List<Apply.Result> call(Apply.Result result) {
+                        list.add(result);
+                        return list;
+                    }
+                }).subscribe(new Observer<List<Apply.Result>>() {
             @Override
             public void onCompleted() {
-                adapter.addAll(mapdatalist);
+                adapter.addAll(list);
             }
 
             @Override
             public void onError(Throwable e) {
-                LogUtil.e("error:"+e.toString());
+                LogUtil.e("error"+e.toString());
             }
 
             @Override
-            public void onNext(List<Map<String, Object>> maps) {
-                LogUtil.e("加班申请列表："+maps.toString());
-                    mapdatalist = maps;
+            public void onNext(List<Apply.Result> results) {
+                LogUtil.e("resultCOUNT:"+results.size());
             }
         });
 

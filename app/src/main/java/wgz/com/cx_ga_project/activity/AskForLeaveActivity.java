@@ -13,17 +13,23 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
+import com.jakewharton.rxbinding.view.RxView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.bean.AskForLeaveBean;
 import wgz.datatom.com.utillibrary.util.LogUtil;
@@ -99,6 +105,14 @@ public class AskForLeaveActivity extends BaseActivity {
                 }
             }
         });
+        RxView.clicks(mLeaveCommit).throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                       docommit();
+                    }
+                });
+
         //选项选择器
         pvOptions = new OptionsPickerView(this);
         //选项1
@@ -128,7 +142,7 @@ public class AskForLeaveActivity extends BaseActivity {
     }
 
     public static String getTime(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
     }
     @Override
@@ -146,7 +160,44 @@ public class AskForLeaveActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+    private void docommit(){
+        Date startdate = getStrToDate(mLeaveStarttime.getText().toString());
+        Date enddate = getStrToDate(mLeaveEndtime.getText().toString());
+        Date currentdate = new Date(System.currentTimeMillis());
+        String curredate = AskForLeaveActivity.getTime(currentdate);
+        String stime = AskForLeaveActivity.getTime(startdate);
+        String etime = AskForLeaveActivity.getTime(enddate);
+        if (mLeaveReason.getText().toString().equals("")) {
+            Snackbar.make(rootview, "请填写请假事由!", Snackbar.LENGTH_SHORT).show();
+            return;
+        }else if (mLeaveStarttime.getText().toString().contains("请选择")
+                ||mLeaveEndtime.getText().toString().contains("请选择")) {
+            Snackbar.make(rootview, "请选择日期!", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        else if (mLeaveType.getText().toString().contains("请选择")) {
+            Snackbar.make(rootview, "请选择请假类型！", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        else if (!compareDate(startdate, enddate)) {
+            Snackbar.make(rootview, "结束日期应该大于开始日期!", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
 
+        // TODO: 2016/8/5 提交请假申请
+        app.apiService.upLoadLeave("leaveApply",stime,etime,mLeaveReason.getText().toString()
+        ,"501",curredate,"101",mLeaveType.getText().toString(),mLeaveDaycount.getText().toString()).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                LogUtil.e("result:"+s);
+            }
+        })
+        ;
+        Snackbar.make(rootview, "正在提交！", Snackbar.LENGTH_SHORT).show();
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +218,7 @@ public class AskForLeaveActivity extends BaseActivity {
     }
     public  Date getStrToDate(String str)  {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date  date = null;
             date = sdf.parse(str);
             return date;
@@ -177,7 +228,8 @@ public class AskForLeaveActivity extends BaseActivity {
             return null;
         }
     }
-    @OnClick({R.id.id_leave_type_layout, R.id.id_leave_starttime_layout, R.id.id_leave_endtime_layout, R.id.id_leave_daycount_layout, R.id.id_leave_commit})
+
+    @OnClick({R.id.id_leave_type_layout, R.id.id_leave_starttime_layout, R.id.id_leave_endtime_layout, R.id.id_leave_daycount_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_leave_type_layout:
@@ -193,31 +245,6 @@ public class AskForLeaveActivity extends BaseActivity {
                 break;
             case R.id.id_leave_daycount_layout:
                 mLeaveDaycount.requestFocus();
-                break;
-            case R.id.id_leave_commit:
-
-                Date startdate = getStrToDate(mLeaveStarttime.getText().toString());
-                Date enddate = getStrToDate(mLeaveEndtime.getText().toString());
-                Date currentdate = new Date(System.currentTimeMillis());
-                String curredate = AskForLeaveActivity.getTime(currentdate);
-                if (mLeaveReason.getText().toString().equals("")) {
-                    Snackbar.make(rootview, "请填写请假事由!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }else if (mLeaveStarttime.getText().toString().contains("请选择")
-                        ||mLeaveEndtime.getText().toString().contains("请选择")) {
-                    Snackbar.make(rootview, "请选择日期!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                else if (mLeaveType.getText().toString().contains("请选择")) {
-                    Snackbar.make(rootview, "请选择请假类型！", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                else if (!compareDate(startdate, enddate)) {
-                    Snackbar.make(rootview, "结束日期应该大于开始日期!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                // TODO: 2016/8/5 提交请假申请
-                Snackbar.make(rootview, "正在提交！", Snackbar.LENGTH_SHORT).show();
                 break;
         }
     }

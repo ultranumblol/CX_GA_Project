@@ -2,6 +2,7 @@ package wgz.com.cx_ga_project.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,12 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.activity.ApprovalDetilActivity;
+import wgz.com.cx_ga_project.adapter.ApplyAdapter;
 import wgz.com.cx_ga_project.adapter.MyApprovalAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseFragment;
+import wgz.com.cx_ga_project.entity.Apply;
 import wgz.com.cx_ga_project.util.FastJsonTools;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
@@ -34,14 +37,16 @@ import wgz.datatom.com.utillibrary.util.LogUtil;
  * Created by wgz on 2016/8/9.
  */
 
-public class MyapprovalFragment extends BaseFragment {
+public class MyapprovalFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.id_myapproval_lv)
     EasyRecyclerView recyclerview;
-    MyApprovalAdapter adapter;
+    ApplyAdapter adapter;
+    List<Apply.Result> list = new ArrayList<Apply.Result>();
     @Override
     public void initview(View view) {
         recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerview.setAdapter(adapter = new MyApprovalAdapter(getActivity()));
+        recyclerview.setAdapter(adapter = new ApplyAdapter(getActivity()));
+        recyclerview.setRefreshListener(this);
         adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View itemView) {
@@ -69,62 +74,51 @@ public class MyapprovalFragment extends BaseFragment {
 
 
     private void initdata(){
-       /* app.apiService.getData("getOverTimeStatus")
+        app.apiService.getBeanData("getDepLeaveOverApply")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<String, List<Map<String,Object>>>() {
+                .map(new Func1<Apply, List<Apply.Result>>() {
                     @Override
-                    public List<Map<String, Object>> call(String s) {
-                        return FastJsonTools.getlistmap(s);
+                    public List<Apply.Result> call(Apply apply) {
+                        //LogUtil.e("map_result::"+apply.getResult().toString());
+                        return apply.getResult();
                     }
                 })
-                .subscribe(new Observer<List<Map<String, Object>>>() {
+                .flatMap(new Func1<List<Apply.Result>, Observable<Apply.Result>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Map<String, Object>> maps) {
-
-                    }
-                });*/
-
-        Observable<String> jiabanData = app.apiService.getData("getDepOverTimeApply");
-        jiabanData.subscribeOn(Schedulers.newThread());
-        Observable<String> qingjiaData = app.apiService.getData("getDepLeaveTimeApply");
-        qingjiaData.subscribeOn(Schedulers.newThread());
-        Observable.merge(jiabanData,qingjiaData)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<String, List<Map<String,Object>>>() {
-                    @Override
-                    public List<Map<String, Object>> call(String s) {
-                        return FastJsonTools.getlistmap(s);
+                    public Observable<Apply.Result> call(List<Apply.Result> results) {
+                        //LogUtil.e("flatMap_result::"+results.size());
+                        return Observable.from(results);
                     }
                 })
-                .subscribe(new Observer<List<Map<String, Object>>>() {
+                .filter(new Func1<Apply.Result, Boolean>() {
                     @Override
-                    public void onCompleted() {
-
+                    public Boolean call(Apply.Result result) {
+                        return result.getStatus().equals("0")?true:false;
                     }
-
+                }).
+                map(new Func1<Apply.Result, List<Apply.Result>>() {
                     @Override
-                    public void onError(Throwable e) {
-
+                    public List<Apply.Result> call(Apply.Result result) {
+                        list.add(result);
+                        return list;
                     }
+                }).subscribe(new Observer<List<Apply.Result>>() {
+            @Override
+            public void onCompleted() {
+                adapter.addAll(list);
+            }
 
-                    @Override
-                    public void onNext(List<Map<String, Object>> maps) {
-                       // LogUtil.e("jbqjList::"+maps.toString());
-                    }
-                });
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.e("error"+e.toString());
+            }
 
+            @Override
+            public void onNext(List<Apply.Result> results) {
+                LogUtil.e("resultCOUNT:"+results.size());
+            }
+        });
 
 
 
@@ -138,5 +132,12 @@ public class MyapprovalFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        list.clear();
+        adapter.clear();
+        initdata();
     }
 }

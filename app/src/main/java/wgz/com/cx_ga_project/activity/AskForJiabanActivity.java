@@ -3,6 +3,7 @@ package wgz.com.cx_ga_project.activity;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.AndroidCharacter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -11,17 +12,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.jakewharton.rxbinding.view.RxView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
-
+import com.jakewharton.rxbinding.view.RxView;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
 import static wgz.com.cx_ga_project.activity.AskForLeaveActivity.getTime;
@@ -58,6 +66,8 @@ public class AskForJiabanActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
+
         toolbar.setTitle("加班申请");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,7 +94,75 @@ public class AskForJiabanActivity extends BaseActivity {
                 }
             }
         });
+        RxView.clicks(mJiabanCommit).throttleFirst(500, TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        docommit();
+                    }
+                });
+    }
+    private void docommit() {
+        boolean cancle = true;
+        Date startdate = getStrToDate(mJiabanStarttime.getText().toString());
+        Date enddate = getStrToDate(mJiabanEndtime.getText().toString());
+        Date currentdate = new Date(System.currentTimeMillis());
+        String curredate = AskForLeaveActivity.getTime(currentdate);
+        Date CUDDATE = getStrToDate(curredate);
+        String stime = AskForLeaveActivity.getTime(startdate);
+        String etime = AskForLeaveActivity.getTime(enddate);
+        /*if (mJiabanReason.getText().toString().equals("")) {
+            Snackbar.make(rootview, "请填写加班内容!", Snackbar.LENGTH_SHORT).show();
+            cancle = true;
+            return;
+        }else if (mJiabanStarttime.getText().toString().contains("请选择")
+                ||mJiabanEndtime.getText().toString().contains("请选择")) {
+            Snackbar.make(rootview, "请选择日期!", Snackbar.LENGTH_SHORT).show();
+            cancle = true;
+            return;
+        }
+        else if (!compareDate(startdate, enddate)) {
+            Snackbar.make(rootview, "结束日期应该大于开始日期!", Snackbar.LENGTH_SHORT).show();
+            cancle = true;
+            return;
+        } else if (!DateCompare(CUDDATE, enddate)) {
+            Snackbar.make(rootview, "日期不能超过当前日期!", Snackbar.LENGTH_SHORT).show();
+            cancle = true;
+            return;
+        }*/
+        cancle = false;
+        LogUtil.e("curredate:"+curredate);
+        if (!cancle){
+            app.apiService.upOverTime("overTimeApply",stime,
+                    etime,"content"
+                    ,"007",curredate,"11")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<String>() {
+                        @Override
+                        public void onCompleted() {
 
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                            LogUtil.e("result:"+s);
+                        }
+                    });
+
+
+
+
+        }
+
+
+        // TODO: 2016/8/5 提交加班内容！
+        Snackbar.make(rootview, "正在提交!", Snackbar.LENGTH_SHORT).show();
 
     }
 
@@ -99,6 +177,7 @@ public class AskForJiabanActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     public static boolean DateCompare(Date startdate, Date enddate) {
         if (Math.abs(((startdate.getTime() - enddate.getTime())/(24*3600*1000)))<0){
             return true;
@@ -106,8 +185,6 @@ public class AskForJiabanActivity extends BaseActivity {
         else {
             return false;
         }
-
-
     }
 
 
@@ -135,7 +212,9 @@ public class AskForJiabanActivity extends BaseActivity {
             return null;
         }
     }
-    @OnClick({R.id.id_jiaban_starttime_layout, R.id.id_jiaban_endtime_layout, R.id.id_jiaban_commit})
+
+
+    @OnClick({R.id.id_jiaban_starttime_layout, R.id.id_jiaban_endtime_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_jiaban_starttime_layout:
@@ -147,31 +226,7 @@ public class AskForJiabanActivity extends BaseActivity {
                 flag = 2;
                 break;
 
-            case R.id.id_jiaban_commit:
-
-                Date startdate = getStrToDate(mJiabanStarttime.getText().toString());
-                Date enddate = getStrToDate(mJiabanEndtime.getText().toString());
-                Date currentdate = new Date(System.currentTimeMillis());
-                String curredate = AskForLeaveActivity.getTime(currentdate);
-                Date CUDDATE = getStrToDate(curredate);
-                if (mJiabanReason.getText().toString().equals("")) {
-                    Snackbar.make(rootview, "请填写加班内容!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }else if (mJiabanStarttime.getText().toString().contains("请选择")
-                        ||mJiabanEndtime.getText().toString().contains("请选择")) {
-                    Snackbar.make(rootview, "请选择日期!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                else if (!compareDate(startdate, enddate)) {
-                    Snackbar.make(rootview, "结束日期应该大于开始日期!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                } else if (!DateCompare(CUDDATE, enddate)) {
-                    Snackbar.make(rootview, "日期不能超过当前日期!", Snackbar.LENGTH_SHORT).show();
-                    return;
-                }
-                // TODO: 2016/8/5 提交加班内容！
-                Snackbar.make(rootview, "正在提交!", Snackbar.LENGTH_SHORT).show();
-                break;
         }
     }
+
 }
