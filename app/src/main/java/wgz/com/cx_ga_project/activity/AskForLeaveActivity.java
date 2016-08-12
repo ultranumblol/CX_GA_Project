@@ -32,6 +32,7 @@ import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.bean.AskForLeaveBean;
+import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
 /**
@@ -87,7 +88,7 @@ public class AskForLeaveActivity extends BaseActivity {
         pvTime = new TimePickerView(this, TimePickerView.Type.MONTH_DAY_HOUR_MIN);
         //控制时间范围
         Calendar calendar = Calendar.getInstance();
-        pvTime.setRange(calendar.get(Calendar.YEAR) , calendar.get(Calendar.YEAR));//要在setTime 之前才有效果
+        pvTime.setRange(calendar.get(Calendar.YEAR), calendar.get(Calendar.YEAR));//要在setTime 之前才有效果
         pvTime.setTime(new Date());
         pvTime.setCyclic(false);
         pvTime.setCancelable(true);
@@ -109,7 +110,7 @@ public class AskForLeaveActivity extends BaseActivity {
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                       docommit();
+                        docommit();
                     }
                 });
 
@@ -145,6 +146,7 @@ public class AskForLeaveActivity extends BaseActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -160,7 +162,8 @@ public class AskForLeaveActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-    private void docommit(){
+
+    private void docommit() {
         Date startdate = getStrToDate(mLeaveStarttime.getText().toString());
         Date enddate = getStrToDate(mLeaveEndtime.getText().toString());
         Date currentdate = new Date(System.currentTimeMillis());
@@ -170,41 +173,36 @@ public class AskForLeaveActivity extends BaseActivity {
         if (mLeaveReason.getText().toString().equals("")) {
             Snackbar.make(rootview, "请填写请假事由!", Snackbar.LENGTH_SHORT).show();
             return;
-        }else if (mLeaveStarttime.getText().toString().contains("请选择")
-                ||mLeaveEndtime.getText().toString().contains("请选择")) {
+        } else if (mLeaveStarttime.getText().toString().contains("请选择")
+                || mLeaveEndtime.getText().toString().contains("请选择")) {
             Snackbar.make(rootview, "请选择日期!", Snackbar.LENGTH_SHORT).show();
             return;
-        }
-        else if (mLeaveType.getText().toString().contains("请选择")) {
+        } else if (mLeaveType.getText().toString().contains("请选择")) {
             Snackbar.make(rootview, "请选择请假类型！", Snackbar.LENGTH_SHORT).show();
             return;
-        }
-        else if (!compareDate(startdate, enddate)) {
+        } else if (!compareDate(startdate, enddate)) {
             Snackbar.make(rootview, "结束日期应该大于开始日期!", Snackbar.LENGTH_SHORT).show();
             return;
         }
 
         // TODO: 2016/8/5 提交请假申请
-        app.apiService.upLoadLeave("leaveApply",stime,etime,mLeaveReason.getText().toString()
-        ,"501",curredate,"101",mLeaveType.getText().toString(),mLeaveDaycount.getText().toString()).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Action1<String>() {
-            @Override
-            public void call(String s) {
-                LogUtil.e("result:"+s);
-            }
-        })
-        ;
-        Snackbar.make(rootview, "正在提交！", Snackbar.LENGTH_SHORT).show();
-
-    };
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        app.apiService.upLoadLeave("leaveApply", stime, etime, mLeaveReason.getText().toString(),
+                "501", curredate, "101", mLeaveType.getText().toString(), mLeaveDaycount.getText().toString()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        if (s.contains("200")) {
+                            SomeUtil.showSnackBar(rootview, "提交申请成功！");
+                        } else {
+                            SomeUtil.showSnackBar(rootview, "网络错误！");
+                        }
+                    }
+                });
     }
-    public  boolean compareDate(Date d1, Date d2) {
+
+
+    public boolean compareDate(Date d1, Date d2) {
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         c1.setTime(d1);
@@ -216,15 +214,16 @@ public class AskForLeaveActivity extends BaseActivity {
         else
             return false;
     }
-    public  Date getStrToDate(String str)  {
+
+    public Date getStrToDate(String str) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date  date = null;
+            Date date = null;
             date = sdf.parse(str);
             return date;
         } catch (ParseException e) {
             e.printStackTrace();
-            LogUtil.e("DATE error"+e.toString());
+            LogUtil.e("DATE error" + e.toString());
             return null;
         }
     }

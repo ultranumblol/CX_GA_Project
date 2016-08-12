@@ -21,7 +21,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.calendarView.adapter.CalendarAdapter;
 import wgz.com.cx_ga_project.calendarView.adapter.TopViewPagerAdapter;
@@ -29,6 +33,8 @@ import wgz.com.cx_ga_project.calendarView.utils.DateBean;
 import wgz.com.cx_ga_project.calendarView.utils.OtherUtils;
 import wgz.com.cx_ga_project.calendarView.view.CalendarView;
 import wgz.com.cx_ga_project.calendarView.view.ContainerLayout;
+import wgz.com.cx_ga_project.entity.WorkLog;
+import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
 
@@ -57,6 +63,8 @@ public class WorkLogActivity extends BaseActivity {
     @Bind(R.id.fab_addworklog)
     FloatingActionButton fabAddworklog;
     private List<View> calenderViews = new ArrayList<>();
+    private List<WorkLog.Mylog> mylogs = new ArrayList<>();
+    private String id = "";
     /**
      * 日历向左或向右可翻动的天数
      */
@@ -72,18 +80,41 @@ public class WorkLogActivity extends BaseActivity {
         LogUtil.e("我的日志开始初始化");
         setSupportActionBar(toolbarWprklog);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        iniData();
         initCalendar();
     }
+
+    private void iniData() {
+        app.apiService.getLogData("checkOnceSummary")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<WorkLog>() {
+                    @Override
+                    public void call(WorkLog workLog) {
+                        //LogUtil.e("worklog:"+ workLog.getLogs().toString());
+                        if (workLog.getCode().toString().contains("200")){
+                            mylogs = workLog.getLogs();
+                        }else {
+                            SomeUtil.showSnackBar(mRootview,"服务器错误！");
+                        }
+
+                    }
+                });
+    }
+
     /**
      * @param calendarView
      */
     private void initEventDays(CalendarView calendarView) {
+
+
         //设置含有事件的日期 1-9号
         List<String> eventDays = new ArrayList<>();//根据实际情况调整，传入时间格式(yyyy-MM)
-        for (int j = 0; j < 10; j++) {
-            //eventDays.add(calendarView.getCurrentDay() + "-0" + j);
-            eventDays.add("2016-08" + "-0" + j);
+        for (int i =0;i<mylogs.size();i++){
+           String date =  mylogs.get(i).getTime().toString();
+            eventDays.add(date);
         }
+
         calendarView.setEventDays(eventDays);
     }
     private void initCalendar() {
@@ -115,12 +146,35 @@ public class WorkLogActivity extends BaseActivity {
     }
     @OnClick(R.id.fab_addworklog)
     public void onClick() {
-        Snackbar.make(mRootview, "是否为选中日期添加工作记录？", Snackbar.LENGTH_LONG).setAction("确定", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WorkLogActivity.this, AddWorkLogActivity.class));
-            }
-        }).show();
+        if (idWorkLogText.getText().toString().contains("没有工作记录")){
+            Snackbar.make(mRootview, "是否为选中日期添加工作记录？", Snackbar.LENGTH_LONG).setAction("确定", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("time",txToday.getText().toString());
+                    intent.putExtra("worklog",idWorkLogText.getText().toString());
+                    intent.putExtra("id",id);
+                    intent.setClass(WorkLogActivity.this, AddWorkLogActivity.class);
+                    startActivity(intent);
+                }
+            }).show();
+        }
+        else {
+            Snackbar.make(mRootview, "是否修改当前工作记录？", Snackbar.LENGTH_LONG).setAction("确定", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.putExtra("time",txToday.getText().toString());
+                    intent.putExtra("worklog",idWorkLogText.getText().toString());
+                    intent.putExtra("id",id);
+                    intent.setClass(WorkLogActivity.this, AddWorkLogActivity.class);
+                    startActivity(intent);
+                }
+            }).show();
+        }
+
+
+
     }
     /**
      * 点击某个日期回调
@@ -130,13 +184,22 @@ public class WorkLogActivity extends BaseActivity {
         public void onCalendarClick(int position, DateBean dateBean) {
             txToday.setText(OtherUtils.formatDate(dateBean.getDate()));
             //ToastUtil.showShort(SchedulingActivity.this,"poision:"+position);
-            if (dateBean.getTag()) {
-                idWorkLogText.setText("日志23123213123");
+            for (int i = 0; i<mylogs.size();i++){
+                String summary = mylogs.get(i).getSummary();
+                String logdate = mylogs.get(i).getTime();
+                String id2 = mylogs.get(i).getId();
+                LogUtil.e("summary:"+summary);
+                String date = OtherUtils.formatDate(dateBean.getDate());
+                LogUtil.e("DATE:"+date);
+                LogUtil.e("id:"+id);
+                if (date.equals(logdate)){
+                    idWorkLogText.setText(summary);
+                    id = id2;
+                    return;
+                }
 
-            } else {
-                idWorkLogText.setText("没有工作记录");
             }
-
+            idWorkLogText.setText("没有工作记录");
         }
     }
     /**
@@ -153,7 +216,7 @@ public class WorkLogActivity extends BaseActivity {
             container.setRowNum(0);
             CalendarAdapter adapter = calendarView.initFirstDayPosition(0);
 
-            for (int i = 0; i < 42; i++) {
+            /*for (int i = 0; i < 42; i++) {
                 DateBean dateBean = (DateBean) adapter.getItem(i);
                 if (dateBean.getTag()) {
                     idWorkLogText.setText("日志23123213123");
@@ -162,8 +225,8 @@ public class WorkLogActivity extends BaseActivity {
                     idWorkLogText.setText("没有工作记录");
                 }
 
-            }
-            //设置含有事件的日期 1-9号
+            }*/
+
             initEventDays(calendarView);
         }
         @Override

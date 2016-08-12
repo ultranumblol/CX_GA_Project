@@ -20,18 +20,16 @@ import wgz.com.cx_ga_project.fragment.MyapprovalFragment;
 import wgz.com.cx_ga_project.fragment.MyapprovalHistoryFragment;
 
 public class MyApprovalActivity extends BaseActivity {
-    @Bind(R.id.tab_myapproval)
-    TabLayout tabMyapproval;
-    @Bind(R.id.myapproval_vp)
-    ViewPager viewpager;
     private ArrayList<Fragment> fragments;
     private List<String> titles;
     private MyapprovalFragment myapprovalFragment;
     private MyapprovalHistoryFragment myapprovalHistoryFragment;
-
+    @Bind(R.id.tab_myapproval)
+    TabLayout tabMyapproval;
+    @Bind(R.id.myapproval_vp)
+    ViewPager viewpager;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_my_approval;

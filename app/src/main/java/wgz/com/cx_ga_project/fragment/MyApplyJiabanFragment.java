@@ -44,6 +44,8 @@ import wgz.com.cx_ga_project.entity.Apply;
 import wgz.com.cx_ga_project.util.FastJsonTools;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
+import static wgz.com.cx_ga_project.base.Constent.TYPE_JIABAN;
+
 
 /**
  * 查看加班申请
@@ -77,8 +79,25 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
             public void onItemClick(int position, View itemView) {
                 //ToastUtil.showShort(getActivity(),"cilck:"+position);
                 ImageView im_face = (ImageView) itemView.findViewById(R.id.user_face);
-                ActivityCompat.startActivity(getActivity(), new Intent(getActivity(), JiabanLeaveDetilActivity.class).putExtra("type", "jiaban")
-                        , ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), im_face, "share_img").toBundle());
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), JiabanLeaveDetilActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("poiceid",adapter.getItem(position).getPoliceid());
+                bundle.putString("applytime",adapter.getItem(position).getApplytime());
+                bundle.putString("starttime",adapter.getItem(position).getStart());
+                bundle.putString("endtime",adapter.getItem(position).getEnd());
+                //bundle.putString("days",adapter.getItem(position).getDays()+"");
+                bundle.putString("content",adapter.getItem(position).getContent());
+                bundle.putString("status",adapter.getItem(position).getStatus());
+                bundle.putString("upperid",adapter.getItem(position).getUpperid());
+                //bundle.putString("reasontype",adapter.getItem(position).getReasontype());
+                intent.putExtra("detil",bundle);
+                intent.putExtra("type",adapter.getItem(position).getType());
+
+                ActivityCompat.startActivity(getActivity(),
+                        intent, ActivityOptionsCompat
+                                .makeSceneTransitionAnimation(getActivity(),
+                                        im_face, "share_img").toBundle());
 
             }
         });
@@ -134,7 +153,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
                 .filter(new Func1<Apply.Result, Boolean>() {
                     @Override
                     public Boolean call(Apply.Result result) {
-                        return result.getType().equals("0")?true:false;
+                        return result.getType().equals(TYPE_JIABAN)?true:false;
                     }
                 }).
                 map(new Func1<Apply.Result, List<Apply.Result>>() {
@@ -156,7 +175,7 @@ public class MyApplyJiabanFragment extends BaseFragment implements SwipeRefreshL
 
             @Override
             public void onNext(List<Apply.Result> results) {
-                LogUtil.e("resultCOUNT:"+results.size());
+               // LogUtil.e("resultCOUNT:"+results.size());
             }
         });
 

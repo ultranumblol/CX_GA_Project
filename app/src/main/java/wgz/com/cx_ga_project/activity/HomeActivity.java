@@ -31,6 +31,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
+import wgz.datatom.com.utillibrary.util.LogUtil;
 
 /**
  * 主页
@@ -204,6 +205,7 @@ public class HomeActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.fab:
                 // TODO: 2016/8/3 社会信息采集功能
+
                 Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.to_workManage:

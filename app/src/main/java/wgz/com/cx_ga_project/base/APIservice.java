@@ -11,12 +11,32 @@ import rx.Observable;
 import wgz.com.cx_ga_project.bean.JiaBan;
 import wgz.com.cx_ga_project.bean.UserBean;
 import wgz.com.cx_ga_project.entity.Apply;
+import wgz.com.cx_ga_project.entity.WorkLog;
 
 /**
  * Created by wgz on 2016/8/1.
  */
 
 public interface APIservice  {
+    @FormUrlEncoded
+    @POST("{type}")
+    Observable<String> changeWorkLog(@Path("type") String type,
+                                 @Field("id") String id,
+                                 @Field("summary") String summary);
+    /**
+     * 提交工作日志
+     * @param type
+     * @param loginid
+     * @param summary
+     * @param time
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("{type}")
+    Observable<String> upWorkLog(@Path("type") String type,
+                                 @Field("loginid") String loginid,
+                                 @Field("summary") String summary,
+                                 @Field("time") String time);
     /**
      * 提交加班申请
      *
@@ -57,6 +77,13 @@ public interface APIservice  {
                                    );
 
 
+    /**
+     * 获取加班请假申请信息
+     * @param type
+     * @return
+     */
+    @GET("{type}")
+    Observable<Apply> getBeanData(@Path("type") String type);
 
 
     /**
@@ -65,7 +92,7 @@ public interface APIservice  {
      * @return
      */
     @GET("{type}")
-    Observable<Apply> getBeanData(@Path("type") String type);
+    Observable<WorkLog> getLogData(@Path("type") String type);
 
     /**
      * 登陆

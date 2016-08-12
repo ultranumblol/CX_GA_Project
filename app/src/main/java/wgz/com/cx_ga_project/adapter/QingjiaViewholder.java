@@ -9,8 +9,13 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import java.util.Map;
 
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.activity.MyApprovalActivity;
 import wgz.com.cx_ga_project.bean.QingJia;
 import wgz.com.cx_ga_project.entity.Apply;
+
+import static wgz.com.cx_ga_project.base.Constent.APPROVAL_PASS;
+import static wgz.com.cx_ga_project.base.Constent.APPROVAL_UNPASS;
+import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
 
 /**
  * Created by wgz on 2016/8/4.
@@ -34,7 +39,14 @@ public class QingjiaViewholder extends BaseViewHolder<Apply.Result> {
         qingjiaID.setText(data.getPoliceid());
         qingjiaReason.setText(data.getContent());
         qingjiaDate.setText(data.getApplytime());
-        qingjiaState.setText(data.getStatus());
+        if (data.getStatus().equals(UNAPPROVAL)){
+            qingjiaState.setText("未审批");
+        }else if (data.getStatus().equals(APPROVAL_PASS)){
+            qingjiaState.setText("审批通过");
+        }else if (data.getStatus().equals(APPROVAL_UNPASS)){
+            qingjiaState.setText("审批未通过");
+        }
+
         userface.setImageResource(R.drawable.ic_account_circle_gray_48dp);
     }
 }

@@ -3,11 +3,14 @@ package wgz.com.cx_ga_project.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 
@@ -63,10 +66,31 @@ public class MyapprovalHistoryFragment extends BaseFragment implements SwipeRefr
         adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View itemView) {
+                ImageView im_face = (ImageView) itemView.findViewById(R.id.user_face);
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), ApprovalDetilActivity.class);
-                intent.putExtra("type",adapter.getItem(position).toString());
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("poiceid",adapter.getItem(position).getPoliceid());
+                bundle.putString("applytime",adapter.getItem(position).getApplytime());
+                bundle.putString("starttime",adapter.getItem(position).getStart());
+                bundle.putString("endtime",adapter.getItem(position).getEnd());
+                bundle.putString("days",adapter.getItem(position).getDays()+"");
+                bundle.putString("content",adapter.getItem(position).getContent());
+                bundle.putString("status",adapter.getItem(position).getStatus());
+                bundle.putString("upperid",adapter.getItem(position).getUpperid());
+                bundle.putString("reasontype",adapter.getItem(position).getReasontype());
+                intent.putExtra("detil",bundle);
+                //intent.putExtra("type","qingjia");
+
+
+
+                intent.putExtra("type",adapter.getItem(position).getType());
+                ActivityCompat.startActivity(getActivity(),
+                        intent, ActivityOptionsCompat
+                                .makeSceneTransitionAnimation(getActivity(),
+                                        im_face, "share_img").toBundle());
+
+
             }
         });
         initdata();
