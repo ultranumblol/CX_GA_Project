@@ -65,6 +65,7 @@ public class WorkLogActivity extends BaseActivity {
     private List<View> calenderViews = new ArrayList<>();
     private List<WorkLog.Mylog> mylogs = new ArrayList<>();
     private String id = "";
+
     /**
      * 日历向左或向右可翻动的天数
      */
@@ -85,7 +86,8 @@ public class WorkLogActivity extends BaseActivity {
     }
 
     private void iniData() {
-        app.apiService.getLogData("checkOnceSummary")
+        final Calendar calendar = Calendar.getInstance();
+        app.apiService.getLogData("checkOnceSummary","10001",OtherUtils.formatMonth(calendar.getTime()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<WorkLog>() {
@@ -94,6 +96,13 @@ public class WorkLogActivity extends BaseActivity {
                         //LogUtil.e("worklog:"+ workLog.getLogs().toString());
                         if (workLog.getCode().toString().contains("200")){
                             mylogs = workLog.getLogs();
+                            String nowdate = OtherUtils.formatDate(calendar.getTime());
+                            for (int i = 0;i<mylogs.size();i++){
+                                if (mylogs.get(i).getTime().equals(nowdate)){
+                                    idWorkLogText.setText(mylogs.get(i).getSummary());
+                                    break;
+                                }
+                            }
                         }else {
                             SomeUtil.showSnackBar(mRootview,"服务器错误！");
                         }
@@ -120,6 +129,7 @@ public class WorkLogActivity extends BaseActivity {
     private void initCalendar() {
         Calendar calendar = Calendar.getInstance();
         txToday.setText(OtherUtils.formatDate(calendar.getTime()));
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -155,7 +165,8 @@ public class WorkLogActivity extends BaseActivity {
                     intent.putExtra("worklog",idWorkLogText.getText().toString());
                     intent.putExtra("id",id);
                     intent.setClass(WorkLogActivity.this, AddWorkLogActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
+                    //startActivity(intent);
                 }
             }).show();
         }
@@ -168,7 +179,7 @@ public class WorkLogActivity extends BaseActivity {
                     intent.putExtra("worklog",idWorkLogText.getText().toString());
                     intent.putExtra("id",id);
                     intent.setClass(WorkLogActivity.this, AddWorkLogActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,1);
                 }
             }).show();
         }
@@ -176,6 +187,17 @@ public class WorkLogActivity extends BaseActivity {
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data.getStringExtra("result").equals("refresh")){
+            iniData();
+            initCalendar();
+            //idWorkLogText.setText(data.getStringExtra("text"));
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     /**
      * 点击某个日期回调
      */
@@ -215,17 +237,7 @@ public class WorkLogActivity extends BaseActivity {
             txToday.setText(calendarView.getCurrentDay());
             container.setRowNum(0);
             CalendarAdapter adapter = calendarView.initFirstDayPosition(0);
-
-            /*for (int i = 0; i < 42; i++) {
-                DateBean dateBean = (DateBean) adapter.getItem(i);
-                if (dateBean.getTag()) {
-                    idWorkLogText.setText("日志23123213123");
-                    return;
-                } else {
-                    idWorkLogText.setText("没有工作记录");
-                }
-
-            }*/
+            //iniData();
 
             initEventDays(calendarView);
         }

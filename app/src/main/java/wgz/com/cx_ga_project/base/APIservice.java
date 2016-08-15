@@ -17,14 +17,16 @@ import wgz.com.cx_ga_project.entity.WorkLog;
  * Created by wgz on 2016/8/1.
  */
 
-public interface APIservice  {
+public interface APIservice {
     @FormUrlEncoded
     @POST("{type}")
     Observable<String> changeWorkLog(@Path("type") String type,
-                                 @Field("id") String id,
-                                 @Field("summary") String summary);
+                                     @Field("id") String id,
+                                     @Field("summary") String summary);
+
     /**
      * 提交工作日志
+     *
      * @param type
      * @param loginid
      * @param summary
@@ -37,9 +39,9 @@ public interface APIservice  {
                                  @Field("loginid") String loginid,
                                  @Field("summary") String summary,
                                  @Field("time") String time);
+
     /**
      * 提交加班申请
-     *
      */
     @FormUrlEncoded
     @POST("{type}")
@@ -47,13 +49,14 @@ public interface APIservice  {
                                   @Field("starttime") String starttime,
                                   @Field("endtime") String endtime,
                                   @Field("content") String content,
-                                  @Field("policeid")String policeid,
+                                  @Field("policeid") String policeid,
                                   @Field("applytime") String applytime,
                                   @Field("upperid") String upperid
-                                  ) ;
+    );
 
     /**
      * 提交请假申请
+     *
      * @param type
      * @param starttime
      * @param endtime
@@ -69,16 +72,17 @@ public interface APIservice  {
                                    @Field("starttime") String starttime,
                                    @Field("endtime") String endtime,
                                    @Field("content") String content,
-                                   @Field("policeid")String policeid,
+                                   @Field("policeid") String policeid,
                                    @Field("applytime") String applytime,
                                    @Field("upperid") String upperid,
                                    @Field("reasontype") String reasontype,
                                    @Field("days") String days
-                                   );
+    );
 
 
     /**
      * 获取加班请假申请信息
+     *
      * @param type
      * @return
      */
@@ -87,15 +91,21 @@ public interface APIservice  {
 
 
     /**
-     * 获取加班请假申请信息
+     * 获取工作日志
+     *
      * @param type
      * @return
      */
-    @GET("{type}")
-    Observable<WorkLog> getLogData(@Path("type") String type);
+    @FormUrlEncoded
+    @POST("{type}")
+    Observable<WorkLog> getLogData(@Path("type") String type,
+                                   @Field("loginid") String loginid,
+                                   @Field("time") String time
+    );
 
     /**
      * 登陆
+     *
      * @param username
      * @param password
      * @return
@@ -104,8 +114,6 @@ public interface APIservice  {
     @POST("ceshi/denglu")
     Observable<UserBean> UserLogin(@Field("username") String username,
                                    @Field("password") String password);
-
-
 
 
 }

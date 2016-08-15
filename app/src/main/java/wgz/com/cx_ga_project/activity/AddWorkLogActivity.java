@@ -28,7 +28,6 @@ import wgz.datatom.com.utillibrary.util.LogUtil;
 
 
 /**
- *
  * 添加工作日志
  * Created by wgz on 2016/8/3.
  */
@@ -43,10 +42,10 @@ public class AddWorkLogActivity extends BaseActivity {
     ConstraintLayout rootview;
     @Bind(R.id.fab_addworklog)
     FloatingActionButton fabAddworklog;
-    private String time="";
+    private String time = "";
     private String worklog = "";
     private String id = "";
-
+    private String edittext = "";
     @Override
     public int getLayoutId() {
         return R.layout.activity_add_work_log;
@@ -61,24 +60,29 @@ public class AddWorkLogActivity extends BaseActivity {
         time = intent.getStringExtra("time");
         worklog = intent.getStringExtra("worklog");
         id = intent.getStringExtra("id");
-        if (!worklog.contains("没有工作记录")){
-           worklogText.setText(worklog);
+
+
+
+        if (!worklog.contains("没有工作记录")) {
+            worklogText.setText(worklog);
             RxView.clicks(fabAddworklog).throttleFirst(500, TimeUnit.MILLISECONDS)
                     .subscribe(new Action1<Void>() {
                         @Override
                         public void call(Void aVoid) {
+                            edittext = worklogText.getText().toString();
                             ChangeWorkLog();
                         }
                     });
 
 
-        }else {
+        } else {
 
 
             RxView.clicks(fabAddworklog).throttleFirst(500, TimeUnit.MILLISECONDS)
                     .subscribe(new Action1<Void>() {
                         @Override
                         public void call(Void aVoid) {
+                            edittext = worklogText.getText().toString();
                             UpLoadWorkLog();
                         }
                     });
@@ -89,16 +93,18 @@ public class AddWorkLogActivity extends BaseActivity {
     }
 
     private void ChangeWorkLog() {
-        app.apiService.changeWorkLog("changeOnceSummary",id,worklogText.getText().toString())
+        app.apiService.changeWorkLog("changeOnceSummary", id, worklogText.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onCompleted() {
-                        SomeUtil.showSnackBar(rootview,"提交修改成功！").setCallback(new Snackbar.Callback() {
+                        SomeUtil.showSnackBar(rootview, "提交修改成功！").setCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
-
+                                setResult(0, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
+                                        .putExtra("text",edittext)
+                                        .putExtra("result", "refresh"));
                                 finish();
                             }
                         });
@@ -112,25 +118,32 @@ public class AddWorkLogActivity extends BaseActivity {
 
                     @Override
                     public void onNext(String s) {
-                        LogUtil.e("Xiugairesult:"+s);
-                        if (s.contains("200")){
+                        LogUtil.e("Xiugairesult:" + s);
+                        if (s.contains("200")) {
                             onCompleted();
-                        }else onError(new Exception(s));
+                        } else onError(new Exception(s));
                     }
                 });
-
 
 
     }
 
     private void UpLoadWorkLog() {
-        app.apiService.upWorkLog("addSummary","10001",worklogText.getText().toString(),time)
+        app.apiService.upWorkLog("addSummary", "10001", worklogText.getText().toString(), time)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onCompleted() {
-                    finish();
+                        SomeUtil.showSnackBar(rootview,"添加成功！").setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onDismissed(Snackbar snackbar, int event) {
+                                setResult(0, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
+                                        .putExtra("text",edittext)
+                                        .putExtra("result", "refresh"));
+                                finish();
+                            }
+                        });
                     }
 
                     @Override
@@ -140,14 +153,20 @@ public class AddWorkLogActivity extends BaseActivity {
 
                     @Override
                     public void onNext(String s) {
-                        LogUtil.e("result:"+s);
-                        if (s.contains("200")){
+                        LogUtil.e("result:" + s);
+                        if (s.contains("200")) {
                             onCompleted();
-                        }else onError(new Exception(s));
+                        } else onError(new Exception(s));
                     }
                 });
 
 
+    }
+
+    @Override
+    public void finish() {
+
+        super.finish();
 
     }
 
