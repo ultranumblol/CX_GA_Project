@@ -43,6 +43,7 @@ public class GetGPSService extends Service {
 
     }
     private void initLocation(){
+
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备

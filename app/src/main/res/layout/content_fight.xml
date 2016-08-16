@@ -20,7 +20,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to1"
+            android:id="@+id/id_fight_upload"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -41,7 +41,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to2"
+            android:id="@+id/id_fight_bulu"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -62,7 +62,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to3"
+            android:id="@+id/id_fight_nearlyJQ"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -83,7 +83,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to4"
+            android:id="@+id/id_fight_BJR"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -104,7 +104,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to5"
+            android:id="@+id/id_fight_SJR"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -125,7 +125,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to6"
+            android:id="@+id/id_fight_talk"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -148,7 +148,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to7"
+            android:id="@+id/id_fight_nearlyCamera"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
@@ -170,7 +170,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/id_fight_to8"
+            android:id="@+id/id_fight_way"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"

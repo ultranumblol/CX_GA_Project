@@ -23,7 +23,10 @@ import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.service.GetGPSService;
 import wgz.com.cx_ga_project.util.SomeUtil;
-
+/**
+ * 开始新作战任务
+ * Created by wgz on 2016/8/15.
+ */
 public class StartNewFightActivity extends BaseActivity {
 
 
