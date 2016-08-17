@@ -116,7 +116,8 @@ public class HomeActivity extends AppCompatActivity
                     .load(imageId[position])
                     .placeholder(R.mipmap.ic_launcher)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .thumbnail(0.1f)
+                    .thumbnail(0.4f)
+                    .dontAnimate()
                     .into(imageView);
             //点击事件
             imageView.setOnClickListener(new View.OnClickListener() {

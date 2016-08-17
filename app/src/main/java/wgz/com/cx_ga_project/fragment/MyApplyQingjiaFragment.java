@@ -34,13 +34,11 @@ import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.activity.JiabanLeaveDetilActivity;
 import wgz.com.cx_ga_project.adapter.ApplyAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
-import wgz.com.cx_ga_project.adapter.QingjiaAdapter;
+
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseFragment;
-import wgz.com.cx_ga_project.bean.JiaBan;
-import wgz.com.cx_ga_project.bean.QingJia;
+
 import wgz.com.cx_ga_project.entity.Apply;
-import wgz.com.cx_ga_project.util.FastJsonTools;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
 import static wgz.com.cx_ga_project.base.Constent.TYPE_QINGJIA;

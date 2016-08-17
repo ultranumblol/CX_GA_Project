@@ -1,62 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_add_work_log"
+    android:id="@+id/content_add_worklog"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="wgz.com.cx_ga_project.activity.AddWorkLogActivity"
-    tools:showIn="@layout/activity_add_work_log">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
     >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        >
         <EditText
-            android:id="@+id/worklog_detail_tv_title"
+            android:id="@+id/id_addworklog_text"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="180dp"
             android:padding="8dp"
-            android:minHeight="200dp"
+            android:minHeight="180dp"
             android:visibility="visible"
-            android:hint="添加工作纪录内容..."
+            android:hint="添加警情内容..."
             android:textColorHint="@color/gray"
             android:gravity="top|left"
             android:background="@color/white"
             android:textColor="@color/black"
             android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingBottom="12dp"
-            android:background="@color/white"
-            >
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/upimg"
-
-                />
-
-
-        </LinearLayout>
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/id_upIMG_recycView"
-    ></android.support.v7.widget.RecyclerView>
     </LinearLayout>
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addworklogRV"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        ></com.jude.easyrecyclerview.EasyRecyclerView>
 
-
-
-</ScrollView>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

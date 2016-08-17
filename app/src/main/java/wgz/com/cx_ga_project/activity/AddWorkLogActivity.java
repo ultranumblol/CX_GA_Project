@@ -2,25 +2,34 @@ package wgz.com.cx_ga_project.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.jude.easyrecyclerview.EasyRecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.adapter.AddPictureAdapter;
+import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.util.SomeUtil;
@@ -36,16 +45,19 @@ public class AddWorkLogActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.worklog_detail_tv_title)
-    EditText worklogText;
-    @Bind(R.id.content_add_work_log)
-    ConstraintLayout rootview;
     @Bind(R.id.fab_addworklog)
     FloatingActionButton fabAddworklog;
+    @Bind(R.id.id_addworklog_text)
+    EditText worklogText;
+    @Bind(R.id.addworklogRV)
+    EasyRecyclerView addworklogRV;
+    @Bind(R.id.content_add_worklog)
+    LinearLayout rootview;
     private String time = "";
     private String worklog = "";
     private String id = "";
     private String edittext = "";
+    private AddPictureAdapter adapter;
     @Override
     public int getLayoutId() {
         return R.layout.activity_add_work_log;
@@ -60,7 +72,16 @@ public class AddWorkLogActivity extends BaseActivity {
         time = intent.getStringExtra("time");
         worklog = intent.getStringExtra("worklog");
         id = intent.getStringExtra("id");
-
+        addworklogRV.setLayoutManager(new GridLayoutManager(this,4));
+        addworklogRV.setAdapter(adapter =new AddPictureAdapter(this));
+        adapter.addAll(initdata());
+        adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View itemView) {
+                if (position+1 ==adapter.getCount())
+                    PickPhotoActivity.actionStart(AddWorkLogActivity.this, 9, null, null);
+            }
+        });
 
 
         if (!worklog.contains("没有工作记录")) {
@@ -92,6 +113,14 @@ public class AddWorkLogActivity extends BaseActivity {
 
     }
 
+    private List<String> initdata() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            list.add("" + i);
+        }
+        return list;
+    }
+
     private void ChangeWorkLog() {
         app.apiService.changeWorkLog("changeOnceSummary", id, worklogText.getText().toString())
                 .subscribeOn(Schedulers.io())
@@ -103,7 +132,7 @@ public class AddWorkLogActivity extends BaseActivity {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
                                 setResult(0, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
-                                        .putExtra("text",edittext)
+                                        .putExtra("text", edittext)
                                         .putExtra("result", "refresh"));
                                 finish();
                             }
@@ -135,11 +164,11 @@ public class AddWorkLogActivity extends BaseActivity {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onCompleted() {
-                        SomeUtil.showSnackBar(rootview,"添加成功！").setCallback(new Snackbar.Callback() {
+                        SomeUtil.showSnackBar(rootview, "添加成功！").setCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
                                 setResult(0, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
-                                        .putExtra("text",edittext)
+                                        .putExtra("text", edittext)
                                         .putExtra("result", "refresh"));
                                 finish();
                             }
@@ -195,4 +224,10 @@ public class AddWorkLogActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

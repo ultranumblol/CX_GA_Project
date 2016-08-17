@@ -1,11 +1,17 @@
 package wgz.com.cx_ga_project.base;
 
+import java.util.List;
+
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import rx.Observable;
 import wgz.com.cx_ga_project.bean.JiaBan;
@@ -18,6 +24,43 @@ import wgz.com.cx_ga_project.entity.WorkLog;
  */
 
 public interface APIservice {
+    /**
+     * 通过 List<MultipartBody.Part> 传入多个part实现多文件上传
+     * @param parts 每个part代表一个
+     * @return 状态信息
+     */
+    @Multipart
+    @POST("users/image")
+    Observable<String> uploadFilesWithParts(@Part() List<MultipartBody.Part> parts);
+
+
+    /**
+     * 通过 MultipartBody和@body作为参数来上传
+     * @param multipartBody MultipartBody包含多个Part
+     * @return 状态信息
+     */
+    @POST("users/image")
+    Observable<String> uploadFileWithRequestBody(@Body MultipartBody multipartBody);
+
+
+
+
+
+
+    @Multipart
+    @POST("{type}")
+    Observable<ResponseBody> uploadPic(
+            @Path("type") String type,
+            @Part MultipartBody.Part file);
+
+
+    /**
+     * 修改工作日志
+     * @param type
+     * @param id
+     * @param summary
+     * @return
+     */
     @FormUrlEncoded
     @POST("{type}")
     Observable<String> changeWorkLog(@Path("type") String type,

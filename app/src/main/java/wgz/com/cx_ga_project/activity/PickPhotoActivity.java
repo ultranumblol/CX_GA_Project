@@ -113,6 +113,7 @@ public class PickPhotoActivity extends BaseActivity {
         intent.putExtra(PhotoPickerFragment.EXTRA_DEFAULT_SELECTED_LIST, searchPath);
         intent.putExtra(HTTP_URL, url);
         context.startActivity(intent);
+
     }
 
     public void addPhotoPagerFragment(PhotoPagerFragment photoPagerFragment) {
@@ -134,16 +135,21 @@ public class PickPhotoActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.uploadpic_finish) {
             // TODO: 2016/8/16
-            SomeUtil.showSnackBar(mRootview,"开发中。。。");
+            //SomeUtil.showSnackBar(mRootview,"开发中。。。");
             List<String> paths = new ArrayList<>();
             paths = mPickerFragment.getPhotoPickerAdapter().getmSelectedImage();
+            setResult(0, new Intent(PickPhotoActivity.this, AddJQActivity.class).
+                    putStringArrayListExtra("paths", (ArrayList<String>) paths)
+                    .putExtra("result", "addpic"));
 
             LogUtil.e("paths== "+paths.toString());
+            finish();
             return true;
         }
         if (id == android.R.id.home) {
-            finish();
+            onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
+
 }

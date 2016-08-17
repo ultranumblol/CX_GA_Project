@@ -1,5 +1,6 @@
 package wgz.com.cx_ga_project.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
@@ -52,12 +53,14 @@ public class FightActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_fight_upload:
-                PickPhotoActivity.actionStart(FightActivity.this, 9, null, null);
+                startActivity(new Intent(FightActivity.this,AddJQActivity.class));
+
                 break;
             case R.id.id_fight_bulu:
                 // TODO: 2016/8/16 警情补录功能
                 break;
             case R.id.id_fight_nearlyJQ:
+
                 // TODO: 2016/8/16 附近警情
                 break;
             case R.id.id_fight_BJR:
