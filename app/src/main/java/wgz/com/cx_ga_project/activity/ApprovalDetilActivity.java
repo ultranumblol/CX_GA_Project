@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +25,10 @@ import rx.functions.Action1;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.util.SomeUtil;
+
+import static wgz.com.cx_ga_project.base.Constent.APPROVAL_PASS;
+import static wgz.com.cx_ga_project.base.Constent.APPROVAL_UNPASS;
+import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
 
 /**
  * Created by wgz on 2016/8/9.
@@ -77,6 +80,10 @@ public class ApprovalDetilActivity extends BaseActivity {
     CardView approvalMakesrue;
     @Bind(R.id.detil_root)
     CoordinatorLayout detilRoot;
+    @Bind(R.id.userName)
+    TextView userName;
+    @Bind(R.id.userName_jiaban)
+    TextView userNameJiaban;
 
     @Override
     public int getLayoutId() {
@@ -87,22 +94,51 @@ public class ApprovalDetilActivity extends BaseActivity {
     public void initView() {
 
         Intent intent = getIntent();
-        String type = intent.getStringExtra("type");
+        int type = intent.getIntExtra("type",-1);
+        Bundle bundle = intent.getBundleExtra("detil");
         approvalMakesrue.setVisibility(View.VISIBLE);
         switch (type) {
-            case "jiaban":
+            case 0:
                 toolbar.setTitle("加班明细");
                 jiabanLeaveDetilJiaban.setVisibility(View.VISIBLE);
                 ViewCompat.setTransitionName(userPicJiaban, "share_img");
-                ViewCompat.setTransitionName(detilJiabanState, "share_jbtext");
                 jiabanLeaveDetilQingjia.setVisibility(View.GONE);
+                jiabanLeaveDetilQingjia.setVisibility(View.GONE);
+                userNameJiaban.setText(bundle.getString("poiceid"));
+                detilJiabanCommittime.setText(bundle.getString("applytime"));
+                detilJiabanStarttime.setText(bundle.getString("starttime"));
+                detilJiabanEndtime.setText(bundle.getString("endtime"));
+                detilJiabanReason.setText(bundle.getString("content"));
+                detilJiabanShenherenname.setText(bundle.getString("upperid"));
+                detilJiabanState.setText(bundle.getString("status"));
+                if (bundle.getString("status").equals(UNAPPROVAL))
+                    detilJiabanState.setText("未审批");
+                else if (bundle.getString("status").equals(APPROVAL_PASS))
+                    detilJiabanState.setText("审批通过");
+                else if (bundle.getString("status").equals(APPROVAL_UNPASS))
+                    detilJiabanState.setText("审批未通过");
+
                 break;
-            case "qingjia":
+            case 1:
                 toolbar.setTitle("请假明细");
                 jiabanLeaveDetilJiaban.setVisibility(View.GONE);
                 ViewCompat.setTransitionName(userPic, "share_img");
-                ViewCompat.setTransitionName(detilQingjiaState, "share_qjtext");
                 jiabanLeaveDetilQingjia.setVisibility(View.VISIBLE);
+                userName.setText(bundle.getString("poiceid"));
+                detilLeaveCommittime.setText(bundle.getString("applytime"));
+                detilLeaveStarttime.setText(bundle.getString("starttime"));
+                detilLeaveEndtime.setText(bundle.getString("endtime"));
+                detilLeaveDayscount.setText(bundle.getString("days"));
+                detilLeaveReason.setText(bundle.getString("content"));
+                detilLeaveType.setText(bundle.getString("reasontype"));
+                detilQingjiaShenherenname.setText(bundle.getString("upperid"));
+                detilQingjiaState.setText(bundle.getString("status"));
+                if (bundle.getString("status").equals(UNAPPROVAL))
+                    detilQingjiaState.setText("未审批");
+                else if (bundle.getString("status").equals(APPROVAL_PASS))
+                    detilQingjiaState.setText("审批通过");
+                else if (bundle.getString("status").equals(APPROVAL_UNPASS))
+                    detilQingjiaState.setText("审批未通过");
         }
 
         setSupportActionBar(toolbar);
@@ -156,4 +192,10 @@ public class ApprovalDetilActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

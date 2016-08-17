@@ -2,11 +2,14 @@ package wgz.com.cx_ga_project.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
 
@@ -33,11 +36,14 @@ import wgz.com.cx_ga_project.entity.Apply;
 import wgz.com.cx_ga_project.util.FastJsonTools;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
+import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
+
 /**
  * Created by wgz on 2016/8/9.
  */
 
 public class MyapprovalFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+
     @Bind(R.id.id_myapproval_lv)
     EasyRecyclerView recyclerview;
     ApplyAdapter adapter;
@@ -50,11 +56,29 @@ public class MyapprovalFragment extends BaseFragment implements SwipeRefreshLayo
         adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View itemView) {
-
+                ImageView im_face = (ImageView) itemView.findViewById(R.id.user_face);
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), ApprovalDetilActivity.class);
-                intent.putExtra("type",adapter.getItem(position).toString());
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("poiceid",adapter.getItem(position).getPoliceid());
+                bundle.putString("applytime",adapter.getItem(position).getApplytime());
+                bundle.putString("starttime",adapter.getItem(position).getStart());
+                bundle.putString("endtime",adapter.getItem(position).getEnd());
+                bundle.putString("days",adapter.getItem(position).getDays()+"");
+                bundle.putString("content",adapter.getItem(position).getContent());
+                bundle.putString("status",adapter.getItem(position).getStatus());
+                bundle.putString("upperid",adapter.getItem(position).getUpperid());
+                bundle.putString("reasontype",adapter.getItem(position).getReasontype());
+                intent.putExtra("detil",bundle);
+                //intent.putExtra("type","qingjia");
+
+
+
+                intent.putExtra("type",adapter.getItem(position).getType());
+                ActivityCompat.startActivity(getActivity(),
+                        intent, ActivityOptionsCompat
+                                .makeSceneTransitionAnimation(getActivity(),
+                                        im_face, "share_img").toBundle());
             }
         });
 
@@ -94,7 +118,7 @@ public class MyapprovalFragment extends BaseFragment implements SwipeRefreshLayo
                 .filter(new Func1<Apply.Result, Boolean>() {
                     @Override
                     public Boolean call(Apply.Result result) {
-                        return result.getStatus().equals("0")?true:false;
+                        return result.getStatus().equals(UNAPPROVAL)?true:false;
                     }
                 }).
                 map(new Func1<Apply.Result, List<Apply.Result>>() {

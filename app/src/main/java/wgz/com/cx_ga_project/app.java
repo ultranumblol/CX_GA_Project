@@ -1,6 +1,7 @@
 package wgz.com.cx_ga_project;
 
 import android.app.Application;
+import android.content.Intent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,8 +11,10 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
+import wgz.com.cx_ga_project.activity.StartNewFightActivity;
 import wgz.com.cx_ga_project.base.APIservice;
 import wgz.com.cx_ga_project.exception.LocalFileHandler;
+import wgz.com.cx_ga_project.service.GetGPSService;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 import wgz.datatom.com.utillibrary.util.ToastUtil;
 
@@ -28,7 +31,7 @@ public class app extends Application {
         super.onCreate();
         mApp = this;
         ToastUtil.isShow =true;
-
+        startService(new Intent(getApplicationContext(), GetGPSService.class));
         LogUtil.isDebug=true;
 
         //配置程序异常退出处理

@@ -31,6 +31,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.util.SomeUtil;
+import wgz.datatom.com.utillibrary.util.LogUtil;
 
 /**
  * 主页
@@ -114,12 +116,14 @@ public class HomeActivity extends AppCompatActivity
                     .load(imageId[position])
                     .placeholder(R.mipmap.ic_launcher)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .thumbnail(0.1f)
+                    .thumbnail(0.4f)
+                    .dontAnimate()
                     .into(imageView);
             //点击事件
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    SomeUtil.showSnackBar(homeRootView,"维护中。。。");
                     //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(list.get(position).getUrl())));
                 }
             });
@@ -204,6 +208,7 @@ public class HomeActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.fab:
                 // TODO: 2016/8/3 社会信息采集功能
+
                 Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.to_workManage:
@@ -212,6 +217,7 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.to_jiechujing:
                 // TODO: 2016/8/5 接处警作战功能
+                startActivity(new Intent(HomeActivity.this,StartNewFightActivity.class));
                 Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
                 break;
 

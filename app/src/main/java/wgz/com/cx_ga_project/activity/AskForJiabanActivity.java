@@ -30,6 +30,8 @@ import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import com.jakewharton.rxbinding.view.RxView;
+
+import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
 import static wgz.com.cx_ga_project.activity.AskForLeaveActivity.getTime;
@@ -152,6 +154,11 @@ public class AskForJiabanActivity extends BaseActivity {
                         @Override
                         public void onNext(String s) {
                             LogUtil.e("result:"+s);
+                            if (s.contains("200")){
+                                SomeUtil.showSnackBar(rootview,"提交申请成功！");
+                            }else {
+                                SomeUtil.showSnackBar(rootview,"网络错误！");
+                            }
                         }
                     });
 

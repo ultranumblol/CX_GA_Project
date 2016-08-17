@@ -6,10 +6,16 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import java.io.File;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import wgz.com.cx_ga_project.R;
 
 /**
@@ -50,6 +56,41 @@ public class SomeUtil {
             String snack_message_unknown_error ="未知错误";
             showSnackBar(mRootView,snack_message_unknown_error);
         }
+    }
+
+    /**
+     * 文件转换为multipartBody
+     * @param files
+     * @return
+     */
+    public static MultipartBody filesToMultipartBody(List<File> files) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+
+        for (File file : files) {
+            // TODO: 16-4-2  这里为了简单起见，没有判断file的类型
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+            builder.addFormDataPart("file", file.getName(), requestBody);
+        }
+
+        builder.setType(MultipartBody.FORM);
+        MultipartBody multipartBody = builder.build();
+        return multipartBody;
+    }
+
+    /**
+     * File转化成MultipartBody.Part
+     * @param files
+     * @return
+     */
+    public static List<MultipartBody.Part> filesToMultipartBodyParts(List<File> files) {
+        List<MultipartBody.Part> parts = new ArrayList<>(files.size());
+        for (File file : files) {
+            // TODO: 16-4-2  这里为了简单起见，没有判断file的类型
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+            parts.add(part);
+        }
+        return parts;
     }
 
 }

@@ -10,12 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.adapter.MyFragmentPagerAdapter;
+import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
+import wgz.com.cx_ga_project.entity.WorkLog;
 import wgz.com.cx_ga_project.fragment.MyApplyJiabanFragment;
 import wgz.com.cx_ga_project.fragment.MyApplyQingjiaFragment;
 import wgz.com.cx_ga_project.view.CustomViewPager;
+import wgz.datatom.com.utillibrary.util.LogUtil;
 
 /**
  * 我的申请
@@ -79,6 +85,12 @@ public class MyWorkApplyActivity extends BaseActivity {
 
             }
         });
+        initData();
+    }
+
+    private void initData() {
+
+
 
     }
 

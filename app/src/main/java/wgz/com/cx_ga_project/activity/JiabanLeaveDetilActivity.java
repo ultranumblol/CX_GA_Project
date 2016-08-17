@@ -14,6 +14,10 @@ import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
 
+import static wgz.com.cx_ga_project.base.Constent.APPROVAL_PASS;
+import static wgz.com.cx_ga_project.base.Constent.APPROVAL_UNPASS;
+import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
+
 /*
 * 加班和请假明细
 * */
@@ -59,6 +63,10 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
     TextView detilQingjiaState;
     @Bind(R.id.detil_jiaban_state)
     TextView detilJiabanState;
+    @Bind(R.id.userName)
+    TextView userName;
+    @Bind(R.id.userName_jiaban)
+    TextView userNameJiaban;
 
     @Override
     public int getLayoutId() {
@@ -70,23 +78,53 @@ public class JiabanLeaveDetilActivity extends BaseActivity {
 
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
+        Bundle bundle = intent.getBundleExtra("detil");
         switch (type) {
-            case "jiaban":
+            case "0":
                 toolbar.setTitle("加班明细");
                 jiabanLeaveDetilJiaban.setVisibility(View.VISIBLE);
                 ViewCompat.setTransitionName(userPicJiaban, "share_img");
-                ViewCompat.setTransitionName(detilJiabanState, "share_jbtext");
                 jiabanLeaveDetilQingjia.setVisibility(View.GONE);
+                userNameJiaban.setText(bundle.getString("poiceid"));
+                detilJiabanCommittime.setText(bundle.getString("applytime"));
+                detilJiabanStarttime.setText(bundle.getString("starttime"));
+                detilJiabanEndtime.setText(bundle.getString("endtime"));
+                detilJiabanReason.setText(bundle.getString("content"));
+                detilJiabanShenherenname.setText(bundle.getString("upperid"));
+                if (bundle.getString("status").equals(UNAPPROVAL))
+                    detilJiabanState.setText("未审批");
+                else if (bundle.getString("status").equals(APPROVAL_PASS))
+                    detilJiabanState.setText("审批通过");
+                else if (bundle.getString("status").equals(APPROVAL_UNPASS))
+                    detilJiabanState.setText("审批未通过");
+
+
                 break;
-            case "qingjia":
+            case "1":
                 toolbar.setTitle("请假明细");
                 jiabanLeaveDetilJiaban.setVisibility(View.GONE);
                 ViewCompat.setTransitionName(userPic, "share_img");
-                ViewCompat.setTransitionName(detilQingjiaState, "share_qjtext");
                 jiabanLeaveDetilQingjia.setVisibility(View.VISIBLE);
+                userName.setText(bundle.getString("poiceid"));
+                detilLeaveCommittime.setText(bundle.getString("applytime"));
+                detilLeaveStarttime.setText(bundle.getString("starttime"));
+                detilLeaveEndtime.setText(bundle.getString("endtime"));
+                detilLeaveDayscount.setText(bundle.getString("days"));
+                detilLeaveReason.setText(bundle.getString("content"));
+                detilLeaveType.setText(bundle.getString("reasontype"));
+                detilQingjiaShenherenname.setText(bundle.getString("upperid"));
+                detilQingjiaState.setText(bundle.getString("status"));
+                if (bundle.getString("status").equals(UNAPPROVAL))
+                    detilQingjiaState.setText("未审批");
+                else if (bundle.getString("status").equals(APPROVAL_PASS))
+                    detilQingjiaState.setText("审批通过");
+                else if (bundle.getString("status").equals(APPROVAL_UNPASS))
+                    detilQingjiaState.setText("审批未通过");
+
         }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
 }

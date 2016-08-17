@@ -52,7 +52,7 @@ public class Apply {
         this.result = result;
     }
 
-    public class Result {
+        public class Result {
 
         @SerializedName("id")
         private String id;
