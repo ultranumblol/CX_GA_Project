@@ -36,6 +36,7 @@ import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.util.SPUtils;
 import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
+import wgz.datatom.com.utillibrary.util.StatusBarUtil;
 
 /**
  * 主页
@@ -93,6 +94,7 @@ public class HomeActivity extends AppCompatActivity
         ColorStateList csl=(ColorStateList)resource.getColorStateList(R.drawable.navigation_menu_item_color);
         navView.setItemTextColor(csl);
         navView.setItemIconTintList(csl);
+
     }
 
    /* private ArrayList<Integer> initData() {

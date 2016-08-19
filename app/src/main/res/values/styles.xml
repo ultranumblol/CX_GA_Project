@@ -31,4 +31,9 @@
         <item name="android:textColor">@color/calendar_text_color</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="jq_detil">
+        <item name="android:textColor">@color/darkcyan</item>
+        <item name="android:textSize">14dp</item>
+    </style>
 </resources>

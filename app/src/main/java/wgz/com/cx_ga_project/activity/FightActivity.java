@@ -61,11 +61,13 @@ public class FightActivity extends BaseActivity {
                 startActivity(new Intent(FightActivity.this,AddJQActivity.class));
                 break;
             case R.id.id_fight_nearlyJQ:
-
+                startActivity(new Intent(FightActivity.this,NewFightActivity.class));
                 // TODO: 2016/8/16 附近警情
                 break;
             case R.id.id_fight_BJR:
                 // TODO: 2016/8/16 报警人关联警情
+                startActivity(new Intent(FightActivity.this,ScrollingActivity.class));
+
                 break;
             case R.id.id_fight_SJR:
                 // TODO: 2016/8/16 涉警人关联警情
