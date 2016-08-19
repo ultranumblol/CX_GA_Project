@@ -49,8 +49,7 @@
             android:value="GlideModule" />
 
         <activity
-            android:name=".activity.HomeActivity"
-            android:label="@string/app_name"
+            android:name=".activity.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -107,8 +106,10 @@
             android:label="@string/title_activity_jiaban_leave_detil"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask"
+            />
         <activity
             android:name=".activity.MySubordinateActivity"
             android:label="@string/title_activity_my_subordinate"
@@ -132,7 +133,6 @@
             android:name=".activity.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.sleepyzzz.photo_selector.activity.PhotoPickerActivity" />
 
         <service android:name=".service.GetGPSService" />
 

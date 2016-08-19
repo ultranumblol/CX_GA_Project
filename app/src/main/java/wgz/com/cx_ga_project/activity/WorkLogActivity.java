@@ -21,6 +21,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -90,10 +91,19 @@ public class WorkLogActivity extends BaseActivity {
         app.apiService.getLogData("checkOnceSummary","10001",OtherUtils.formatMonth(calendar.getTime()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<WorkLog>() {
+                .subscribe(new Observer<WorkLog>() {
                     @Override
-                    public void call(WorkLog workLog) {
-                        //LogUtil.e("worklog:"+ workLog.getLogs().toString());
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    LogUtil.e("error"+e);
+                    }
+
+                    @Override
+                    public void onNext(WorkLog workLog) {
                         if (workLog.getCode().toString().contains("200")){
                             mylogs = workLog.getLogs();
                             String nowdate = OtherUtils.formatDate(calendar.getTime());

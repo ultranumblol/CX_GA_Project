@@ -6,8 +6,12 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,8 +25,8 @@ import butterknife.OnClick;
 import rx.functions.Action1;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
-import wgz.com.cx_ga_project.service.GetGPSService;
 import wgz.com.cx_ga_project.util.SomeUtil;
+
 /**
  * 开始新作战任务
  * Created by wgz on 2016/8/15.
@@ -78,6 +82,31 @@ public class StartNewFightActivity extends BaseActivity {
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.jqhistory, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.jq_history) {
+            SomeUtil.showSnackBar(rootview,"开发中。。。");
+            return true;
+        }
+        if (id == android.R.id.home) {
+          onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +114,8 @@ public class StartNewFightActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    /*@OnClick(R.id.startFight)
+    @OnClick(R.id.newfight)
     public void onClick() {
-    }*/
+        startActivity(new Intent(StartNewFightActivity.this, FightActivity.class));
+    }
 }

@@ -40,7 +40,20 @@ public class SomeUtil {
                 .show();
 
     }
-
+    /**
+     * 检查对象非空
+     *
+     * @param object
+     * @param message
+     * @param <T>
+     * @return
+     */
+    public static <T> T checkNotNull(T object, String message) {
+        if (object == null) {
+            throw new NullPointerException(message);
+        }
+        return object;
+    }
     public static void checkHttpException(Context mContext, Throwable mThrowable, View mRootView) {
         String snack_action_to_setting = "设置";
         if ((mThrowable instanceof UnknownHostException)) {

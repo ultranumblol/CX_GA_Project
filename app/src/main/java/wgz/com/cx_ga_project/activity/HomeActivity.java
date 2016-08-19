@@ -1,6 +1,8 @@
 package wgz.com.cx_ga_project.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -31,6 +33,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wgz.com.cx_ga_project.R;
+import wgz.com.cx_ga_project.util.SPUtils;
 import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
@@ -38,6 +41,7 @@ import wgz.datatom.com.utillibrary.util.LogUtil;
  * 主页
  * Created by wgz on 2016/8/1.
  */
+@SuppressWarnings("ResourceType")
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -79,13 +83,16 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         drawer.setStatusBarBackground(Color.TRANSPARENT);
-        toolbarHome.setTitle("警务APP");
+        toolbarHome.setTitle("智慧警务APP");
         setSupportActionBar(toolbarHome);
         toolbarHome.setTitleTextColor(Color.WHITE);
         idColltoollayout.setCollapsedTitleTextColor(Color.WHITE);
         idColltoollayout.setExpandedTitleColor(Color.WHITE);
         navView.setNavigationItemSelectedListener(this);
-
+        Resources resource=(Resources)getBaseContext().getResources();
+        ColorStateList csl=(ColorStateList)resource.getColorStateList(R.drawable.navigation_menu_item_color);
+        navView.setItemTextColor(csl);
+        navView.setItemIconTintList(csl);
     }
 
    /* private ArrayList<Integer> initData() {
@@ -182,18 +189,23 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         // TODO: 2016/8/3 个人页面内容待定
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_mypic) {
 
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_changepass) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_help) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_updateAPP) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_clearcache) {
+
+        } else if (id == R.id.nav_logout) {
+            SPUtils.clear(getApplicationContext());
+            startActivity(new Intent(HomeActivity.this,WelcomeActivity.class));
+
 
         }
 
@@ -218,7 +230,7 @@ public class HomeActivity extends AppCompatActivity
             case R.id.to_jiechujing:
                 // TODO: 2016/8/5 接处警作战功能
                 startActivity(new Intent(HomeActivity.this,StartNewFightActivity.class));
-                Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
                 break;
 
         }

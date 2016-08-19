@@ -36,7 +36,8 @@ public class app extends Application {
         super.onCreate();
         mApp = this;
         ToastUtil.isShow =true;
-        startService(new Intent(getApplicationContext(), GetGPSService.class));
+        //开启定位服务
+        //startService(new Intent(getApplicationContext(), GetGPSService.class));
         LogUtil.isDebug=true;
 
         //配置程序异常退出处理

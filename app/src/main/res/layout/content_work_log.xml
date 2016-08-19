@@ -109,7 +109,7 @@
                     android:padding="16dp"
                     android:textSize="16dp"
                     android:id="@+id/id_workLogText"
-                    android:text="没有工作内容" />
+                    android:text="没有工作记录" />
 
             </LinearLayout>
         </ScrollView>

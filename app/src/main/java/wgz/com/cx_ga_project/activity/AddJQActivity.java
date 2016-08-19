@@ -60,7 +60,7 @@ public class AddJQActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        toolbar.setTitle("警情回传");
+        toolbar.setTitle("警情回告");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         addPicRV.setLayoutManager(new GridLayoutManager(this, 4));

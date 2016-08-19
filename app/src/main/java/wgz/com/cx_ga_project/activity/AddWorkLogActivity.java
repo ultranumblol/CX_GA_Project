@@ -58,6 +58,7 @@ public class AddWorkLogActivity extends BaseActivity {
     private String id = "";
     private String edittext = "";
     private AddPictureAdapter adapter;
+    List<String> paths = new ArrayList<>();
     @Override
     public int getLayoutId() {
         return R.layout.activity_add_work_log;
@@ -114,12 +115,15 @@ public class AddWorkLogActivity extends BaseActivity {
     }
 
     private List<String> initdata() {
-        List<String> list = new ArrayList<>();
+
+        paths.add("end");
+       /* List<String> list = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
             list.add("" + i);
-        }
-        return list;
+        }*/
+        return paths;
     }
+
 
     private void ChangeWorkLog() {
         app.apiService.changeWorkLog("changeOnceSummary", id, worklogText.getText().toString())
@@ -198,7 +202,17 @@ public class AddWorkLogActivity extends BaseActivity {
         super.finish();
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data.getStringExtra("result").equals("addpic")) {
+            adapter.clear();
+            paths.clear();
+            paths = data.getStringArrayListExtra("paths");
+            initdata();
+            adapter.addAll(paths);
 
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

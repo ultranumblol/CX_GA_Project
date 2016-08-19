@@ -68,7 +68,7 @@ public class SchedulingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mtoolbar.setTitle("我的排班");
+        mtoolbar.setTitle("我的值班");
         LogUtil.e("ContainerLayout开始初始化");
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

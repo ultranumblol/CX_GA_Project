@@ -26,9 +26,9 @@ import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.util.SomeUtil;
 
-import static wgz.com.cx_ga_project.base.Constent.APPROVAL_PASS;
-import static wgz.com.cx_ga_project.base.Constent.APPROVAL_UNPASS;
-import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
+import static wgz.com.cx_ga_project.base.Constant.APPROVAL_PASS;
+import static wgz.com.cx_ga_project.base.Constant.APPROVAL_UNPASS;
+import static wgz.com.cx_ga_project.base.Constant.UNAPPROVAL;
 
 /**
  * Created by wgz on 2016/8/9.

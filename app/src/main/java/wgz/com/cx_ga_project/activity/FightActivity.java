@@ -58,6 +58,7 @@ public class FightActivity extends BaseActivity {
                 break;
             case R.id.id_fight_bulu:
                 // TODO: 2016/8/16 警情补录功能
+                startActivity(new Intent(FightActivity.this,AddJQActivity.class));
                 break;
             case R.id.id_fight_nearlyJQ:
 
