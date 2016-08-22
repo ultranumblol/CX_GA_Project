@@ -44,8 +44,6 @@ import wgz.datatom.com.utillibrary.util.NetUtil;
 
 /**
  * 登陆
- * wgz
- * A login screen that offers login via email/password.
  */
 public class LoginActivity extends BaseActivity {
 
