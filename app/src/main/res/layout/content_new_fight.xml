@@ -12,7 +12,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <android.support.v7.widget.CardView
+  <com.jude.easyrecyclerview.EasyRecyclerView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:scrollbarStyle="insideOverlay"
+      app:layout_progress="@layout/view_progress"
+      app:layout_empty="@layout/view_empty"
+      android:id="@+id/timeline_rv"
+      ></com.jude.easyrecyclerview.EasyRecyclerView>
+
+    <!--<android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/id_fight_upload"
@@ -185,7 +194,7 @@
             android:textColor="@color/goldenrod"
 
             />
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
 
 
 

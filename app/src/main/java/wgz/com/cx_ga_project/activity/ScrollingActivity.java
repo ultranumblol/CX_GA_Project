@@ -4,35 +4,45 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
-import wgz.datatom.com.utillibrary.util.AppUtil;
-import wgz.datatom.com.utillibrary.util.StatusBarUtil;
+import wgz.com.cx_ga_project.adapter.TimelineAdapter;
+import wgz.com.cx_ga_project.base.BaseActivity;
 
 /**
  * 警情页面
  */
-public class ScrollingActivity extends AppCompatActivity {
+public class ScrollingActivity extends BaseActivity {
 
     // 控制ToolBar的变量
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
 
     private static final int ALPHA_ANIMATIONS_DURATION = 200;
+    @Bind(R.id.timeline_rv2)
+    EasyRecyclerView timelineRv;
+    @Bind(R.id.id_backImg)
+    CollapsingToolbarLayout idBackImg;
+    private TimelineAdapter adapter;
 
+
+    private ArrayList<String> list = new ArrayList<>();
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
@@ -55,13 +65,19 @@ public class ScrollingActivity extends AppCompatActivity {
     Toolbar mTbToolbar; // 工具栏
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scrolling);
-        ButterKnife.bind(this);
+    public int getLayoutId() {
+        return R.layout.activity_scrolling;
+    }
 
+    @Override
+    public void initView() {
+
+
+        timelineRv.setLayoutManager(new LinearLayoutManager(this));
+        timelineRv.setAdapter(adapter = new TimelineAdapter(this));
+        initData();
+        adapter.addAll(list);
         mTbToolbar.setTitle("");
-
         // AppBar的监听
         mAblAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -74,6 +90,17 @@ public class ScrollingActivity extends AppCompatActivity {
         });
 
         initParallaxValues(); // 自动滑动效果
+    }
+
+    private void initData() {
+        list.add("核名\n核定你注册公司名称");
+        list.add("申请登记\n申请登记,取得营业执照");
+        list.add("刻章\n制作并备案公章,财务专用章等");
+        list.add("税务报到\n到税务部门填报信息,取得纳税授权一证通");
+        list.add("银行开设基本户\n到银行开设公司基本户,取得开户许可证");
+        list.add("社保开户\n到社保主管部门确定社保登记证");
+
+
     }
 
     // 设置自动滑动的动画效果
@@ -132,5 +159,12 @@ public class ScrollingActivity extends AppCompatActivity {
         alphaAnimation.setDuration(duration);
         alphaAnimation.setFillAfter(true);
         v.startAnimation(alphaAnimation);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

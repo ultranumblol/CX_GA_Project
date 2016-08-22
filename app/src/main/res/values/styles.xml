@@ -33,7 +33,7 @@
     </style>
 
     <style name="jq_detil">
-        <item name="android:textColor">@color/darkcyan</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14dp</item>
     </style>
 </resources>
