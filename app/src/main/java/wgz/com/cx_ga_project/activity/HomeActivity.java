@@ -172,7 +172,7 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            // TODO: 2016/8/3 退出登录功能
+            // TODO: 2016/8/3 扫一扫
 
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             return true;
@@ -222,8 +222,8 @@ public class HomeActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.fab:
                 // TODO: 2016/8/3 社会信息采集功能
-
-                Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this,FullscreenActivity.class));
+               // Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.to_workManage:
                 startActivity(new Intent(HomeActivity.this, WorkMagActivity.class));
@@ -231,7 +231,9 @@ public class HomeActivity extends AppCompatActivity
                 break;
             case R.id.to_jiechujing:
                 // TODO: 2016/8/5 接处警作战功能
-                startActivity(new Intent(HomeActivity.this,StartNewFightActivity.class));
+
+
+                startActivity(new Intent(HomeActivity.this,StartNewFightActivity.class).putExtra("title","new"));
                 //Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
                 break;
 

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tagText="附近监控查询"
+        android:id="@+id/fabtag_nearvideoCam"
         >
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tagText="附近警情"
+        android:id="@+id/fabtag_nearjq"
         >
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -35,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tagText="我的作战轨迹"
+        android:id="@+id/fabtag_myguiji"
         >
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -47,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tagText="涉警人关联警情"
+        android:id="@+id/fabtag_sjrJQ"
         >
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -59,6 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tagText="报警人关联警情"
+        android:id="@+id/fabtag_bjrJQ"
         >
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"

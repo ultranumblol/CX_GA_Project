@@ -200,11 +200,18 @@ public class WorkLogActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data.getStringExtra("result").equals("refresh")){
-            iniData();
-            initCalendar();
-            //idWorkLogText.setText(data.getStringExtra("text"));
+        try{
+            if (data.getStringExtra("result").equals("refresh")){
+                iniData();
+                initCalendar();
+                //idWorkLogText.setText(data.getStringExtra("text"));
+            }
+
+        }catch (Exception e){
+            LogUtil.e("error :"+e);
+
         }
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 

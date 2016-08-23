@@ -21,7 +21,7 @@
             android:padding="8dp"
             android:minHeight="180dp"
             android:visibility="visible"
-            android:hint="添加警情内容..."
+            android:hint="添加工作日志内容..."
             android:textColorHint="@color/gray"
             android:gravity="top|left"
             android:background="@color/white"

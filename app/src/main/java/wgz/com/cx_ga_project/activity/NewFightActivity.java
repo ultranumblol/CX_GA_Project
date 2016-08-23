@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.lzp.floatingactionbuttonplus.FabTagLayout;
+import com.lzp.floatingactionbuttonplus.FloatingActionButtonPlus;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,8 @@ public class NewFightActivity extends BaseActivity {
     CardView idFightBulu;
     @Bind(R.id.id_fight_talk)
     CardView idFightTalk;
+    @Bind(R.id.FabPlus)
+    FloatingActionButtonPlus FabPlus;
     private TimelineAdapter adapter;
     private ArrayList<String> list = new ArrayList<>();
     @Bind(R.id.toolbar)
@@ -43,6 +47,23 @@ public class NewFightActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        FabPlus.setOnItemClickListener(new FloatingActionButtonPlus.OnItemClickListener() {
+            @Override
+            public void onItemClick(FabTagLayout tagView, int position) {
+                int id = tagView.getId();
+                switch (id) {
+                    case R.id.fabtag_bjrJQ:
+                        startActivity(new Intent(NewFightActivity.this, StartNewFightActivity.class).putExtra("title", "bjr"));
+                        break;
+                    case R.id.fabtag_sjrJQ:
+                        startActivity(new Intent(NewFightActivity.this, StartNewFightActivity.class).putExtra("title", "sjr"));
+                        break;
+                    case R.id.fabtag_myguiji:
+                        startActivity(new Intent(NewFightActivity.this, MyWorkingTrackActivity.class));
+                        break;
+                }
+            }
+        });
         toolbar.setTitle("接处警作战");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,32 +75,24 @@ public class NewFightActivity extends BaseActivity {
     }
 
     private void initData() {
-        list.add("核名\n核定你注册公司名称");
-        list.add("申请登记\n申请登记,取得营业执照");
-        list.add("刻章\n制作并备案公章,财务专用章等");
-        list.add("税务报到\n到税务部门填报信息,取得纳税授权一证通");
-        list.add("银行开设基本户\n到银行开设公司基本户,取得开户许可证");
-        list.add("社保开户\n到社保主管部门确定社保登记证");
+        list.add("东城派出所\n将该情况通告各派出所值班室、警务室");
+        list.add("西城派出所\n将该情况通告各派出所值班室、警务室");
+        list.add("开发区派出所\n将该情况通告各派出所值班室、警务室");
+        list.add("东城派出所\n将该情况通告各派出所值班室、警务室");
+        list.add("西城派出所\n将该情况通告各派出所值班室、警务室");
+        list.add("开发区派出所\n将该情况通告各派出所值班室、警务室");
 
 
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @OnClick({R.id.id_fight_upload, R.id.id_fight_bulu, R.id.id_fight_talk})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_fight_upload:
-                startActivity(new Intent(NewFightActivity.this,AddJQActivity.class));
+                startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
                 break;
             case R.id.id_fight_bulu:
-                startActivity(new Intent(NewFightActivity.this,AddJQActivity.class));
+                startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
                 break;
             case R.id.id_fight_talk:
                 break;

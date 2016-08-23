@@ -158,5 +158,7 @@
     <color name="burlywood">#deb887</color><!--实木色 -->
     <color name="crimson">#dc143c</color><!--暗深红色 -->
     <color name="plum">#dda0dd</color><!--洋李色 -->
-    <color name="gainsboro">#dcdcdc</color><!--淡灰色 -->
+    <color name="gainsboro">#dcdcdc</color>
+
+    <color name="black_overlay">#66000000</color><!--淡灰色 -->
 </resources>

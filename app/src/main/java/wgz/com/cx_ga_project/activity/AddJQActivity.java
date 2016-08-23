@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.util.ExceptionCatchingInputStream;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 
@@ -35,6 +36,7 @@ import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.fragment.PhotoPickerFragment;
 import wgz.com.cx_ga_project.util.SomeUtil;
+import wgz.datatom.com.utillibrary.util.LogUtil;
 
 import static wgz.com.cx_ga_project.activity.PickPhotoActivity.HTTP_URL;
 
@@ -178,14 +180,20 @@ public class AddJQActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data.getStringExtra("result").equals("addpic")) {
-            adapter.clear();
-            paths.clear();
-            paths = data.getStringArrayListExtra("paths");
-            initdata();
-            adapter.addAll(paths);
+        try{
+            if (data.getStringExtra("result").equals("addpic")) {
+                adapter.clear();
+                paths.clear();
+                paths = data.getStringArrayListExtra("paths");
+                initdata();
+                adapter.addAll(paths);
+            }
+
+        }catch (Exception e){
+            LogUtil.e("error : "+e);
 
         }
+
     }
 
     @Override

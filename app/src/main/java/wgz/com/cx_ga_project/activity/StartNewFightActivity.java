@@ -53,7 +53,17 @@ public class StartNewFightActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        toolbarFight.setTitle("新警情");
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        if (title.equals("new")){
+            toolbarFight.setTitle("新警情");
+        }else if (title.equals("bjr"))
+            toolbarFight.setTitle("报警人关联警情");
+        else if (title.equals("sjr"))
+            toolbarFight.setTitle("涉警人关联警情");
+
+
+
         setSupportActionBar(toolbarFight);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
