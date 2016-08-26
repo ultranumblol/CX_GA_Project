@@ -6,22 +6,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,7 +35,7 @@ import wgz.com.cx_ga_project.base.BaseFragment;
 import wgz.com.cx_ga_project.entity.Apply;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
-import static wgz.com.cx_ga_project.base.Constent.TYPE_QINGJIA;
+import static wgz.com.cx_ga_project.base.Constant.TYPE_QINGJIA;
 
 /**
  * 查看请假申请

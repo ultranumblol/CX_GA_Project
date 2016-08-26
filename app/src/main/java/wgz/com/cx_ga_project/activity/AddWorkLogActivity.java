@@ -32,8 +32,11 @@ import wgz.com.cx_ga_project.adapter.AddPictureAdapter;
 import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseActivity;
+import wgz.com.cx_ga_project.fragment.PhotoPickerFragment;
 import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
+
+import static wgz.com.cx_ga_project.activity.PickPhotoActivity.HTTP_URL;
 
 
 /**
@@ -58,6 +61,7 @@ public class AddWorkLogActivity extends BaseActivity {
     private String id = "";
     private String edittext = "";
     private AddPictureAdapter adapter;
+    List<String> paths = new ArrayList<>();
     @Override
     public int getLayoutId() {
         return R.layout.activity_add_work_log;
@@ -78,8 +82,14 @@ public class AddWorkLogActivity extends BaseActivity {
         adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View itemView) {
-                if (position+1 ==adapter.getCount())
-                    PickPhotoActivity.actionStart(AddWorkLogActivity.this, 9, null, null);
+                if (position+1 ==adapter.getCount()){
+                    Intent intent = new Intent(AddWorkLogActivity.this, PickPhotoActivity.class);
+                    intent.putExtra(PhotoPickerFragment.EXTRA_SELECT_COUNT, 9);
+                    intent.putExtra(PhotoPickerFragment.EXTRA_DEFAULT_SELECTED_LIST, "");
+                    intent.putExtra(HTTP_URL, "");
+                    startActivityForResult(intent, 1);
+                }
+
             }
         });
 
@@ -114,12 +124,15 @@ public class AddWorkLogActivity extends BaseActivity {
     }
 
     private List<String> initdata() {
-        List<String> list = new ArrayList<>();
+
+        paths.add("end");
+       /* List<String> list = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
             list.add("" + i);
-        }
-        return list;
+        }*/
+        return paths;
     }
+
 
     private void ChangeWorkLog() {
         app.apiService.changeWorkLog("changeOnceSummary", id, worklogText.getText().toString())
@@ -131,7 +144,7 @@ public class AddWorkLogActivity extends BaseActivity {
                         SomeUtil.showSnackBar(rootview, "提交修改成功！").setCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
-                                setResult(0, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
+                                setResult(1, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
                                         .putExtra("text", edittext)
                                         .putExtra("result", "refresh"));
                                 finish();
@@ -167,7 +180,7 @@ public class AddWorkLogActivity extends BaseActivity {
                         SomeUtil.showSnackBar(rootview, "添加成功！").setCallback(new Snackbar.Callback() {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
-                                setResult(0, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
+                                setResult(1, new Intent(AddWorkLogActivity.this, WorkLogActivity.class)
                                         .putExtra("text", edittext)
                                         .putExtra("result", "refresh"));
                                 finish();
@@ -198,7 +211,22 @@ public class AddWorkLogActivity extends BaseActivity {
         super.finish();
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try{
+            if (data.getStringExtra("result").equals("addpic")) {
+                adapter.clear();
+                paths.clear();
+                paths = data.getStringArrayListExtra("paths");
+                initdata();
+                adapter.addAll(paths);
 
+            }
+        }catch (Exception e){
+            LogUtil.e("error :"+e);
+        }
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

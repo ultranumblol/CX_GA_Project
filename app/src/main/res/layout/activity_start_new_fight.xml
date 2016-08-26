@@ -54,15 +54,6 @@
         <include layout="@layout/content_start_new_fight" />
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/startFight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchor="@id/id_appbar_fight"
-        app:layout_anchorGravity="bottom|end"
-        android:layout_marginRight="24dp"
-        tools:ignore="VectorDrawableCompat"
-        app:backgroundTint="@color/tomato"
-        app:srcCompat="@drawable/ic_play_arrow_white_36dp" />
+
 
 </android.support.design.widget.CoordinatorLayout>

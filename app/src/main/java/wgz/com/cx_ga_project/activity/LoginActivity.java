@@ -8,6 +8,8 @@ import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,30 +17,28 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.app;
-import wgz.com.cx_ga_project.base.APIservice;
 import wgz.com.cx_ga_project.base.BaseActivity;
+import wgz.com.cx_ga_project.base.Constant;
 import wgz.com.cx_ga_project.bean.UserBean;
+import wgz.com.cx_ga_project.util.SPBuild;
 import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
-import wgz.datatom.com.utillibrary.util.NetUtil;
 
 /**
  * 登陆
- * wgz
- * A login screen that offers login via email/password.
  */
 public class LoginActivity extends BaseActivity {
 
@@ -60,6 +60,21 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        RxTextView.editorActions(editPassword, new Func1<Integer, Boolean>() {
+            @Override
+            public Boolean call(Integer integer) {
+                return integer == EditorInfo.IME_ACTION_DONE;
+            }
+        }).throttleFirst(500,TimeUnit.MILLISECONDS)
+                .subscribe(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        // TODO: 2016/8/18 隐藏软键盘
+                        attemptLogin();
+                    }
+                });
+
+
 
         RxView.clicks(btnLogin)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
@@ -75,7 +90,15 @@ public class LoginActivity extends BaseActivity {
     private void addUsernameAutoComplete() {
 
         // TODO: 2016/8/5  系统读入内容帮助用户输入用户名
+        //系统读入内容帮助用户输入用户名
+        ArrayList<String> arrayList = new ArrayList<>();
+//        for (int i = 0; i < 9; i++) {
+//            arrayList.add("36140137" + i + "@qq.com");
+//        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplication(),
+                android.R.layout.simple_spinner_dropdown_item, arrayList);
 
+        actvUsername.setAdapter(adapter);
     }
 
     private void attemptLogin() {
@@ -111,7 +134,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void httpLogin(String username, String password) {
+    private void httpLogin(final String username, final String password) {
         app.apiService.UserLogin(username,password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -141,12 +164,18 @@ public class LoginActivity extends BaseActivity {
                                 finish();
                             }
                         });
-                        saveUserInfo();
+                        saveUserInfo(username,password);
                     }
                 });
     }
-    private void saveUserInfo() {
-        // TODO: 2016/8/5 存储用户信息还没加
+    private void saveUserInfo(String username, String password) {
+        // TODO: 2016/8/5 存储用户信息
+        new SPBuild(getApplicationContext())
+                .addData(Constant.ISLOGIN, Boolean.TRUE)
+                .addData(Constant.USERACCOUNT, username)//账号
+                .addData(Constant.USERPASSWORD, password)//密码
+                .addData(Constant.LOGINTIME, System.currentTimeMillis())//登陆时间
+                .build();
     }
 
     private boolean isPasswordValid(String password) {

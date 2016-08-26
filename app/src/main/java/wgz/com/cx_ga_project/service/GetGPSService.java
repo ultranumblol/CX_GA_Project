@@ -132,7 +132,6 @@ public class GetGPSService extends Service {
                     sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
                 }
             }
-            //Log.i("BaiduLocationApiDem", sb.toString());
             LogUtil.e("BaiduLocationApiDem::"+sb.toString());
         }
     }

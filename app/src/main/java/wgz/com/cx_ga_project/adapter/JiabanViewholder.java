@@ -1,22 +1,17 @@
 package wgz.com.cx_ga_project.adapter;
 
-import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
-import java.util.Map;
-
 import wgz.com.cx_ga_project.R;
-import wgz.com.cx_ga_project.activity.MyApprovalActivity;
-import wgz.com.cx_ga_project.bean.JiaBan;
 import wgz.com.cx_ga_project.entity.Apply;
 
-import static wgz.com.cx_ga_project.base.Constent.APPROVAL_PASS;
-import static wgz.com.cx_ga_project.base.Constent.APPROVAL_UNPASS;
-import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
+import static wgz.com.cx_ga_project.base.Constant.APPROVAL_PASS;
+import static wgz.com.cx_ga_project.base.Constant.APPROVAL_UNPASS;
+import static wgz.com.cx_ga_project.base.Constant.UNAPPROVAL;
 
 /**
  * Created by wgz on 2016/8/4.

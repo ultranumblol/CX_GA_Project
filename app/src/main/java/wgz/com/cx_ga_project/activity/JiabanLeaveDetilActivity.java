@@ -10,13 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.base.BaseActivity;
 
-import static wgz.com.cx_ga_project.base.Constent.APPROVAL_PASS;
-import static wgz.com.cx_ga_project.base.Constent.APPROVAL_UNPASS;
-import static wgz.com.cx_ga_project.base.Constent.UNAPPROVAL;
+import static wgz.com.cx_ga_project.base.Constant.APPROVAL_PASS;
+import static wgz.com.cx_ga_project.base.Constant.APPROVAL_UNPASS;
+import static wgz.com.cx_ga_project.base.Constant.UNAPPROVAL;
 
 /*
 * 加班和请假明细

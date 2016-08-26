@@ -17,6 +17,8 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity{
+    //关键的是否登录 由父类提供
+    public boolean isLogin=false;
     protected Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

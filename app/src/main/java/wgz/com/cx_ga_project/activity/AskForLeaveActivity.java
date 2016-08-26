@@ -195,7 +195,7 @@ public class AskForLeaveActivity extends BaseActivity {
                         if (s.contains("200")) {
                             SomeUtil.showSnackBar(rootview, "提交申请成功！");
                         } else {
-                            SomeUtil.showSnackBar(rootview, "网络错误！");
+                            SomeUtil.showSnackBar(rootview, "服务器错误！");
                         }
                     }
                 });
