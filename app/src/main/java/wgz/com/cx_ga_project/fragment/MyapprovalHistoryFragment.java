@@ -33,7 +33,6 @@ import wgz.com.cx_ga_project.adapter.MyRecyclerArrayAdapter;
 import wgz.com.cx_ga_project.app;
 import wgz.com.cx_ga_project.base.BaseFragment;
 import wgz.com.cx_ga_project.entity.Apply;
-import wgz.com.cx_ga_project.util.FastJsonTools;
 import wgz.datatom.com.utillibrary.util.LogUtil;
 
 /**

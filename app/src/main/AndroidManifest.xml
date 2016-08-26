@@ -68,10 +68,6 @@
             android:name=".activity.MySubordinateLogAcitvity"
             android:theme="@style/AppTheme.NoActionBar_notrans" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_scheduling"
-            android:theme="@style/AppTheme.NoActionBar_notrans" />
-        <activity
             android:name=".activity.AddWorkLogActivity"
             android:label="@string/title_activity_add_work_log"
             android:theme="@style/AppTheme.NoActionBar_notrans" />
@@ -159,6 +155,14 @@
         <activity
             android:name=".activity.MyWorkingTrackActivity"
             android:label="@string/title_activity_my_working_track"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NearlyVideoCamActivity"
+            android:label="@string/title_activity_nearly_video_cam"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ChangeCodeActivity"
+            android:label="@string/title_activity_change_code"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

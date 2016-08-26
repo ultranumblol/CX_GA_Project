@@ -1,7 +1,6 @@
 package wgz.com.cx_ga_project;
 
 import android.app.Application;
-import android.content.Intent;
 import android.os.Looper;
 
 import java.io.IOException;
@@ -11,13 +10,9 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.fastjson.FastJsonConverterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import wgz.com.cx_ga_project.activity.StartNewFightActivity;
-import wgz.com.cx_ga_project.base.APIservice;
-import wgz.com.cx_ga_project.exception.LocalFileHandler;
-import wgz.com.cx_ga_project.service.GetGPSService;
+import wgz.com.cx_ga_project.API.APIservice;
 import wgz.com.cx_ga_project.util.ProgressListener;
 import wgz.com.cx_ga_project.util.ProgressResponseBody;
 import wgz.datatom.com.utillibrary.util.LogUtil;

@@ -12,8 +12,6 @@ import wgz.com.cx_ga_project.R;
 
 /**
  * 图片控件位置动画
- *
- * @author wangchenlong
  */
 @SuppressWarnings("unused")
 public class AvatarImageBehavior extends CoordinatorLayout.Behavior<ImageView> {

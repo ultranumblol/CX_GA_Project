@@ -1,10 +1,8 @@
 package wgz.com.cx_ga_project.activity;
 
-import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -14,14 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import okhttp3.HttpUrl;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wgz.com.cx_ga_project.R;
-import wgz.com.cx_ga_project.app;
-import wgz.com.cx_ga_project.base.APIservice;
 import wgz.com.cx_ga_project.base.BaseActivity;
 import wgz.com.cx_ga_project.calendarView.adapter.CalendarAdapter;
 import wgz.com.cx_ga_project.calendarView.adapter.TopViewPagerAdapter;
@@ -31,7 +22,6 @@ import wgz.com.cx_ga_project.calendarView.view.CalendarView;
 import wgz.com.cx_ga_project.calendarView.view.ContainerLayout;
 import wgz.com.cx_ga_project.util.httpUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
-import wgz.datatom.com.utillibrary.util.ToastUtil;
 
 /**
  *

@@ -133,4 +133,6 @@
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="title_activity_my_working_track">MyWorkingTrackActivity</string>
+    <string name="title_activity_nearly_video_cam">NearlyVideoCamActivity</string>
+    <string name="title_activity_change_code">ChangeCodeActivity</string>
 </resources>

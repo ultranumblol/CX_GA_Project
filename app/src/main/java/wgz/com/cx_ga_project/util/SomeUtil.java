@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -28,6 +29,13 @@ public class SomeUtil {
         snackbar.show();
         return snackbar;
     }
+    public static Snackbar showSnackBarLong(View view, String message) {
+        Snackbar snackbar=Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
+        return snackbar;
+    }
+
+
     public static void showNetworkErrorSnackBar(final Context context, View view, String message, String action) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                 .setAction(action, new View.OnClickListener() {
@@ -104,6 +112,40 @@ public class SomeUtil {
             parts.add(part);
         }
         return parts;
+    }
+    /**
+     * 格式化单位
+     *
+     * @param size size
+     * @return size
+     */
+    public static String getFormatSize(double size) {
+
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return size + "Byte";
+        }
+
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
+        }
+
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
+        }
+
+        double teraBytes = gigaByte / 1024;
+        if (teraBytes < 1) {
+            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
+        }
+        BigDecimal result4 = new BigDecimal(teraBytes);
+
+        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
     }
 
 }

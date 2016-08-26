@@ -81,11 +81,12 @@ public class AddJQActivity extends BaseActivity {
                 }
             }
         });
+        // TODO: 2016/8/24 shangchuantupian
         RxView.clicks(uploadPicFab).throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                       UpLoadPicture();
+                       //UpLoadPicture();
                         UpLoadPictures(paths);
                     }
                 });

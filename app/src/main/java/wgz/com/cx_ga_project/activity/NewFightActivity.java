@@ -1,8 +1,10 @@
 package wgz.com.cx_ga_project.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -39,7 +41,7 @@ public class NewFightActivity extends BaseActivity {
     Toolbar toolbar;
     @Bind(R.id.app_bar)
     AppBarLayout appBar;
-
+    private String[] types = new String[]{"涉警人员信息","涉警车辆信息","警情信息"};
     @Override
     public int getLayoutId() {
         return R.layout.activity_new_fight;
@@ -60,6 +62,9 @@ public class NewFightActivity extends BaseActivity {
                         break;
                     case R.id.fabtag_myguiji:
                         startActivity(new Intent(NewFightActivity.this, MyWorkingTrackActivity.class));
+                        break;
+                    case R.id.fabtag_nearvideoCam:
+                        startActivity(new Intent(NewFightActivity.this, NearlyVideoCamActivity.class));
                         break;
                 }
             }
@@ -89,10 +94,51 @@ public class NewFightActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_fight_upload:
-                startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewFightActivity.this);
+                builder.setTitle("请选择要回传的类型：")
+                        .setItems(types, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                              switch (which){
+                                  case 0:
+
+                                      break;
+                                  case 1:
+
+                                      break;
+                                  case 2:
+                                      startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
+                                      break;
+
+                              }
+                            }
+                        }).show();
+
+
+
                 break;
             case R.id.id_fight_bulu:
-                startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(NewFightActivity.this);
+                builder2.setTitle("请选择要回传的类型：")
+                        .setItems(types, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+
+                                        break;
+                                    case 1:
+
+                                        break;
+                                    case 2:
+                                        startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
+                                        break;
+
+                                }
+                            }
+                        }).show();
+
                 break;
             case R.id.id_fight_talk:
                 break;

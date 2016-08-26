@@ -31,6 +31,7 @@ import static wgz.com.cx_ga_project.base.Constant.APPROVAL_UNPASS;
 import static wgz.com.cx_ga_project.base.Constant.UNAPPROVAL;
 
 /**
+ * 申请明细
  * Created by wgz on 2016/8/9.
  */
 
