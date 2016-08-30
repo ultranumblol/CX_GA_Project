@@ -99,11 +99,15 @@ public class AddJQActivity extends BaseActivity {
      */
     private void UpLoadPictures(List<String> paths) {
         List<File> files = new ArrayList<>();
-        for (String path : paths){
-            File file = new File(path);
+        for (int i = 0;i<paths.size()-1;i++){
+            File file = new File(paths.get(i));
             files.add(file);
+
         }
-        app.apiService.uploadFilesWithParts(SomeUtil.filesToMultipartBodyParts(files))
+
+        LogUtil.e("file:"+files.toString());
+
+        app.apiService.uploadFileWithRequestBody("saveAppPics",SomeUtil.filesToMultipartBody(files))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
@@ -114,14 +118,36 @@ public class AddJQActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.e("upPic_error:"+e.toString());
                     }
 
                     @Override
                     public void onNext(String s) {
-
+                        LogUtil.e("upPic:"+s);
                     }
                 });
+
+
+      /*  app.apiService.uploadFilesWithParts("saveAppPics",SomeUtil.filesToMultipartBodyParts(files))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("upPic_error:"+e.toString());
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        LogUtil.e("upPic:"+s);
+                    }
+                });
+                */
 
     }
 

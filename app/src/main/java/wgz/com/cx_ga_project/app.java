@@ -24,7 +24,7 @@ import wgz.datatom.com.utillibrary.util.ToastUtil;
 
 public class app extends Application {
     private static app mApp;
-    public static final String BASE_URL = "http://192.168.1.252/appworkmanager/";
+    public static final String BASE_URL = "http://192.168.1.193:8004/appworkmanager/";
     public static APIservice apiService;
     @Override
     public void onCreate() {

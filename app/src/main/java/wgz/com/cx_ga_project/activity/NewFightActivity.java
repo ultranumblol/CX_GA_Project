@@ -102,10 +102,10 @@ public class NewFightActivity extends BaseActivity {
                             public void onClick(DialogInterface dialog, int which) {
                               switch (which){
                                   case 0:
-
+                                      startActivity(new Intent(NewFightActivity.this, SJPeopleActivity.class));
                                       break;
                                   case 1:
-
+                                      startActivity(new Intent(NewFightActivity.this, UpLoadSJCarActivity.class));
                                       break;
                                   case 2:
                                       startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));
@@ -126,10 +126,10 @@ public class NewFightActivity extends BaseActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case 0:
-
+                                        startActivity(new Intent(NewFightActivity.this, SJPeopleActivity.class));
                                         break;
                                     case 1:
-
+                                        startActivity(new Intent(NewFightActivity.this, UpLoadSJCarActivity.class));
                                         break;
                                     case 2:
                                         startActivity(new Intent(NewFightActivity.this, AddJQActivity.class));

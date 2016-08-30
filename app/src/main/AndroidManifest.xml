@@ -163,6 +163,14 @@
         <activity
             android:name=".activity.ChangeCodeActivity"
             android:label="@string/title_activity_change_code"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SJPeopleActivity"
+            android:label="@string/title_activity_sjpeople"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UpLoadSJCarActivity"
+            android:label="@string/title_activity_up_load_sjcar"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
