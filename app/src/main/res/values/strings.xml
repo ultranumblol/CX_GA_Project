@@ -135,4 +135,7 @@
     <string name="title_activity_my_working_track">MyWorkingTrackActivity</string>
     <string name="title_activity_nearly_video_cam">NearlyVideoCamActivity</string>
     <string name="title_activity_change_code">ChangeCodeActivity</string>
+    <string name="title_activity_sjpeople">SJPeopleActivity</string>
+    <string name="title_activity_up_load_sjcar">UpLoadSJCarActivity</string>
+    <string name="title_activity_jqcallback">JQCallbackActivity</string>
 </resources>

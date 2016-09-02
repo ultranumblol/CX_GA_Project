@@ -40,6 +40,7 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+        <service android:name=".service.UpdataService" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -163,6 +164,18 @@
         <activity
             android:name=".activity.ChangeCodeActivity"
             android:label="@string/title_activity_change_code"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SJPeopleActivity"
+            android:label="@string/title_activity_sjpeople"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UpLoadSJCarActivity"
+            android:label="@string/title_activity_up_load_sjcar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.JQCallbackActivity"
+            android:label="@string/title_activity_jqcallback"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

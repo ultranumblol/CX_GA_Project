@@ -3,6 +3,7 @@ package wgz.com.cx_ga_project.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -50,7 +51,7 @@ public class AddJQActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.id_callbackJQ)
-    EditText idCallbackJQ;
+    EditText contenttext;
     @Bind(R.id.addPicRV)
     EasyRecyclerView addPicRV;
     List<String> paths = new ArrayList<>();
@@ -81,92 +82,113 @@ public class AddJQActivity extends BaseActivity {
                 }
             }
         });
-        // TODO: 2016/8/24 shangchuantupian
         RxView.clicks(uploadPicFab).throttleFirst(500, TimeUnit.MILLISECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                       //UpLoadPicture();
                         UpLoadPictures(paths);
                     }
                 });
 
     }
+    private void uploadpics(List<File> files){
+        app.apiService.uploadFileWithRequestBody("saveAppPics",SomeUtil.filesToMultipartBody(files))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                               @Override
+                               public void onCompleted() {
+                               }
+                               @Override
+                               public void onError(Throwable e) {
+                                   LogUtil.e("upPic_error:"+e.toString());
+                               }
+                               @Override
+                               public void onNext(String s) {
+                                   LogUtil.e("upPic:"+s);
+                                   if (s.contains("\"code\":200")){
+                                       SomeUtil.showSnackBar(rootview,"提交成功！").setCallback(new Snackbar.Callback() {
+                                           @Override
+                                           public void onDismissed(Snackbar snackbar, int event) {
+                                               finish();
+                                           }
+                                       });
+                                   }
+                                   else {
+                                       SomeUtil.showSnackBar(rootview,"提交失败，请再试！");
+                                   }
+                               }});
+
+    }
+
 
     /**
      * 上传多张图片
+     *
      * @param paths
      */
     private void UpLoadPictures(List<String> paths) {
-        List<File> files = new ArrayList<>();
-        for (String path : paths){
-            File file = new File(path);
+        final List<File> files = new ArrayList<>();
+        for (int i = 0; i < paths.size() - 1; i++) {
+            File file = new File(paths.get(i));
             files.add(file);
         }
-        app.apiService.uploadFilesWithParts(SomeUtil.filesToMultipartBodyParts(files))
+
+        app.jqAPIService.uploadJqMsg("123321", "10001"
+                , contenttext.getText().toString()
+                , "2016-8-31")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.e("upPic_error:" + e.toString());
                     }
 
                     @Override
                     public void onNext(String s) {
-
+                        LogUtil.e("upPic:" + s);
+                        if (s.contains("\"code\":200")) {
+                            uploadpics(files);
+                        } else {
+                            SomeUtil.showSnackBar(rootview, "提交失败，请再试！");
+                        }
                     }
                 });
 
-    }
 
-    /**
-     * 上传单个图片
-     *
-     */
-    private void UpLoadPicture() {
-
-        String path = "";
-        File file = new File(path);
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"),file);
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("pciture",file.getName(),requestBody);
-
-            //execute the request
-        /**
-         * normal way
-         */
-            // Call<ResponseBody> call = app.apiService.uploadPic();
-            //call.enqueue(callback);
-
-        /**
-         * use Rxjava
-         */
-        app.apiService.uploadPic("uploadpic",body)
+        //单独传图片
+       /* app.apiService.uploadFileWithRequestBody("saveAppPics",SomeUtil.filesToMultipartBody(files))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<String>() {
                     @Override
                     public void onCompleted() {
-
                     }
-
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.e("upPic_error:"+e.toString());
                     }
-
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-
+                    public void onNext(String s) {
+                        LogUtil.e("upPic:"+s);
+                        if (s.contains("\"code\":200")){
+                            SomeUtil.showSnackBar(rootview,"提交成功！").setCallback(new Snackbar.Callback() {
+                                @Override
+                                public void onDismissed(Snackbar snackbar, int event) {
+                                    finish();
+                                }
+                            });
+                        }
+                        else {
+                            SomeUtil.showSnackBar(rootview,"提交失败，请再试！");
+                        }
                     }
-                });
-
+                });*/
     }
 
     private List<String> initdata() {
@@ -181,7 +203,7 @@ public class AddJQActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try{
+        try {
             if (data.getStringExtra("result").equals("addpic")) {
                 adapter.clear();
                 paths.clear();
@@ -190,8 +212,8 @@ public class AddJQActivity extends BaseActivity {
                 adapter.addAll(paths);
             }
 
-        }catch (Exception e){
-            LogUtil.e("error : "+e);
+        } catch (Exception e) {
+            LogUtil.e("error : " + e);
 
         }
 

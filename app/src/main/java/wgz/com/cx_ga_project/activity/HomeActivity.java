@@ -1,6 +1,5 @@
 package wgz.com.cx_ga_project.activity;
 
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -12,7 +11,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -39,17 +36,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import wgz.com.cx_ga_project.R;
 import wgz.com.cx_ga_project.util.SPUtils;
 import wgz.com.cx_ga_project.util.SomeUtil;
 import wgz.datatom.com.utillibrary.util.LogUtil;
-import wgz.datatom.com.utillibrary.util.StatusBarUtil;
-import wgz.datatom.com.utillibrary.util.ToastUtil;
 
 import static wgz.com.cx_ga_project.util.SomeUtil.getFormatSize;
 
@@ -73,14 +65,24 @@ public class HomeActivity extends AppCompatActivity
     CoordinatorLayout homeRootView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.to_workManage)
-    CardView mToWorkManage;
     @Bind(R.id.to_jiechujing)
     CardView mToJiechujing;
     @Bind(R.id.rollPagerView)
     RollPagerView rollPagerView;
     @Bind(R.id.id_appbar_home)
     AppBarLayout idAppbarHome;
+    @Bind(R.id.id_toWorkLog)
+    CardView idToWorkLog;
+    @Bind(R.id.id_myscheduling)
+    CardView idMyscheduling;
+    @Bind(R.id.id_myApply)
+    CardView idMyApply;
+    @Bind(R.id.id_shenhe)
+    CardView idShenhe;
+    @Bind(R.id.id_xiashu)
+    CardView idXiashu;
+    @Bind(R.id.id_fighttrack)
+    CardView idFighttrack;
 
 
     @Override
@@ -105,11 +107,45 @@ public class HomeActivity extends AppCompatActivity
         idColltoollayout.setCollapsedTitleTextColor(Color.WHITE);
         idColltoollayout.setExpandedTitleColor(Color.WHITE);
         navView.setNavigationItemSelectedListener(this);
-        Resources resource=(Resources)getBaseContext().getResources();
-        ColorStateList csl=(ColorStateList)resource.getColorStateList(R.drawable.navigation_menu_item_color);
+        Resources resource = (Resources) getBaseContext().getResources();
+        ColorStateList csl = (ColorStateList) resource.getColorStateList(R.drawable.navigation_menu_item_color);
         navView.setItemTextColor(csl);
         navView.setItemIconTintList(csl);
 
+    }
+
+    @OnClick({R.id.id_fighttrack,R.id.fab, R.id.to_jiechujing, R.id.id_toWorkLog, R.id.id_myscheduling, R.id.id_myApply, R.id.id_shenhe, R.id.id_xiashu})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.id_fighttrack:
+                startActivity(new Intent(HomeActivity.this, MyWorkingTrackActivity.class));
+                break;
+            case R.id.id_toWorkLog:
+                startActivity(new Intent(HomeActivity.this, WorkLogActivity.class));
+                break;
+            case R.id.id_myscheduling:
+                startActivity(new Intent(HomeActivity.this, SchedulingActivity.class));
+                break;
+            case R.id.id_myApply:
+                startActivity(new Intent(HomeActivity.this, MyWorkApplyActivity.class));
+                break;
+            case R.id.id_shenhe:
+                startActivity(new Intent(HomeActivity.this, MyApprovalActivity.class));
+                break;
+            case R.id.id_xiashu:
+                startActivity(new Intent(HomeActivity.this, MySubordinateActivity.class));
+                break;
+            case R.id.fab:
+                // TODO: 2016/8/3 社会信息采集功能
+                startActivity(new Intent(HomeActivity.this, FullscreenActivity.class));
+                // Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.to_jiechujing:
+                // TODO: 2016/8/5 接处警作战功能
+                startActivity(new Intent(HomeActivity.this, StartNewFightActivity.class).putExtra("title", "new"));
+                //Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
+                break;
+        }
     }
 
    /* private ArrayList<Integer> initData() {
@@ -147,7 +183,7 @@ public class HomeActivity extends AppCompatActivity
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SomeUtil.showSnackBar(homeRootView,"维护中。。。");
+                    SomeUtil.showSnackBar(homeRootView, "维护中。。。");
                     //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(list.get(position).getUrl())));
                 }
             });
@@ -210,11 +246,16 @@ public class HomeActivity extends AppCompatActivity
 
             // Handle the camera action
         } else if (id == R.id.nav_changepass) {
-            startActivity(new Intent(HomeActivity.this,ChangeCodeActivity.class));
+            startActivity(new Intent(HomeActivity.this, ChangeCodeActivity.class));
 
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_updateAPP) {
+
+            int versionCode = SomeUtil.getVersionCode(this);
+            LogUtil.e("versionCode:" + versionCode);
+            //startService(new Intent(HomeActivity.this, UpdataService.class));
+
 
         } else if (id == R.id.nav_about) {
 
@@ -223,7 +264,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             SPUtils.clear(getApplicationContext());
-            startActivity(new Intent(HomeActivity.this,WelcomeActivity.class));
+            startActivity(new Intent(HomeActivity.this, WelcomeActivity.class));
 
 
         }
@@ -233,37 +274,14 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-
-    @OnClick({R.id.fab, R.id.to_workManage, R.id.to_jiechujing})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fab:
-                // TODO: 2016/8/3 社会信息采集功能
-                startActivity(new Intent(HomeActivity.this,FullscreenActivity.class));
-               // Snackbar.make(homeRootView, "社会信息采集开发中。。", Snackbar.LENGTH_SHORT).show();
-                break;
-            case R.id.to_workManage:
-                startActivity(new Intent(HomeActivity.this, WorkMagActivity.class));
-
-                break;
-            case R.id.to_jiechujing:
-                // TODO: 2016/8/5 接处警作战功能
-
-
-                startActivity(new Intent(HomeActivity.this,StartNewFightActivity.class).putExtra("title","new"));
-                //Snackbar.make(homeRootView, "开发中。。。", Snackbar.LENGTH_SHORT).show();
-                break;
-
-        }
-    }
     /**
-     * 清除图片所有缓存
+     * 清除所有图片缓存
      */
     public void clearImageAllCache() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
         builder.setTitle("清理缓存")
-                .setMessage("缓存大小："+getCacheSize()+"是否清除?")
+                .setMessage("缓存大小：" + getCacheSize() + "是否清除?")
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -279,30 +297,34 @@ public class HomeActivity extends AppCompatActivity
                                     @Override
                                     public void onCompleted() {
                                         LogUtil.e("clearCache_oncompleted");
-                                        SomeUtil.showSnackBar(homeRootView,"清理完成！");
+                                        SomeUtil.showSnackBar(homeRootView, "清理完成！");
 
                                     }
+
                                     @Override
                                     public void onError(Throwable e) {
 
                                     }
+
                                     @Override
                                     public void onNext(Void aVoid) {
-                                        LogUtil.e("clearCache_onnext");
+                                        LogUtil.e("clearCache_onNext");
                                         Glide.get(getApplicationContext()).clearDiskCache();
                                         //
                                     }
                                 });
                     }
-                }).setNegativeButton("取消",null).show();
+                }).setNegativeButton("取消", null).show();
         Glide.get(getApplicationContext()).clearMemory();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
         ButterKnife.unbind(this);
     }
+
     /**
      * 获取Glide造成的缓存大小
      *
@@ -316,6 +338,7 @@ public class HomeActivity extends AppCompatActivity
         }
         return "";
     }
+
     /**
      * 获取指定文件夹内所有文件大小的和
      *

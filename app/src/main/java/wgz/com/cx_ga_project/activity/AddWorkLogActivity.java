@@ -62,6 +62,7 @@ public class AddWorkLogActivity extends BaseActivity {
     private String edittext = "";
     private AddPictureAdapter adapter;
     List<String> paths = new ArrayList<>();
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_add_work_log;
@@ -76,13 +77,13 @@ public class AddWorkLogActivity extends BaseActivity {
         time = intent.getStringExtra("time");
         worklog = intent.getStringExtra("worklog");
         id = intent.getStringExtra("id");
-        addworklogRV.setLayoutManager(new GridLayoutManager(this,4));
-        addworklogRV.setAdapter(adapter =new AddPictureAdapter(this));
+        addworklogRV.setLayoutManager(new GridLayoutManager(this, 4));
+        addworklogRV.setAdapter(adapter = new AddPictureAdapter(this));
         adapter.addAll(initdata());
         adapter.setOnItemClickListener(new MyRecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View itemView) {
-                if (position+1 ==adapter.getCount()){
+                if (position + 1 == adapter.getCount()) {
                     Intent intent = new Intent(AddWorkLogActivity.this, PickPhotoActivity.class);
                     intent.putExtra(PhotoPickerFragment.EXTRA_SELECT_COUNT, 9);
                     intent.putExtra(PhotoPickerFragment.EXTRA_DEFAULT_SELECTED_LIST, "");
@@ -190,7 +191,7 @@ public class AddWorkLogActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        LogUtil.e("error:" + e.toString());
                     }
 
                     @Override
@@ -211,9 +212,10 @@ public class AddWorkLogActivity extends BaseActivity {
         super.finish();
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try{
+        try {
             if (data.getStringExtra("result").equals("addpic")) {
                 adapter.clear();
                 paths.clear();
@@ -222,11 +224,12 @@ public class AddWorkLogActivity extends BaseActivity {
                 adapter.addAll(paths);
 
             }
-        }catch (Exception e){
-            LogUtil.e("error :"+e);
+        } catch (Exception e) {
+            LogUtil.e("error :" + e);
         }
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

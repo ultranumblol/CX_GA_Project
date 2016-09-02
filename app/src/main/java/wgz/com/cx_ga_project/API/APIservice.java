@@ -30,8 +30,9 @@ public interface APIservice {
      * @return 状态信息
      */
     @Multipart
-    @POST("users/image")
-    Observable<String> uploadFilesWithParts(@Part() List<MultipartBody.Part> parts);
+    @POST("{type}")
+    Observable<String> uploadFilesWithParts( @Path("type") String type,
+                                             @Part() List<MultipartBody.Part> parts);
 
 
     /**
@@ -39,8 +40,9 @@ public interface APIservice {
      * @param multipartBody MultipartBody包含多个Part
      * @return 状态信息
      */
-    @POST("users/image")
-    Observable<String> uploadFileWithRequestBody(@Body MultipartBody multipartBody);
+    @POST("{type}")
+    Observable<String> uploadFileWithRequestBody( @Path("type") String type,
+                                                  @Body MultipartBody multipartBody);
 
 
 
