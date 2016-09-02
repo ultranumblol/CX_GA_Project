@@ -28,18 +28,14 @@ public class TopViewPagerAdapter extends PagerAdapter {
     private int year;
     private int month;
     private int day;
-
     /**
      *
      */
     private int initPageIndex;
-
     /**
      * 是否第一次进入
      */
     boolean isFirstIn = true;
-
-
 
     public TopViewPagerAdapter(Context context, List<View> lists, int INIT_PAGER_INDEX, Calendar calendar) {
         this.context = context;
@@ -76,7 +72,7 @@ public class TopViewPagerAdapter extends PagerAdapter {
             } else {
                 calendarView.refreshView(context, position - initPageIndex, year, month);
                 viewLists.remove(child);
-                viewLists.add(position % count,calendarView);
+                viewLists.add(position % count, calendarView);
                 container.removeView(child);
             }
             container.addView(calendarView);
@@ -94,5 +90,4 @@ public class TopViewPagerAdapter extends PagerAdapter {
         }
         return null;
     }
-
 }

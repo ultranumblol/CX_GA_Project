@@ -137,4 +137,5 @@
     <string name="title_activity_change_code">ChangeCodeActivity</string>
     <string name="title_activity_sjpeople">SJPeopleActivity</string>
     <string name="title_activity_up_load_sjcar">UpLoadSJCarActivity</string>
+    <string name="title_activity_jqcallback">JQCallbackActivity</string>
 </resources>

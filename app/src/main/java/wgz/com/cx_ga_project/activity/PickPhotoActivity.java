@@ -136,7 +136,6 @@ public class PickPhotoActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.uploadpic_finish) {
             // TODO: 2016/8/16
-            //SomeUtil.showSnackBar(mRootview,"开发中。。。");
             List<String> paths = new ArrayList<>();
             paths = mPickerFragment.getPhotoPickerAdapter().getmSelectedImage();
             setResult(0, new Intent(PickPhotoActivity.this, AddJQActivity.class).

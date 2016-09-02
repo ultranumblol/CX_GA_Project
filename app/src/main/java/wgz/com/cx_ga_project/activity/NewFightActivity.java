@@ -57,12 +57,6 @@ public class NewFightActivity extends BaseActivity {
                     case R.id.fabtag_bjrJQ:
                         startActivity(new Intent(NewFightActivity.this, StartNewFightActivity.class).putExtra("title", "bjr"));
                         break;
-                    case R.id.fabtag_sjrJQ:
-                        startActivity(new Intent(NewFightActivity.this, StartNewFightActivity.class).putExtra("title", "sjr"));
-                        break;
-                    case R.id.fabtag_myguiji:
-                        startActivity(new Intent(NewFightActivity.this, MyWorkingTrackActivity.class));
-                        break;
                     case R.id.fabtag_nearvideoCam:
                         startActivity(new Intent(NewFightActivity.this, NearlyVideoCamActivity.class));
                         break;
@@ -94,8 +88,8 @@ public class NewFightActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_fight_upload:
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(NewFightActivity.this);
+                    startActivity(new Intent(NewFightActivity.this,JQCallbackActivity.class));
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(NewFightActivity.this);
                 builder.setTitle("请选择要回传的类型：")
                         .setItems(types, new DialogInterface.OnClickListener() {
                             @Override
@@ -113,13 +107,13 @@ public class NewFightActivity extends BaseActivity {
 
                               }
                             }
-                        }).show();
+                        }).show();*/
 
 
 
                 break;
             case R.id.id_fight_bulu:
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(NewFightActivity.this);
+            /*    AlertDialog.Builder builder2 = new AlertDialog.Builder(NewFightActivity.this);
                 builder2.setTitle("请选择要回传的类型：")
                         .setItems(types, new DialogInterface.OnClickListener() {
                             @Override
@@ -137,7 +131,7 @@ public class NewFightActivity extends BaseActivity {
 
                                 }
                             }
-                        }).show();
+                        }).show();*/
 
                 break;
             case R.id.id_fight_talk:

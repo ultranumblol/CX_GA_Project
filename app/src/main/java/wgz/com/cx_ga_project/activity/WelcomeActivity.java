@@ -71,6 +71,8 @@ public class WelcomeActivity extends BaseActivity {
                 });
     }
 
+
+
     @Override
     public void initView() {
         //StatusBarUtil.setTransparent(this);

@@ -33,15 +33,12 @@ public class ScrollingActivity extends BaseActivity {
     // 控制ToolBar的变量
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
     private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
-
     private static final int ALPHA_ANIMATIONS_DURATION = 200;
     @Bind(R.id.timeline_rv2)
     EasyRecyclerView timelineRv;
     @Bind(R.id.id_backImg)
     CollapsingToolbarLayout idBackImg;
     private TimelineAdapter adapter;
-
-
     private ArrayList<String> list = new ArrayList<>();
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;

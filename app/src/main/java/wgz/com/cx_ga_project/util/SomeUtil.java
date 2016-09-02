@@ -2,6 +2,8 @@ package wgz.com.cx_ga_project.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -18,6 +20,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import wgz.com.cx_ga_project.R;
+import wgz.datatom.com.utillibrary.util.LogUtil;
 
 /**
  * Created by wgz on 2016/8/5.
@@ -90,7 +93,7 @@ public class SomeUtil {
         for (File file : files) {
             // TODO: 16-4-2  这里为了简单起见，没有判断file的类型
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-            builder.addFormDataPart("file", file.getName(), requestBody);
+            builder.addFormDataPart("file[]", file.getName(), requestBody);
         }
 
         builder.setType(MultipartBody.FORM);
@@ -108,7 +111,7 @@ public class SomeUtil {
         for (File file : files) {
             // TODO: 16-4-2  这里为了简单起见，没有判断file的类型
             RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("file[]", file.getName(), requestBody);
             parts.add(part);
         }
         return parts;
@@ -147,5 +150,28 @@ public class SomeUtil {
 
         return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
     }
+
+    /**
+     * 获取软件版本号
+     *
+     * @param context
+     * @return 版本号
+     */
+    public static int getVersionCode(Context context) {
+        int versionCode = 0;
+        try {
+            // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo("wgz.com.cx_ga_project", 0);
+            versionCode = packageInfo.versionCode;
+            String dir = packageInfo.applicationInfo.publicSourceDir;
+            int oldPackageSize = Integer.valueOf((int) new File(dir).length());
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            LogUtil.e("Update:GetVersionCode:"+ex.getMessage());
+        }
+        return versionCode;
+    }
+
 
 }

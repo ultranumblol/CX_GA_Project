@@ -32,5 +32,5 @@
 
     </LinearLayout>
 
-
+    <include layout="@layout/fab_btns_qj_jiaban"></include>
 </android.support.design.widget.CoordinatorLayout>
