@@ -224,8 +224,8 @@ public class HomeActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             // TODO: 2016/8/3 扫一扫
-
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            startActivity(new Intent(HomeActivity.this, CamLoginActivity.class));
+            //startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             return true;
         }
         if (id == android.R.id.home) {

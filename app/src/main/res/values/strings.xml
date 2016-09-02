@@ -138,4 +138,5 @@
     <string name="title_activity_sjpeople">SJPeopleActivity</string>
     <string name="title_activity_up_load_sjcar">UpLoadSJCarActivity</string>
     <string name="title_activity_jqcallback">JQCallbackActivity</string>
+    <string name="title_activity_cam_player">CamPlayerActivity</string>
 </resources>
